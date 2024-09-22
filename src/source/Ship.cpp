@@ -10,6 +10,7 @@ Ship::Ship(Length len) : Ship(len, Orientation::HORIZONTAL)
 
 Ship::Ship(Length len, Orientation orientation)
 {
+    this->count_destroyed = 0;
     this->_len = len;
     this->_orientation = orientation;
     for (std::uint8_t i = 0; i < this->_len; i++)
@@ -93,6 +94,7 @@ void Ship::shoot(std::uint8_t index_segment)
     else if (this->_segments[index_segment] == States::HALF_DESTROYED)
     {
         this->_segments[index_segment] = States::DESTROYED;
+        this->count_destroyed ++;
     }
     else if (this->_segments[index_segment] == States::DESTROYED)
     {
@@ -100,3 +102,10 @@ void Ship::shoot(std::uint8_t index_segment)
     }
 
 }
+
+
+void Ship::SetOrientation(Orientation orientation)
+{
+    this->_orientation = orientation;
+}
+
