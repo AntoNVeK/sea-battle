@@ -35,6 +35,7 @@ Table& Table::operator=(const Table &other)
     {
         width = other.width;
         height = other.height;
+        manager = other.manager;
         cells_ = other.cells_;
         coords_ships = other.coords_ships;
 
@@ -49,6 +50,7 @@ Table& Table::operator=(Table &&other)
     {
         width = other.width;
         height = other.height;
+        manager = other.manager;
         cells_ = std::move(other.cells_);
         coords_ships = std::move(other.coords_ships);
 
@@ -74,8 +76,8 @@ const ManagerShips& Table::GetManager() const
 
 
 void Table::print() const {
-    for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width; ++j) {
+    for (std::size_t i = 0; i < height; ++i) {
+        for (std::size_t j = 0; j < width; ++j) {
             switch (cells_[i][j]) {
                 case UNKNOWN:
                     std::cout << "?";
@@ -90,5 +92,63 @@ void Table::print() const {
             std::cout << " ";
         }
         std::cout << "\n";
+    }
+}
+
+
+void Table::add_ship_map(Ship& ship, Coords coord)
+{
+    std::vector<Coords> coords;
+    bool flag = true;
+    if (ship.GetOrientation() == HORIZONTAL)
+    {
+        for (int i = 0; i < ship.GetLen(); i++)
+        {
+            if (check_point({coord.x + i, coord.y}))
+            {
+                coords.push_back({coord.x + i, coord.y});
+            }
+            else
+            {
+                flag = false;
+                break;
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < ship.GetLen(); i++)
+        {
+            if (check_point({coord.x + i, coord.y}))
+            {
+                coords.push_back({coord.x, coord.y + i});
+            }
+            else
+            {
+                flag = false;
+                break;
+            }
+        }
+    }
+    if (flag)
+    {
+        coords_ships[std::ref(ship)] = coords;
+    }
+    
+}
+
+
+bool Table::check_point(Coords coord)
+{
+    return true;
+}
+
+
+void Table::add_ship_table(Ship& ship)
+{
+
+    for (Coords j: this->coords_ships[std::ref(ship)])
+    {
+        this->cells_[j.y][j.x] = SHIP;
     }
 }
