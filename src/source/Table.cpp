@@ -11,7 +11,7 @@ Table::Table(int x, int y, ManagerShips& manager) : width(x), height(y), manager
     }
 
     cells_.resize(height, std::vector<CellState>(width, EMPTY));
-
+    this->put_ships();
 }
 
 
@@ -93,10 +93,11 @@ void Table::print() const {
         }
         std::cout << "\n";
     }
+    std::cout << "______________________________________________________" << "\n";
 }
 
 
-void Table::add_ship_map(Ship& ship, Coords coord)
+bool Table::add_ship_map(Ship& ship, Coords coord)
 {
     std::vector<Coords> coords;
     bool flag = true;
@@ -118,8 +119,9 @@ void Table::add_ship_map(Ship& ship, Coords coord)
     else
     {
         for (int i = 0; i < ship.GetLen(); i++)
-        {
-            if (check_point({coord.x + i, coord.y}))
+        {   
+
+            if (check_point({coord.x, coord.y + i}))
             {
                 coords.push_back({coord.x, coord.y + i});
             }
@@ -132,23 +134,92 @@ void Table::add_ship_map(Ship& ship, Coords coord)
     }
     if (flag)
     {
-        coords_ships[std::ref(ship)] = coords;
+        coords_ships[&ship] = coords;
+        this->add_ship_table(ship);
     }
+    return flag;
     
 }
 
 
 bool Table::check_point(Coords coord)
-{
-    return true;
+{   
+    if (coord.x < 0 or coord.y < 0 or coord.x > this->width or coord.y > this->height)
+    {
+        return false;
+    }
+    int count = 0;
+    for (int y = coord.y - 1; y <= coord.y + 1; y++)
+    {
+        for (int x = coord.x - 1; x <= coord.x + 1; x++)
+        {
+            if (x < 1 or y < 1 or x > this->width or y > this->height)
+            {
+                count++;
+            }
+            else if (cells_[y - 1][x - 1] != SHIP)
+            {
+                count ++;
+            }
+        }
+    }
+
+    return count == 9;
 }
 
 
 void Table::add_ship_table(Ship& ship)
 {
 
-    for (Coords j: this->coords_ships[std::ref(ship)])
+    for (Coords j: this->coords_ships[&ship])
     {
-        this->cells_[j.y][j.x] = SHIP;
+        this->cells_[j.y - 1][j.x - 1] = SHIP;
+    }
+}
+
+
+
+void Table::put_ships()
+{
+    
+    int i = 0;
+    for (; i < manager.GetCountShips();)
+    {
+        int x = 0;
+        int y = 0;
+        int _or = -1;
+        Orientation orie;
+        while (x <= 0 or y <= 0 or _or < 0 or _or > 1)
+        {
+            
+            std::cout << "Enter the location of the Ship HORIZONTAL : 0 VERTICAL : 1" << "\n";
+            std::cin >> _or;
+
+            if (_or < 0 or _or > 1)
+            {
+                std::cout << "Bad location try again" << "\n";
+                continue;
+            }
+            orie = (_or == 1) ? VERTICAL : HORIZONTAL;
+
+            std::cout << "Enter the coordinates of the ship's starting points separated by a space and its length: " << manager[i].GetLen() << "\n";
+            std::cin >> x >> y;
+            
+            if (!check_point({x, y}))
+            {
+                std::cout << "Try again" << "\n";
+                continue;
+            }
+            std::cout << "______________________________________________________" << "\n";
+            manager[i].SetOrientation(orie);
+            if (!this->add_ship_map(manager[i], {x, y}))
+            {
+                std::cout << "Try again" << "\n";
+                continue;
+            }
+            i++;
+        }
+        this->print();
+
     }
 }
