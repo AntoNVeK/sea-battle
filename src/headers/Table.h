@@ -2,8 +2,7 @@
 #define TABLE_H
 #include "ManagerShips.h"
 #include <map>
-#include <functional>
-#include <unordered_map>
+
 #include <iostream>
 enum CellState
 {
@@ -23,12 +22,16 @@ typedef struct Coords
 class Table
 {
 private:
-    std::size_t width;
-    std::size_t height;
+    int width;
+    int height;
     ManagerShips& manager;
     std::vector<std::vector<CellState>> cells_;
-    std::unordered_map<std::reference_wrapper<Ship>, std::vector<Coords>> coords_ships;
+    std::map<Ship*, std::vector<Coords>> coords_ships;
 
+
+
+    bool add_ship_map(Ship& ship, Coords coord);
+    void add_ship_table(Ship& ship);
 
 public:
     Table(ManagerShips& manager);
@@ -50,9 +53,8 @@ public:
     const ManagerShips& GetManager() const;
 
 
-    void add_ship_map(Ship& ship, Coords coord);
-    void add_ship_table(Ship& ship);
-    //void put_ships();
+    //void add_new_ship(Ship& ship, Coords coord);
+    void put_ships();
 
     //void shoot(Coords coord);
     bool check_point(Coords coord);
