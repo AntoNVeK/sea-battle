@@ -1,20 +1,11 @@
 #include "../headers/ManagerShips.h"
 
-ManagerShips::ManagerShips() : ManagerShips(0, {}) {}
-ManagerShips::ManagerShips(std::size_t numShips, const std::initializer_list<Length>& shipLengths)
+ManagerShips::ManagerShips() : ManagerShips({}) {}
+ManagerShips::ManagerShips(const std::initializer_list<Length>& shipLengths)
 {
-    auto it = shipLengths.begin();
-    for (std::size_t i = 0; i < numShips; i++)
+    for (const auto& length : shipLengths)
     {
-        if (it != shipLengths.end())
-        {
-            this->create_ship(*it);
-            ++it;
-        }
-        else
-        {
-            throw std::invalid_argument("Number of ships exceeds the number of provided lengths.");
-        }
+        this->create_ship(length);
     }
 }
 
