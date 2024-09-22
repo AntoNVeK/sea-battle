@@ -33,6 +33,7 @@ private:
     Orientation _orientation;
     std::vector<States> _segments;
     Length _len;
+    std::size_t count_destroyed;
 public:
     Ship();
     Ship(Length len, Orientation orientation);
@@ -50,7 +51,7 @@ public:
     void shoot(std::uint8_t index_segment);
 
 
-
+    void SetOrientation(Orientation orientation);
 
 
     const Length& GetLen() const;
