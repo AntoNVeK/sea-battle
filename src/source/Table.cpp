@@ -223,3 +223,13 @@ void Table::put_ships()
 
     }
 }
+
+
+
+void Table::add_new_ship(Ship ship, Coords coord)
+{
+    if(this->add_ship_map(ship,coord))
+    {
+        manager.add_ship(ship);
+    }
+}

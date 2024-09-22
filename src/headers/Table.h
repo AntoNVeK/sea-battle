@@ -53,7 +53,7 @@ public:
     const ManagerShips& GetManager() const;
 
 
-    //void add_new_ship(Ship& ship, Coords coord);
+    void add_new_ship(Ship ship, Coords coord);
     void put_ships();
 
     //void shoot(Coords coord);
