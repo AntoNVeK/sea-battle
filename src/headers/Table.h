@@ -3,6 +3,7 @@
 #include "ManagerShips.h"
 #include <map>
 #include <functional>
+#include <unordered_map>
 #include <iostream>
 enum CellState
 {
@@ -26,7 +27,7 @@ private:
     std::size_t height;
     ManagerShips& manager;
     std::vector<std::vector<CellState>> cells_;
-    std::map<std::reference_wrapper<Ship>, std::vector<Coords>> coords_ships;
+    std::unordered_map<std::reference_wrapper<Ship>, std::vector<Coords>> coords_ships;
 
 
 public:
@@ -49,10 +50,11 @@ public:
     const ManagerShips& GetManager() const;
 
 
-    void put_ships();
+    void add_ship_map(Ship& ship, Coords coord);
+    void add_ship_table(Ship& ship);
+    //void put_ships();
 
-
-    void shoot(Coords coord);
+    //void shoot(Coords coord);
     bool check_point(Coords coord);
     
     void print() const;
