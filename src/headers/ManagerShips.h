@@ -10,7 +10,7 @@ private:
 
 public:
     ManagerShips();
-    ManagerShips(std::size_t numShips, const std::initializer_list<Length>& shipLenths);
+    ManagerShips(const std::initializer_list<Length>& shipLengths);
     ~ManagerShips() {};
 
     ManagerShips(const ManagerShips &other);
