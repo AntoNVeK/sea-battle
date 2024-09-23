@@ -64,7 +64,7 @@ public:
     bool add_new_ship(Length len, Orientation orientation, Coords coord);
     void put_ships();
 
-    //void shoot(Coords coord);
+    bool shoot(Coords coord);
     bool check_point(Coords coord);
     
     void print() const;
