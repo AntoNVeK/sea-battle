@@ -198,7 +198,7 @@ bool Table::add_ship_map(Ship& ship, Coords coord)
 
 bool Table::check_point(Coords coord)
 {   
-    if (coord.GetX() < 1 or coord.GetY() < 1 or coord.GetX() > this->width or coord.GetY() > this->height)
+    if (coord.GetX() < 1 || coord.GetY() < 1 || coord.GetX() > this->width || coord.GetY() > this->height)
     {
         return false;
     }
@@ -207,7 +207,7 @@ bool Table::check_point(Coords coord)
     {
         for (int x = coord.GetX() - 1; x <= coord.GetX() + 1; x++)
         {
-            if (x < 1 or y < 1 or x > this->width or y > this->height)
+            if (x < 1 || y < 1 || x > this->width || y > this->height)
             {
                 count++;
             }
