@@ -75,10 +75,3 @@ std::size_t ManagerShips::GetCountShips() const
 {
     return this->ships.size();
 }
-
-
-
-void ManagerShips::add_ship(Ship ship)
-{
-    this->ships.push_back(ship);
-}

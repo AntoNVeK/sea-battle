@@ -23,7 +23,6 @@ public:
     void create_ship(Length len, Orientation orientation);
     void create_ship(Length len);
 
-    void add_ship(Ship ship);
 
     Ship& operator[](std::uint8_t index);
     const Ship& operator[](std::uint8_t index) const;

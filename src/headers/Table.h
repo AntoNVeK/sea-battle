@@ -4,6 +4,10 @@
 #include <map>
 
 #include <iostream>
+
+
+
+
 enum CellState
 {
     UNKNOWN,
@@ -11,27 +15,30 @@ enum CellState
     SHIP
 };
 
-
-typedef struct Coords
-{
-    int x;
-    int y;
-}Coords;
-
-
 class Table
 {
+public:
+    class Coords
+    {
+        public:
+            Coords(int x, int y);
+            Coords();
+            
+            const int& GetX() const;
+            const int& GetY() const;
+        private:
+            int x;
+            int y;
+    };
+
+
+
 private:
     int width;
     int height;
     ManagerShips& manager;
     std::vector<std::vector<CellState>> cells_;
     std::map<Ship*, std::vector<Coords>> coords_ships;
-
-
-
-    bool add_ship_map(Ship& ship, Coords coord);
-    void add_ship_table(Ship& ship);
 
 public:
     Table(ManagerShips& manager);
@@ -51,9 +58,10 @@ public:
     const int& GetY() const;
 
     const ManagerShips& GetManager() const;
+    bool add_ship_map(Ship& ship, Coords coord);
+    void add_ship_table(Ship& ship);
 
-
-    void add_new_ship(Ship ship, Coords coord);
+    bool add_new_ship(Length len, Orientation orientation, Coords coord);
     void put_ships();
 
     //void shoot(Coords coord);
