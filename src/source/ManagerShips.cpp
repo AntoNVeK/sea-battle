@@ -9,6 +9,14 @@ ManagerShips::ManagerShips(const std::initializer_list<Length>& shipLengths)
     }
 }
 
+
+ManagerShips::ManagerShips(const std::vector<Length>& shipLengths)
+{
+    for (const auto& length : shipLengths)
+    {
+        this->create_ship(length);
+    }
+}
 ManagerShips::ManagerShips(const ManagerShips &other)
 {
     this->ships = other.ships;

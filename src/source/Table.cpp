@@ -93,10 +93,39 @@ const ManagerShips& Table::GetManager() const
     return this->manager;
 }
 
+const States Table::GetStateSegmentShip(Coords coord) const
+{
+    int i = -1;
+    States state = FULL;
+    bool flag = false;
+    for (const auto& pair: coords_ships)
+    {
+        i = 0;
+        for (const auto& cor : pair.second)
+        {
+            if (cor.GetX() == coord.GetX() + 1 && cor.GetY() == coord.GetY() + 1)
+            {
+                flag = true;
+                state = pair.first->GetSegments()[i];
+                break;
+            }
+            i++;
+        }
+        if (flag)
+        {
+            break;
+        }
+    }
+
+    return state;
+    
+}
+
+
 
 void Table::print() const {
-    for (std::size_t i = 0; i < height; ++i) {
-        for (std::size_t j = 0; j < width; ++j) {
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
             switch (cells_[i][j]) {
                 case UNKNOWN:
                     std::cout << "?";
@@ -104,9 +133,15 @@ void Table::print() const {
                 case EMPTY:
                     std::cout << ".";
                     break;
-                case SHIP:
-                    std::cout << "S";
+                case SHIP:{
+                    if (GetStateSegmentShip({j,i}) == FULL)
+                        std::cout << "S";
+                    else if (GetStateSegmentShip({j,i}) == HALF_DESTROYED)
+                        std::cout << "*";
+                    else if (GetStateSegmentShip({j,i}) == DESTROYED)
+                        std::cout << "#";
                     break;
+                    }
             }
             std::cout << " ";
         }
@@ -198,10 +233,6 @@ void Table::add_ship_table(Ship& ship)
 
 
 
-void Table::put_ships()
-{
-
-}
 
 
 
@@ -243,7 +274,8 @@ bool Table::shoot(Coords coord)
 {
     bool flag = false;
     int i = -1;
-    if (cells_[coord.GetY()][coord.GetX()] == SHIP)
+
+    if (cells_[coord.GetY() - 1][coord.GetX() - 1] == SHIP)
     {
         for (const auto& pair: coords_ships)
         {
@@ -252,8 +284,10 @@ bool Table::shoot(Coords coord)
             {
                 if (cor.GetX() == coord.GetX() && cor.GetY() == coord.GetY())
                 {
+
                     pair.first->shoot(i);
                     flag = true;
+                    break;
                 }
                 i++;
             }
@@ -264,4 +298,21 @@ bool Table::shoot(Coords coord)
         }
     }
     return flag;
+}
+
+
+
+
+
+
+
+void Table::PrintCoordsShips() {
+    for (const auto& pair : coords_ships) {
+        std::cout << "Ship: " << pair.first->GetLen() << std::endl;
+        std::cout << "Coords: ";
+        for (const auto& coord : pair.second) {
+            std::cout << "(" << coord.GetX() << ", " << coord.GetY() << ") ";
+        }
+        std::cout << std::endl;
+    }
 }

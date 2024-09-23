@@ -62,13 +62,17 @@ public:
     void add_ship_table(Ship& ship);
 
     bool add_new_ship(Length len, Orientation orientation, Coords coord);
-    void put_ships();
 
     bool shoot(Coords coord);
     bool check_point(Coords coord);
-    
+
+
+    const States GetStateSegmentShip(Coords coord) const;
+
     void print() const;
 
+    void PrintCoordsShips();
+    
 
 };
 

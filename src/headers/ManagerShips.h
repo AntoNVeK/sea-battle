@@ -11,6 +11,7 @@ private:
 public:
     ManagerShips();
     ManagerShips(const std::initializer_list<Length>& shipLengths);
+    ManagerShips(const std::vector<Length>& shipLengths);
     ~ManagerShips() {};
 
     ManagerShips(const ManagerShips &other);
