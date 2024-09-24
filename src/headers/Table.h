@@ -34,8 +34,8 @@ private:
     int width;
     int height;
     ManagerShips& manager;
-    std::vector<std::vector<CellState>> cells_;
-    std::vector<std::vector<CellState>> hidden_;
+    std::vector<std::vector<CellState>> _cells;
+    std::vector<std::vector<CellState>> _hidden_cells;
     std::map<std::reference_wrapper<Ship>, std::vector<Coords>> coords_ships;
 
 public:
@@ -68,14 +68,12 @@ public:
 
 
     const States GetStateSegmentShip(std::vector<std::vector<CellState>> table, Coords coord) const;
-
-    void print(std::vector<std::vector<CellState>> table) const;
-
-    void print_tables() const;
-
+    void print(const std::vector<std::vector<CellState>>& table) const;
     void PrintCoordsShips();
     
 
+    const std::vector<std::vector<CellState>>& GetCells() const;
+    const std::vector<std::vector<CellState>>& GetHiddenCells() const;
 };
 
 

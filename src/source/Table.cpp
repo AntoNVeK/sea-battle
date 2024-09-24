@@ -10,8 +10,8 @@ Table::Table(int x, int y, ManagerShips& manager) : width(x), height(y), manager
         throw std::invalid_argument("invalid size component");
     }
 
-    cells_.resize(height, std::vector<CellState>(width, EMPTY));
-    hidden_.resize(height, std::vector<CellState>(width, UNKNOWN));
+    _cells.resize(height, std::vector<CellState>(width, EMPTY));
+    _hidden_cells.resize(height, std::vector<CellState>(width, UNKNOWN));
 
 }
 
@@ -37,14 +37,14 @@ const int& Table::Coords::GetY() const
 
 Table::Table(const Table &other)
     : width(other.width), height(other.height), manager(other.manager),
-      cells_(other.cells_), coords_ships(other.coords_ships)
+      _cells(other._cells), _hidden_cells(other._hidden_cells),coords_ships(other.coords_ships)
 {
 }
 
 
 Table::Table(Table &&other)
     : width(other.width), height(other.height), manager(other.manager),
-      cells_(std::move(other.cells_)), coords_ships(std::move(other.coords_ships))
+      _cells(std::move(other._cells)), _hidden_cells(std::move(other._hidden_cells)), coords_ships(std::move(other.coords_ships))
 {
 }
 
@@ -56,7 +56,8 @@ Table& Table::operator=(const Table &other)
         width = other.width;
         height = other.height;
         manager = other.manager;
-        cells_ = other.cells_;
+        _cells = other._cells;
+        _hidden_cells = other._hidden_cells;
         coords_ships = other.coords_ships;
 
     }
@@ -71,7 +72,8 @@ Table& Table::operator=(Table &&other)
         width = other.width;
         height = other.height;
         manager = other.manager;
-        cells_ = std::move(other.cells_);
+        _cells = std::move(other._cells);
+        _hidden_cells = std::move(other._hidden_cells);
         coords_ships = std::move(other.coords_ships);
 
     }
@@ -124,7 +126,7 @@ const States Table::GetStateSegmentShip(std::vector<std::vector<CellState>> tabl
 
 
 
-void Table::print(std::vector<std::vector<CellState>> table) const {
+void Table::print(const std::vector<std::vector<CellState>>& table) const {
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width; ++j) {
             switch (table[i][j]) {
@@ -212,7 +214,7 @@ bool Table::check_point(Coords coord)
             {
                 count++;
             }
-            else if (cells_[y - 1][x - 1] != SHIP)
+            else if (_cells[y - 1][x - 1] != SHIP)
             {
                 count ++;
             }
@@ -228,7 +230,7 @@ void Table::add_ship_table(Ship& ship)
 
     for (Coords j: this->coords_ships[ship])
     {
-        this->cells_[j.GetY() - 1][j.GetX() - 1] = SHIP;
+        this->_cells[j.GetY() - 1][j.GetX() - 1] = SHIP;
     }
 }
 
@@ -276,7 +278,7 @@ bool Table::shoot(Coords coord)
     bool flag = false;
     int i = -1;
 
-    if (cells_[coord.GetY() - 1][coord.GetX() - 1] == SHIP)
+    if (_cells[coord.GetY() - 1][coord.GetX() - 1] == SHIP)
     {
         for (const auto& pair: coords_ships)
         {
@@ -286,7 +288,7 @@ bool Table::shoot(Coords coord)
                 if (cor.GetX() == coord.GetX() && cor.GetY() == coord.GetY())
                 {
                     pair.first.get().shoot(i);
-                    hidden_[coord.GetY() - 1][coord.GetX() - 1] = SHIP;
+                    _hidden_cells[coord.GetY() - 1][coord.GetX() - 1] = SHIP;
                     flag = true;
                     break;
                 }
@@ -300,7 +302,7 @@ bool Table::shoot(Coords coord)
     }
     else
     {
-        hidden_[coord.GetY() - 1][coord.GetX() - 1] = EMPTY;
+        _hidden_cells[coord.GetY() - 1][coord.GetX() - 1] = EMPTY;
     }
     return flag;
 }
@@ -323,10 +325,13 @@ void Table::PrintCoordsShips() {
 }
 
 
-void Table::print_tables() const
+const std::vector<std::vector<CellState>>& Table::GetCells() const
 {
-    std::cout << "cells_" << "\n";
-    print(cells_);
-    std::cout << "nevidimoe" << "\n";
-    print(hidden_);
+    return _cells;
+}
+
+
+const std::vector<std::vector<CellState>>& Table::GetHiddenCells() const
+{
+    return _hidden_cells;
 }

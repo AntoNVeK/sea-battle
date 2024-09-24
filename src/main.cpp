@@ -32,7 +32,11 @@ int main()
     int i = 0;
     for (; i < manager.GetCountShips();)
     {   
-        table.print_tables();
+        std::cout << "_cells" << "\n";
+        table.print(table.GetCells());
+        std::cout << "_hidden_cells" << "\n";
+        table.print(table.GetHiddenCells());
+        
         int x = 0;
         int y = 0;
         int _or = -1;
@@ -67,15 +71,26 @@ int main()
             }
             i++;
         }
-        table.print_tables();
+        std::cout << "_cells" << "\n";
+        table.print(table.GetCells());
+        std::cout << "_hidden_cells" << "\n";
+        table.print(table.GetHiddenCells());
         getchar();
         getchar();
         system("cls");
     }
-    table.print_tables();
+    std::cout << "_cells" << "\n";
+    table.print(table.GetCells());
+    std::cout << "_hidden_cells" << "\n";
+    table.print(table.GetHiddenCells());
+
     table.shoot({2,2});
     table.shoot({2,3});
-    table.print_tables();
+    
+    std::cout << "_cells" << "\n";
+    table.print(table.GetCells());
+    std::cout << "_hidden_cells" << "\n";
+    table.print(table.GetHiddenCells());
     
     return 0;
 }
