@@ -50,7 +50,7 @@ public:
     Table& operator=(const Table &other);
     Table& operator=(Table &&other);
     
-    bool add_ship_map(Ship& ship, Coords coord);
+    bool add_ship(Ship& ship, Coords coord);
     bool add_new_ship(Length len, Orientation orientation, Coords coord);
     bool shoot(Coords coord);
     bool check_point(Coords coord);

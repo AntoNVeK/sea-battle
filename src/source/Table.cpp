@@ -154,7 +154,7 @@ void Table::print(const std::vector<std::vector<CellState>>& table) const {
 }
 
 
-bool Table::add_ship_map(Ship& ship, Coords coord)
+bool Table::add_ship(Ship& ship, Coords coord)
 {
     std::vector<Coords> coords;
     bool flag = true;
@@ -267,7 +267,7 @@ bool Table::add_new_ship(Length len, Orientation orientation, Coords coord)
     if (flag)
     {
         manager.create_ship(len, orientation);
-        this->add_ship_map(manager[manager.GetCountShips() - 1], coord);
+        this->add_ship(manager[manager.GetCountShips() - 1], coord);
     }
     return flag;
 }

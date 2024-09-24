@@ -64,7 +64,7 @@ int main()
             }
             std::cout << "______________________________________________________" << "\n";
             manager[i].SetOrientation(orie);
-            if (!table.add_ship_map(manager[i], {x, y}))
+            if (!table.add_ship(manager[i], {x, y}))
             {
                 std::cout << "Try again" << "\n";
                 continue;
