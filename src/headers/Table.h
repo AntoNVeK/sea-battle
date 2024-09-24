@@ -54,7 +54,7 @@ public:
     bool add_new_ship(Length len, Orientation orientation, Coords coord);
     bool shoot(Coords coord);
     bool check_point(Coords coord);
-    void add_ship_table(Ship& ship);
+    
     
     void print(const std::vector<std::vector<CellState>>& table) const;
     void PrintCoordsShips();
@@ -65,6 +65,9 @@ public:
     const States GetStateSegmentShip(std::vector<std::vector<CellState>> table, Coords coord) const;
     const std::vector<std::vector<CellState>>& GetCells() const;
     const std::vector<std::vector<CellState>>& GetHiddenCells() const;
+
+private:
+    void add_ship_table(Ship& ship);
 };
 
 
