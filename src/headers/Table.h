@@ -2,10 +2,7 @@
 #define TABLE_H
 #include "ManagerShips.h"
 #include <map>
-
 #include <iostream>
-
-
 
 
 enum CellState
@@ -38,7 +35,8 @@ private:
     int height;
     ManagerShips& manager;
     std::vector<std::vector<CellState>> cells_;
-    std::map<Ship*, std::vector<Coords>> coords_ships;
+    std::vector<std::vector<CellState>> hidden_;
+    std::map<std::reference_wrapper<Ship>, std::vector<Coords>> coords_ships;
 
 public:
     Table(ManagerShips& manager);
@@ -67,9 +65,13 @@ public:
     bool check_point(Coords coord);
 
 
-    const States GetStateSegmentShip(Coords coord) const;
 
-    void print() const;
+
+    const States GetStateSegmentShip(std::vector<std::vector<CellState>> table, Coords coord) const;
+
+    void print(std::vector<std::vector<CellState>> table) const;
+
+    void print_tables() const;
 
     void PrintCoordsShips();
     

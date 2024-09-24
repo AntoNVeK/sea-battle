@@ -28,10 +28,11 @@ int main()
 
 
 
-        
+    system("cls");
     int i = 0;
     for (; i < manager.GetCountShips();)
-    {
+    {   
+        table.print_tables();
         int x = 0;
         int y = 0;
         int _or = -1;
@@ -66,14 +67,15 @@ int main()
             }
             i++;
         }
-        table.print();
+        table.print_tables();
         getchar();
         getchar();
         system("cls");
     }
-    table.print();
+    table.print_tables();
     table.shoot({2,2});
-    table.print();
+    table.shoot({2,3});
+    table.print_tables();
     
     return 0;
 }

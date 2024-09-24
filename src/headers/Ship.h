@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <vector>
 #include <stdexcept>
-
+#include <functional>
 enum Orientation
 {
     HORIZONTAL,
@@ -58,10 +58,14 @@ public:
     const Orientation& GetOrientation() const;
     const std::vector<States>& GetSegments() const;
 
-
-
 };
 
 
+namespace std
+{
+    
+bool operator<(const std::reference_wrapper<Ship>& a, const std::reference_wrapper<Ship>& b);
+
+}
 
 #endif

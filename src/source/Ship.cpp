@@ -103,9 +103,18 @@ void Ship::shoot(std::uint8_t index_segment)
 
 }
 
-
 void Ship::SetOrientation(Orientation orientation)
 {
     this->_orientation = orientation;
 }
 
+
+namespace std
+{
+    
+    bool operator<(const std::reference_wrapper<Ship>& a, const std::reference_wrapper<Ship>& b)
+    {
+        return a.get().GetLen() < b.get().GetLen();
+    }
+
+}
