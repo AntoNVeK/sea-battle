@@ -96,10 +96,11 @@ const ManagerShips& Table::GetManager() const
     return this->manager;
 }
 
-const States Table::GetStateSegmentShip(std::vector<std::vector<CellState>> table, Coords coord) const
+const States& Table::GetStateSegmentShip(std::vector<std::vector<CellState>> table, Coords coord) const
 {
     int i = -1;
-    States state = FULL;
+    States a = FULL;
+    States& state = a;
     bool flag = false;
     for (const auto& pair: coords_ships)
     {
@@ -313,7 +314,7 @@ bool Table::shoot(Coords coord)
 
 
 
-void Table::PrintCoordsShips() {
+void Table::print_coords_ships() {
     for (const auto& pair : coords_ships) {
         std::cout << "Ship: " << pair.first.get().GetLen() << std::endl;
         std::cout << "Coords: ";

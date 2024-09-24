@@ -7,6 +7,7 @@
 
 int main()
 {
+    /*
     std::vector<Length> vec;
 
     int count = -1;
@@ -94,5 +95,20 @@ int main()
     std::cout << "_hidden_cells" << "\n";
     table.print(table.GetHiddenCells());
     
+    for (int i = 0; i < manager[1].GetLen(); i++)
+    {
+        std::cout << manager[1].GetSegments()[i] <<"\n";
+    }
+    */
+    
+    ManagerShips manager({ONE, TWO, FOUR});
+
+    manager[1].shoot(1);
+
+    for (int i = 0; i < manager[1].GetLen(); i++)
+    {
+        std::cout << manager[1].GetSegments()[i] << "\n";
+    }
+
     return 0;
 }
