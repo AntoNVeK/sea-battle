@@ -79,11 +79,13 @@ int main()
         getchar();
         system("cls");
     }
+
     std::cout << "_cells" << "\n";
     table.print(table.GetCells());
     std::cout << "_hidden_cells" << "\n";
     table.print(table.GetHiddenCells());
 
+    table.shoot({2,2});
     table.shoot({2,2});
     table.shoot({2,3});
     
