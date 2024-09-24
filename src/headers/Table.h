@@ -49,29 +49,20 @@ public:
 
     Table& operator=(const Table &other);
     Table& operator=(Table &&other);
-
     
-
-    const int& GetX() const;
-    const int& GetY() const;
-
-    const ManagerShips& GetManager() const;
     bool add_ship_map(Ship& ship, Coords coord);
-    void add_ship_table(Ship& ship);
-
     bool add_new_ship(Length len, Orientation orientation, Coords coord);
-
     bool shoot(Coords coord);
     bool check_point(Coords coord);
-
-
-
-
-    const States GetStateSegmentShip(std::vector<std::vector<CellState>> table, Coords coord) const;
+    void add_ship_table(Ship& ship);
+    
     void print(const std::vector<std::vector<CellState>>& table) const;
     void PrintCoordsShips();
     
-
+    const int& GetX() const;
+    const int& GetY() const;
+    const ManagerShips& GetManager() const;
+    const States GetStateSegmentShip(std::vector<std::vector<CellState>> table, Coords coord) const;
     const std::vector<std::vector<CellState>>& GetCells() const;
     const std::vector<std::vector<CellState>>& GetHiddenCells() const;
 };

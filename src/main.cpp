@@ -11,7 +11,7 @@ int main()
 
     int count = -1;
 
-    for (int i = 1; i < 5;i++)
+    for (int i = 1; i < 5; i++)
     {
         std::cout << "How many make ships length: " << i << "\n";
         std::cin >> count;
