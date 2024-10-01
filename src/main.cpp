@@ -25,7 +25,7 @@ int main()
     std::cout << "Print size Table" << "\n";
     std::cin >> x >> y;
     ManagerShips manager(vec);
-    Table table(x, y, manager);
+    Table table(x, y);
 
 
 
@@ -34,9 +34,9 @@ int main()
     for (; i < manager.GetCountShips();)
     {   
         std::cout << "_cells" << "\n";
-        table.print(table.GetCells());
+        table.print(0);
         std::cout << "_hidden_cells" << "\n";
-        table.print(table.GetHiddenCells());
+        table.print(1);
         
         int x = 0;
         int y = 0;
@@ -73,18 +73,18 @@ int main()
             i++;
         }
         std::cout << "_cells" << "\n";
-        table.print(table.GetCells());
+        table.print(0);
         std::cout << "_hidden_cells" << "\n";
-        table.print(table.GetHiddenCells());
+        table.print(1);
         getchar();
         getchar();
         system("cls");
     }
 
     std::cout << "_cells" << "\n";
-    table.print(table.GetCells());
+    table.print(0);
     std::cout << "_hidden_cells" << "\n";
-    table.print(table.GetHiddenCells());
+    table.print(1);
 
     table.shoot({2,2});
     table.shoot({2,2});
@@ -94,9 +94,9 @@ int main()
     table.shoot({10, 10});
     table.shoot({1, 1});
     std::cout << "_cells" << "\n";
-    table.print(table.GetCells());
+    table.print(0);
     std::cout << "_hidden_cells" << "\n";
-    table.print(table.GetHiddenCells());
+    table.print(1);
     
     for (int i = 0; i < manager[1].GetLen(); i++)
     {

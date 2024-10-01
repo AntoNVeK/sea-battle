@@ -3,6 +3,8 @@
 #include "ManagerShips.h"
 #include <map>
 #include <iostream>
+#include <Coord.h>
+#include <set>
 
 
 enum CellState
@@ -12,35 +14,23 @@ enum CellState
     SHIP
 };
 
+
+
 class Table
 {
-public:
-    class Coords
-    {
-        public:
-            Coords(int x, int y);
-            Coords();
-            
-            const int& GetX() const;
-            const int& GetY() const;
-        private:
-            int x;
-            int y;
-    };
-
-
 
 private:
     int width;
     int height;
-    ManagerShips& manager;
+
     std::vector<std::vector<CellState>> _cells;
     std::vector<std::vector<CellState>> _hidden_cells;
-    std::map<std::reference_wrapper<Ship>, std::vector<Coords>> coords_ships;
+
+    std::map<std::reference_wrapper<Ship>, std::vector<Coord>> coords_ships;
 
 public:
-    Table(ManagerShips& manager);
-    Table(int x, int y, ManagerShips& manager);
+    Table();
+    Table(int x, int y);
     ~Table() {};
 
 
@@ -50,22 +40,25 @@ public:
     Table& operator=(const Table &other);
     Table& operator=(Table &&other);
     
-    bool add_ship(Ship& ship, Coords coord);
-    bool add_new_ship(Length len, Orientation orientation, Coords coord);
-    bool shoot(Coords coord);
-    bool check_point(Coords coord);
+    bool add_ship(Ship& ship, const Coord& coord);
+    bool add_ship(Ship& ship, int x, int y);
+
+    bool shoot(const Coord& coord);
+    bool shoot(int x, int y);
     
-    
-    void print(const std::vector<std::vector<CellState>>& table) const;
-    void print_coords_ships();
-    
-    const States& GetStateSegmentShip(Coords coord) const;
+    bool check_point(const Coord& coord);
+    bool check_point(int x, int y);
+
+    void print(bool is_enemy) const;
+
+
+    const States GetStateSegmentShip(const Coord& coord) const;
+    const States GetStateSegmentShip(int x, int y) const;
+
 
     const int& GetX() const;
     const int& GetY() const;
-    const ManagerShips& GetManager() const;
-    const std::vector<std::vector<CellState>>& GetCells() const;
-    const std::vector<std::vector<CellState>>& GetHiddenCells() const;
+    const std::vector<std::vector<CellState>>& GetCoords() const;
 
 private:
     void add_ship_table(Ship& ship);

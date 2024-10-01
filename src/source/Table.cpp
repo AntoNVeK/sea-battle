@@ -1,9 +1,9 @@
 #include "../headers/Table.h"
 
-Table::Table(ManagerShips& manager) : Table(10, 10, manager) {}
+Table::Table() : Table(10, 10) {}
 
 
-Table::Table(int x, int y, ManagerShips& manager) : width(x), height(y), manager(manager) 
+Table::Table(int x, int y) : width(x), height(y)
 {
     if (x <= 0 || y <= 0)
     {
@@ -15,35 +15,16 @@ Table::Table(int x, int y, ManagerShips& manager) : width(x), height(y), manager
 
 }
 
-Table::Coords::Coords(int x, int y)
-{
-    this->x = x;
-    this->y = y;
-}
-
-Table::Coords::Coords() : Coords(0, 0){}
-
-const int& Table::Coords::GetX() const
-{
-    return this->x;
-}
-
-const int& Table::Coords::GetY() const
-{
-    return this->y;
-}
-
-
 
 Table::Table(const Table &other)
-    : width(other.width), height(other.height), manager(other.manager),
-      _cells(other._cells), _hidden_cells(other._hidden_cells),coords_ships(other.coords_ships)
+    : width(other.width), height(other.height),
+      _cells(other._cells), _hidden_cells(other._hidden_cells), coords_ships(other.coords_ships)
 {
 }
 
 
 Table::Table(Table &&other)
-    : width(other.width), height(other.height), manager(other.manager),
+    : width(other.width), height(other.height),
       _cells(std::move(other._cells)), _hidden_cells(std::move(other._hidden_cells)), coords_ships(std::move(other.coords_ships))
 {
 }
@@ -55,7 +36,7 @@ Table& Table::operator=(const Table &other)
     {
         width = other.width;
         height = other.height;
-        manager = other.manager;
+
         _cells = other._cells;
         _hidden_cells = other._hidden_cells;
         coords_ships = other.coords_ships;
@@ -71,7 +52,6 @@ Table& Table::operator=(Table &&other)
     {
         width = other.width;
         height = other.height;
-        manager = other.manager;
         _cells = std::move(other._cells);
         _hidden_cells = std::move(other._hidden_cells);
         coords_ships = std::move(other.coords_ships);
@@ -91,16 +71,13 @@ const int& Table::GetY() const
     return this->height;
 }
 
-const ManagerShips& Table::GetManager() const
-{
-    return this->manager;
-}
 
-const States& Table::GetStateSegmentShip(Coords coord) const
+
+const States Table::GetStateSegmentShip(const Coord& coord) const
 {
     int i = -1;
-    States a = FULL;
-    States& state = a;
+    States state = FULL;
+
     bool flag = false;
     for (const auto& pair: coords_ships)
     {
@@ -125,9 +102,14 @@ const States& Table::GetStateSegmentShip(Coords coord) const
     
 }
 
+const States Table::GetStateSegmentShip(int x, int y) const
+{
+    return this->GetStateSegmentShip(Coord(x, y));
+}
 
 
-void Table::print(const std::vector<std::vector<CellState>>& table) const {
+void Table::print(bool is_enemy) const {
+    std::vector<std::vector<CellState>> table = is_enemy == true ? _hidden_cells : _cells;
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width; ++j) {
             switch (table[i][j]) {
@@ -138,11 +120,12 @@ void Table::print(const std::vector<std::vector<CellState>>& table) const {
                     std::cout << ".";
                     break;
                 case SHIP:{
-                    if (GetStateSegmentShip({j,i}) == FULL)
+                    States state = GetStateSegmentShip(j, i);
+                    if (state == FULL)
                         std::cout << "S";
-                    else if (GetStateSegmentShip({j,i}) == HALF_DESTROYED)
+                    else if (state == HALF_DESTROYED)
                         std::cout << "*";
-                    else if (GetStateSegmentShip({j,i}) == DESTROYED)
+                    else if (state == DESTROYED)
                         std::cout << "#";
                     break;
                     }
@@ -155,9 +138,9 @@ void Table::print(const std::vector<std::vector<CellState>>& table) const {
 }
 
 
-bool Table::add_ship(Ship& ship, Coords coord)
+bool Table::add_ship(Ship& ship, const Coord& coord)
 {
-    std::vector<Coords> coords;
+    std::vector<Coord> coords;
     bool flag = true;
     if (ship.GetOrientation() == HORIZONTAL)
     {
@@ -199,8 +182,12 @@ bool Table::add_ship(Ship& ship, Coords coord)
     
 }
 
+bool Table::add_ship(Ship& ship, int x, int y)
+{
+    return this->add_ship(ship, Coord(x, y));
+}
 
-bool Table::check_point(Coords coord)
+bool Table::check_point(const Coord& coord)
 {   
     if (coord.GetX() < 1 || coord.GetY() < 1 || coord.GetX() > this->width || coord.GetY() > this->height)
     {
@@ -225,11 +212,15 @@ bool Table::check_point(Coords coord)
     return count == 9;
 }
 
+bool Table::check_point(int x, int y)
+{
+    return this->check_point(Coord(x, y));
+}
 
 void Table::add_ship_table(Ship& ship)
 {
 
-    for (Coords j: this->coords_ships[ship])
+    for (Coord j: this->coords_ships[ship])
     {
         this->_cells[j.GetY() - 1][j.GetX() - 1] = SHIP;
     }
@@ -238,43 +229,7 @@ void Table::add_ship_table(Ship& ship)
 
 
 
-
-
-bool Table::add_new_ship(Length len, Orientation orientation, Coords coord)
-{
-    int flag = true;
-    if (orientation == VERTICAL)
-    {
-        for (int i = 0; i < len; i++)
-        {
-            if (!check_point({coord.GetX(), coord.GetY() + i}))
-            {
-                flag = false;
-                break;
-            }
-        }
-    }
-    else
-    {
-        for (int i = 0; i < len; i++)
-        {
-            if (!check_point({coord.GetX() + i, coord.GetY()}))
-            {
-                flag = false;
-                break;
-            }
-        }
-    }
-    if (flag)
-    {
-        manager.create_ship(len, orientation);
-        this->add_ship(manager[manager.GetCountShips() - 1], coord);
-    }
-    return flag;
-}
-
-
-bool Table::shoot(Coords coord)
+bool Table::shoot(const Coord& coord)
 {
     bool flag = false;
     int i = -1;
@@ -308,31 +263,14 @@ bool Table::shoot(Coords coord)
     return flag;
 }
 
-
-
-
-
-
-
-void Table::print_coords_ships() {
-    for (const auto& pair : coords_ships) {
-        std::cout << "Ship: " << pair.first.get().GetLen() << std::endl;
-        std::cout << "Coords: ";
-        for (const auto& coord : pair.second) {
-            std::cout << "(" << coord.GetX() << ", " << coord.GetY() << ") ";
-        }
-        std::cout << std::endl;
-    }
+bool Table::shoot(int x, int y)
+{
+    return this->shoot(Coord(x, y));
 }
 
 
-const std::vector<std::vector<CellState>>& Table::GetCells() const
+const std::vector<std::vector<CellState>>& Table::GetCoords() const
 {
     return _cells;
 }
 
-
-const std::vector<std::vector<CellState>>& Table::GetHiddenCells() const
-{
-    return _hidden_cells;
-}
