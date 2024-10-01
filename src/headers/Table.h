@@ -59,7 +59,7 @@ public:
     void print(const std::vector<std::vector<CellState>>& table) const;
     void print_coords_ships();
     
-    const States& GetStateSegmentShip(std::vector<std::vector<CellState>> table, Coords coord) const;
+    const States& GetStateSegmentShip(Coords coord) const;
 
     const int& GetX() const;
     const int& GetY() const;

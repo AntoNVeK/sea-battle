@@ -7,7 +7,7 @@
 
 int main()
 {
-    /*
+    
     std::vector<Length> vec;
 
     int count = -1;
@@ -89,7 +89,10 @@ int main()
     table.shoot({2,2});
     table.shoot({2,2});
     table.shoot({2,3});
-    
+    table.shoot({2,4});
+    table.shoot({2,5});
+    table.shoot({10, 10});
+    table.shoot({1, 1});
     std::cout << "_cells" << "\n";
     table.print(table.GetCells());
     std::cout << "_hidden_cells" << "\n";
@@ -99,16 +102,8 @@ int main()
     {
         std::cout << manager[1].GetSegments()[i] <<"\n";
     }
-    */
     
-    ManagerShips manager({ONE, TWO, FOUR});
 
-    manager[1].shoot(1);
-
-    for (int i = 0; i < manager[1].GetLen(); i++)
-    {
-        std::cout << manager[1].GetSegments()[i] << "\n";
-    }
 
     return 0;
 }

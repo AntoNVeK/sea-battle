@@ -96,7 +96,7 @@ const ManagerShips& Table::GetManager() const
     return this->manager;
 }
 
-const States& Table::GetStateSegmentShip(std::vector<std::vector<CellState>> table, Coords coord) const
+const States& Table::GetStateSegmentShip(Coords coord) const
 {
     int i = -1;
     States a = FULL;
@@ -138,11 +138,11 @@ void Table::print(const std::vector<std::vector<CellState>>& table) const {
                     std::cout << ".";
                     break;
                 case SHIP:{
-                    if (GetStateSegmentShip(table, {j,i}) == FULL)
+                    if (GetStateSegmentShip({j,i}) == FULL)
                         std::cout << "S";
-                    else if (GetStateSegmentShip(table, {j,i}) == HALF_DESTROYED)
+                    else if (GetStateSegmentShip({j,i}) == HALF_DESTROYED)
                         std::cout << "*";
-                    else if (GetStateSegmentShip(table, {j,i}) == DESTROYED)
+                    else if (GetStateSegmentShip({j,i}) == DESTROYED)
                         std::cout << "#";
                     break;
                     }
