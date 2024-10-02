@@ -1,11 +1,11 @@
 #ifndef TABLE_H
 #define TABLE_H
-#include "ManagerShips.h"
 #include <map>
 #include <iostream>
 #include <Coord.h>
 #include <set>
-
+#include "Ship.h"
+#include "ManagerSkillsObserver.h"
 
 enum CellState
 {
@@ -23,14 +23,14 @@ private:
     int width;
     int height;
 
+    ManagerSkillsObserver& observer;
     std::vector<std::vector<CellState>> _cells;
-    std::vector<std::vector<CellState>> _hidden_cells;
-
+    std::set<Coord> attack_coords;
     std::map<std::reference_wrapper<Ship>, std::vector<Coord>> coords_ships;
 
 public:
-    Table();
-    Table(int x, int y);
+    Table(ManagerSkillsObserver& observer);
+    Table(int x, int y, ManagerSkillsObserver& observer);
     ~Table() {};
 
 
@@ -60,8 +60,11 @@ public:
     const int& GetY() const;
     const std::vector<std::vector<CellState>>& GetCoords() const;
 
+
+    
 private:
     void add_ship_table(Ship& ship);
+    void circle_ship(Ship& ship);
 };
 
 

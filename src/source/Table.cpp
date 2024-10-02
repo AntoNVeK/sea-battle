@@ -1,9 +1,9 @@
 #include "../headers/Table.h"
 
-Table::Table() : Table(10, 10) {}
+Table::Table(ManagerSkillsObserver& observer) : Table(10, 10, observer) {}
 
 
-Table::Table(int x, int y) : width(x), height(y)
+Table::Table(int x, int y, ManagerSkillsObserver& observer) : width(x), height(y), observer(observer)
 {
     if (x <= 0 || y <= 0)
     {
@@ -11,21 +11,20 @@ Table::Table(int x, int y) : width(x), height(y)
     }
 
     _cells.resize(height, std::vector<CellState>(width, EMPTY));
-    _hidden_cells.resize(height, std::vector<CellState>(width, UNKNOWN));
-
+    
 }
 
 
 Table::Table(const Table &other)
     : width(other.width), height(other.height),
-      _cells(other._cells), _hidden_cells(other._hidden_cells), coords_ships(other.coords_ships)
+      _cells(other._cells), attack_coords(other.attack_coords), coords_ships(other.coords_ships), observer(other.observer)
 {
 }
 
 
 Table::Table(Table &&other)
     : width(other.width), height(other.height),
-      _cells(std::move(other._cells)), _hidden_cells(std::move(other._hidden_cells)), coords_ships(std::move(other.coords_ships))
+      _cells(std::move(other._cells)), attack_coords(std::move(other.attack_coords)), coords_ships(std::move(other.coords_ships)), observer(other.observer)
 {
 }
 
@@ -36,9 +35,9 @@ Table& Table::operator=(const Table &other)
     {
         width = other.width;
         height = other.height;
-
+        observer = other.observer;
         _cells = other._cells;
-        _hidden_cells = other._hidden_cells;
+        attack_coords = other.attack_coords;
         coords_ships = other.coords_ships;
 
     }
@@ -53,7 +52,7 @@ Table& Table::operator=(Table &&other)
         width = other.width;
         height = other.height;
         _cells = std::move(other._cells);
-        _hidden_cells = std::move(other._hidden_cells);
+        attack_coords = std::move(other.attack_coords);
         coords_ships = std::move(other.coords_ships);
 
     }
@@ -107,12 +106,12 @@ const States Table::GetStateSegmentShip(int x, int y) const
     return this->GetStateSegmentShip(Coord(x, y));
 }
 
-
+// Not use, will delete
 void Table::print(bool is_enemy) const {
-    std::vector<std::vector<CellState>> table = is_enemy == true ? _hidden_cells : _cells;
+
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width; ++j) {
-            switch (table[i][j]) {
+            switch (_cells[i][j]) {
                 case UNKNOWN:
                     std::cout << "?";
                     break;
@@ -244,7 +243,11 @@ bool Table::shoot(const Coord& coord)
                 if (cor.GetX() == coord.GetX() && cor.GetY() == coord.GetY())
                 {
                     pair.first.get().shoot(i);
-                    _hidden_cells[coord.GetY() - 1][coord.GetX() - 1] = SHIP;
+                    if (pair.first.get().is_destroyed())
+                    {
+                        observer.accept();
+                        circle_ship(pair.first.get());
+                    }
                     flag = true;
                     break;
                 }
@@ -256,10 +259,7 @@ bool Table::shoot(const Coord& coord)
             }
         }
     }
-    else
-    {
-        _hidden_cells[coord.GetY() - 1][coord.GetX() - 1] = EMPTY;
-    }
+    attack_coords.insert(coord);
     return flag;
 }
 
@@ -274,3 +274,7 @@ const std::vector<std::vector<CellState>>& Table::GetCoords() const
     return _cells;
 }
 
+void Table::circle_ship(Ship& ship)
+{
+    // TODO
+}

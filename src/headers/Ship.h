@@ -58,6 +58,8 @@ public:
     const Orientation& GetOrientation() const;
     const std::vector<States>& GetSegments() const;
 
+    bool is_destroyed() const;
+
 };
 
 

@@ -109,6 +109,18 @@ void Ship::SetOrientation(Orientation orientation)
 }
 
 
+bool Ship::is_destroyed() const
+{
+    for (const auto& segment : _segments)
+    {
+        if (segment != DESTROYED)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 namespace std
 {
     
