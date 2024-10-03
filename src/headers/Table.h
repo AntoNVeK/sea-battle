@@ -49,9 +49,6 @@ public:
     bool check_point(const Coord& coord);
     bool check_point(int x, int y);
 
-    void print(bool is_enemy) const;
-
-
     const States GetStateSegmentShip(const Coord& coord) const;
     const States GetStateSegmentShip(int x, int y) const;
 

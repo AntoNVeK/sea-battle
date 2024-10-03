@@ -6,7 +6,7 @@
 class ManagerSkills
 {
 private:
-    std::queue<ISkill> skills;
+    std::queue<ISkill*> skills;
 public:
     ManagerSkills();
 

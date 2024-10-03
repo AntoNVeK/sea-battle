@@ -106,35 +106,6 @@ const States Table::GetStateSegmentShip(int x, int y) const
     return this->GetStateSegmentShip(Coord(x, y));
 }
 
-// Not use, will delete
-void Table::print(bool is_enemy) const {
-
-    for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width; ++j) {
-            switch (_cells[i][j]) {
-                case UNKNOWN:
-                    std::cout << "?";
-                    break;
-                case EMPTY:
-                    std::cout << ".";
-                    break;
-                case SHIP:{
-                    States state = GetStateSegmentShip(j, i);
-                    if (state == FULL)
-                        std::cout << "S";
-                    else if (state == HALF_DESTROYED)
-                        std::cout << "*";
-                    else if (state == DESTROYED)
-                        std::cout << "#";
-                    break;
-                    }
-            }
-            std::cout << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "______________________________________________________" << "\n";
-}
 
 
 bool Table::add_ship(Ship& ship, const Coord& coord)
