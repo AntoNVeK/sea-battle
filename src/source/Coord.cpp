@@ -57,3 +57,9 @@ const int& Coord::GetY() const
 
 
 
+bool Coord::operator<(const Coord& other) const
+{
+    if (x < other.x) return true;
+        if (x > other.x) return false;
+        return y < other.y;
+}

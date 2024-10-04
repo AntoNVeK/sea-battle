@@ -3,6 +3,9 @@
 #include "ISkill.h"
 #include <queue>
 
+
+class ISkill;
+
 class ManagerSkills
 {
 private:

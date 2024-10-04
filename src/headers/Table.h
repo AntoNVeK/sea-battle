@@ -2,18 +2,19 @@
 #define TABLE_H
 #include <map>
 #include <iostream>
-#include <Coord.h>
+#include "Coord.h"
 #include <set>
 #include "Ship.h"
 #include "ManagerSkillsObserver.h"
 
 enum CellState
 {
-    UNKNOWN,
-    EMPTY,
-    SHIP
+    UNKNOWN = '?',
+    EMPTY = '.',
+    SHIP = 'S'
 };
 
+class ManagerSkillsObserver;
 
 
 class Table
@@ -55,13 +56,13 @@ public:
 
     const int& GetX() const;
     const int& GetY() const;
+
     const std::vector<std::vector<CellState>>& GetCoords() const;
-
-
+    const std::set<Coord>& GetAttackCoords() const;
     
 private:
     void add_ship_table(Ship& ship);
-    void circle_ship(Ship& ship);
+    void circle_ship(std::vector<Coord> coords);
 };
 
 

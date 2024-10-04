@@ -1,7 +1,10 @@
 #include "../headers/ManagerSkills.h"
 
 
-
+ManagerSkills::ManagerSkills()
+{
+    
+}
 
 
 ManagerSkills::ManagerSkills(const ManagerSkills &other)
@@ -15,7 +18,6 @@ ManagerSkills::ManagerSkills(ManagerSkills &&other)
 {
     this->skills = std::move(other.skills);
 }
-
 
 
 
@@ -34,4 +36,12 @@ ManagerSkills& ManagerSkills::operator=(ManagerSkills &&other)
         this->skills = std::move(other.skills);
     }
     return *this;
+}
+
+
+
+
+void ManagerSkills::add_skill()
+{
+    std::cout << "Add skill" << "\n";
 }

@@ -1,5 +1,11 @@
 #include "../headers/ManagerSkillsObserver.h"
 
+
+ManagerSkillsObserver::ManagerSkillsObserver(ManagerSkills& manager) : manager(manager)
+{}
+
+
+
 void ManagerSkillsObserver::accept()
 {
     manager.add_skill();

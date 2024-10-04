@@ -20,6 +20,7 @@ class Coord
         
         const int& GetX() const;
         const int& GetY() const;
+        bool operator<(const Coord& other) const;
 
     private:
         int x;
@@ -27,6 +28,9 @@ class Coord
 
 
 };
+
+
+
 
 
 #endif

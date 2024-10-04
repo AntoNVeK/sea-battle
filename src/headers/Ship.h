@@ -13,9 +13,9 @@ enum Orientation
 
 enum States
 {
-    FULL,
-    HALF_DESTROYED,
-    DESTROYED
+    FULL = 'S',
+    HALF_DESTROYED = '*',
+    DESTROYED = '#'
 };
 
 enum Length

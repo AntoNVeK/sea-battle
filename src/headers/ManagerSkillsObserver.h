@@ -2,14 +2,20 @@
 #define MANAGERSKILLSOBSERVER_H
 #include "ManagerSkills.h"
 
+
+class ManagerSkills;
+
 class ManagerSkillsObserver
 {
 private:
     ManagerSkills& manager;
 
 public:
+    ManagerSkillsObserver(ManagerSkills& manager);
+
     void accept();
     
+
     ManagerSkillsObserver(const ManagerSkillsObserver &other);
     ManagerSkillsObserver(ManagerSkillsObserver &&other);
 

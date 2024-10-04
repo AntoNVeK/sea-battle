@@ -112,6 +112,7 @@ bool Table::add_ship(Ship& ship, const Coord& coord)
 {
     std::vector<Coord> coords;
     bool flag = true;
+
     if (ship.GetOrientation() == HORIZONTAL)
     {
         for (int i = 0; i < ship.GetLen(); i++)
@@ -190,9 +191,9 @@ bool Table::check_point(int x, int y)
 void Table::add_ship_table(Ship& ship)
 {
 
-    for (Coord j: this->coords_ships[ship])
+    for (Coord coord: this->coords_ships[ship])
     {
-        this->_cells[j.GetY() - 1][j.GetX() - 1] = SHIP;
+        this->_cells[coord.GetY() - 1][coord.GetX() - 1] = SHIP;
     }
 }
 
@@ -217,7 +218,7 @@ bool Table::shoot(const Coord& coord)
                     if (pair.first.get().is_destroyed())
                     {
                         observer.accept();
-                        circle_ship(pair.first.get());
+                        circle_ship(pair.second);
                     }
                     flag = true;
                     break;
@@ -245,7 +246,29 @@ const std::vector<std::vector<CellState>>& Table::GetCoords() const
     return _cells;
 }
 
-void Table::circle_ship(Ship& ship)
+void Table::circle_ship(std::vector<Coord> coords)
 {
-    // TODO
+    for (const auto& coord : coords) {
+
+        for (int y = coord.GetY() - 1; y <= coord.GetY() + 1; y++)
+        {
+            for (int x = coord.GetX() - 1; x <= coord.GetX() + 1; x++)
+            {
+                if (x >= 1 && y >= 1 && x <= this->width && y <= this->height)
+                {
+                    attack_coords.insert({x, y});
+                }
+
+            }
+        }
+    }
 }
+
+
+
+const std::set<Coord>& Table::GetAttackCoords() const
+{
+    return attack_coords;
+}
+
+
