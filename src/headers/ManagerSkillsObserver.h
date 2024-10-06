@@ -1,7 +1,7 @@
 #ifndef MANAGERSKILLSOBSERVER_H
 #define MANAGERSKILLSOBSERVER_H
 #include "ManagerSkills.h"
-
+#include "Table.h"
 
 class ManagerSkills;
 

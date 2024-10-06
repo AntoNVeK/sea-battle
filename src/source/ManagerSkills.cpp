@@ -3,7 +3,8 @@
 
 ManagerSkills::ManagerSkills()
 {
-    
+    std::shared_ptr<ISkill> skill(new DoubleAttack());
+    skills.push(skill);
 }
 
 
@@ -45,3 +46,22 @@ void ManagerSkills::add_skill()
 {
     std::cout << "Add skill" << "\n";
 }
+
+
+void ManagerSkills::use_skill(Table& table, const Coord& coord)
+{
+    if (!skills.empty()) {
+        auto skill = skills.front();
+        skill->use(table, coord.GetX(), coord.GetY());
+        skills.pop();
+    } else {
+        std::cout << "queue is empty" << std::endl;
+    }
+}
+
+void ManagerSkills::use_skill(Table& table, int x, int y)
+{
+    return this->use_skill(table, Coord(x, y));
+}
+
+

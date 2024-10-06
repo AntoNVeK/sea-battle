@@ -7,6 +7,8 @@
 #include "Ship.h"
 #include "ManagerSkillsObserver.h"
 
+
+
 enum CellState
 {
     UNKNOWN = '?',
@@ -14,11 +16,13 @@ enum CellState
     SHIP = 'S'
 };
 
-class ManagerSkillsObserver;
+
 
 
 class Table
 {
+
+
 
 private:
     int width;

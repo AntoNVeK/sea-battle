@@ -2,10 +2,14 @@
 #define DOUBLEATTACK_H
 #include "ISkill.h"
 
+class Table;
+
 class DoubleAttack : public ISkill
 {
 public:
     DoubleAttack();
+
+    void use(Table& table) override;
 
     void use(Table& table, int x, int y) override;
 

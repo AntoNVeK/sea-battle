@@ -8,11 +8,11 @@ class Table;
 class ISkill
 {
 public:
-    virtual void use(Table& table);
+    virtual void use(Table& table) = 0;
 
-    virtual void use(Table& table, const Coord& coord);
+    virtual void use(Table& table, const Coord& coord) = 0;
 
-    virtual void use(Table& table, int x, int y);
+    virtual void use(Table& table, int x, int y) = 0;
 
     virtual ~ISkill() {};
 };

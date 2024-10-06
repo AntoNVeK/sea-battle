@@ -51,12 +51,12 @@ int main()
 
     ManagerShips managerships({TWO});
 
-    table.add_ship(managerships[0], 1, 1);
+    table.add_ship(managerships[0], 3, 4);
 
-    table.shoot(1, 1);
-    table.shoot(1, 1);
-    table.shoot(2, 1);
-    table.shoot(2, 1);
+    manager.use_skill(table, 3, 4);
+    
+    table.shoot(4, 4);
+    table.shoot(4, 4);
 
     table.shoot(10, 1);
 
