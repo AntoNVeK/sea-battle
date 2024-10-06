@@ -61,7 +61,13 @@ int main()
     table.add_ship(managerships[2], 1, 10);
 
     table.shoot(3, 5);
+    table.shoot(3, 5);
     manager.use_skill(table, 3, 4);
+    manager.use_skill(table, 3, 4);
+    manager.use_skill(table, 3, 4);
+
+    manager.use_skill(table, 8, 1);
+
 
     print(table);
 
