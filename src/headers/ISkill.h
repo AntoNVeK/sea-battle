@@ -1,9 +1,11 @@
 #ifndef ISKILL_H
 #define ISKILL_H
-#include "Table.h"
-#include "Coord.h"
+
+
+
 
 class Table;
+class Coord;
 
 class ISkill
 {

@@ -3,7 +3,7 @@
 
 ManagerSkills::ManagerSkills()
 {
-    std::shared_ptr<ISkill> skill(new DoubleAttack());
+    std::shared_ptr<ISkill> skill(new Scanner());
     skills.push(skill);
 }
 

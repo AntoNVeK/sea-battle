@@ -1,6 +1,7 @@
 #ifndef ATTACK_H
 #define ATTACK_H
 #include "ISkill.h"
+#include "Table.h"
 
 class Attack : public ISkill
 {

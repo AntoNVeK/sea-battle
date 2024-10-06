@@ -4,6 +4,9 @@
 #include <queue>
 #include <memory>
 #include "DoubleAttack.h"
+#include "Scanner.h"
+#include "Attack.h"
+
 class ISkill;
 
 class ManagerSkills

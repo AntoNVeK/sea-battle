@@ -2,7 +2,7 @@
 
 
 
-DoubleAttack::DoubleAttack() {};
+DoubleAttack::DoubleAttack() {}
 
 
 
@@ -27,11 +27,11 @@ void DoubleAttack::use(Table& table, const Coord& coord)
 
 void DoubleAttack::use(Table& table, int x, int y)
 {
-    return this->use(table, Coord(x, y));
+    this->use(table, Coord(x, y));
 }
 
 
 void DoubleAttack::use(Table& table)
 {
-    return this->use(table, Coord(1, 1));
+    this->use(table, Coord(1, 1));
 }

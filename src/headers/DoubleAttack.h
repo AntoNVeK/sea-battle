@@ -1,8 +1,8 @@
 #ifndef DOUBLEATTACK_H
 #define DOUBLEATTACK_H
-#include "ISkill.h"
+#include "Table.h"
+#include "Coord.h"
 
-class Table;
 
 class DoubleAttack : public ISkill
 {

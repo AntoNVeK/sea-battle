@@ -16,12 +16,16 @@ enum CellState
     SHIP = 'S'
 };
 
-
+class Scanner;
+class Attack;
+class ManagerSkillsObserver;
 
 
 class Table
 {
 
+    friend Scanner;
+    friend Attack;
 
 
 private:
@@ -67,6 +71,7 @@ public:
 private:
     void add_ship_table(Ship& ship);
     void circle_ship(std::vector<Coord> coords);
+
 };
 
 

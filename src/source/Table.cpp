@@ -199,7 +199,6 @@ void Table::add_ship_table(Ship& ship)
 
 
 
-
 bool Table::shoot(const Coord& coord)
 {
     bool flag = false;

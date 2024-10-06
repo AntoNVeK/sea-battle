@@ -51,14 +51,14 @@ int main()
 
     ManagerShips managerships({TWO});
 
+    managerships[0].SetOrientation(VERTICAL);
+
     table.add_ship(managerships[0], 3, 4);
+
 
     manager.use_skill(table, 3, 4);
     
-    table.shoot(4, 4);
-    table.shoot(4, 4);
 
-    table.shoot(10, 1);
 
     print(table);
 
