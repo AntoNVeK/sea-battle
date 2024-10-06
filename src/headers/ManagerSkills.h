@@ -3,9 +3,12 @@
 #include "ISkill.h"
 #include <queue>
 #include <memory>
+#include <random>
+#include <algorithm>
 #include "DoubleAttack.h"
 #include "Scanner.h"
 #include "Attack.h"
+#include <typeinfo>
 
 class ISkill;
 

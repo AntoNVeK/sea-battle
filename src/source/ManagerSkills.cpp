@@ -3,8 +3,17 @@
 
 ManagerSkills::ManagerSkills()
 {
-    std::shared_ptr<ISkill> skill(new Attack());
-    skills.push(skill);
+    std::vector<std::shared_ptr<ISkill>> vectorskills;
+    vectorskills.push_back(std::make_unique<Attack>());
+    vectorskills.push_back(std::make_unique<Scanner>());
+    vectorskills.push_back(std::make_unique<DoubleAttack>());
+
+    srand(time(NULL));
+    std::random_shuffle(vectorskills.begin(), vectorskills.end());
+
+    for (const auto& skill : vectorskills) {
+        skills.push(skill);
+    }
 }
 
 

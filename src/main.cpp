@@ -2,11 +2,14 @@
 #include <string>
 #include <vector>
 #include <stdlib.h>
+#include <iterator>
 #include "./headers/Table.h"
 #include "./headers/ManagerSkillsObserver.h"
 #include "./headers/ManagerSkills.h"
 #include "./headers/ManagerShips.h"
 #include "./headers/Ship.h"
+
+
 
 void print(Table& table)
 {
@@ -57,13 +60,8 @@ int main()
     table.add_ship(managerships[1], 8, 1);
     table.add_ship(managerships[2], 1, 10);
 
-    table.shoot(3, 4);
-
-
+    table.shoot(3, 5);
     manager.use_skill(table, 3, 4);
-
-
-
 
     print(table);
 
