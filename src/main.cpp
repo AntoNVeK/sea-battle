@@ -49,15 +49,20 @@ int main()
 
     Table table(observer);
 
-    ManagerShips managerships({TWO});
+    ManagerShips managerships({TWO, THREE, FOUR});
 
     managerships[0].SetOrientation(VERTICAL);
 
     table.add_ship(managerships[0], 3, 4);
+    table.add_ship(managerships[1], 8, 1);
+    table.add_ship(managerships[2], 1, 10);
+
+    table.shoot(3, 4);
 
 
     manager.use_skill(table, 3, 4);
-    
+
+
 
 
     print(table);
