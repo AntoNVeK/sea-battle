@@ -2,6 +2,7 @@
 #define SCANNER_H
 #include "Table.h"
 #include "Coord.h"
+#include "ISkill.h"
 
 
 

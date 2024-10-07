@@ -2,7 +2,7 @@
 #define DOUBLEATTACK_H
 #include "Table.h"
 #include "Coord.h"
-
+#include "ISkill.h"
 
 class DoubleAttack : public ISkill
 {

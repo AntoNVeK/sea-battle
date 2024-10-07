@@ -1,9 +1,13 @@
 #include "../headers/Table.h"
 
-Table::Table(ManagerSkillsObserver& observer) : Table(10, 10, observer) {}
+
+Table::Table() : Table(10, 10, nullptr) {}
 
 
-Table::Table(int x, int y, ManagerSkillsObserver& observer) : width(x), height(y), observer(observer)
+Table::Table(Observer* observer) : Table(10, 10, observer) {}
+
+
+Table::Table(int x, int y, Observer* observer) : width(x), height(y), observer(observer)
 {
     if (x <= 0 || y <= 0)
     {
@@ -51,6 +55,7 @@ Table& Table::operator=(Table &&other)
     {
         width = other.width;
         height = other.height;
+        observer = other.observer;
         _cells = std::move(other._cells);
         attack_coords = std::move(other.attack_coords);
         coords_ships = std::move(other.coords_ships);
@@ -216,7 +221,7 @@ bool Table::shoot(const Coord& coord)
                     pair.first.get().shoot(i);
                     if (pair.first.get().is_destroyed())
                     {
-                        observer.accept();
+                        observer->accept();
                         circle_ship(pair.second);
                     }
                     flag = true;
@@ -270,4 +275,10 @@ const std::set<Coord>& Table::GetAttackCoords() const
     return attack_coords;
 }
 
+
+
+void Table::SetObserver(Observer* observer)
+{
+    this->observer = observer;
+}
 

@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <iterator>
 #include "./headers/Table.h"
-#include "./headers/ManagerSkillsObserver.h"
 #include "./headers/ManagerSkills.h"
 #include "./headers/ManagerShips.h"
 #include "./headers/Ship.h"
@@ -48,9 +47,11 @@ int main()
 {
     ManagerSkills manager;
 
-    ManagerSkillsObserver observer(manager);
+    
 
-    Table table(observer);
+    Table table(&manager);
+
+    
 
     ManagerShips managerships({TWO, THREE, FOUR});
 

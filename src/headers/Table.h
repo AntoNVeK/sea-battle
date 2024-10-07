@@ -5,7 +5,7 @@
 #include "Coord.h"
 #include <set>
 #include "Ship.h"
-#include "ManagerSkillsObserver.h"
+#include "Observer.h"
 
 
 
@@ -18,7 +18,7 @@ enum CellState
 
 class Scanner;
 class Attack;
-class ManagerSkillsObserver;
+class Observer;
 
 
 class Table
@@ -32,14 +32,15 @@ private:
     int width;
     int height;
 
-    ManagerSkillsObserver& observer;
+    Observer* observer;
     std::vector<std::vector<CellState>> _cells;
     std::set<Coord> attack_coords;
     std::map<std::reference_wrapper<Ship>, std::vector<Coord>> coords_ships;
 
 public:
-    Table(ManagerSkillsObserver& observer);
-    Table(int x, int y, ManagerSkillsObserver& observer);
+    Table();
+    Table(Observer* observer);
+    Table(int x, int y, Observer* observer);
     ~Table() {};
 
 
@@ -68,6 +69,10 @@ public:
     const std::vector<std::vector<CellState>>& GetCoords() const;
     const std::set<Coord>& GetAttackCoords() const;
     
+
+    void SetObserver(Observer* observer);
+
+
 private:
     void add_ship_table(Ship& ship);
     void circle_ship(std::vector<Coord> coords);

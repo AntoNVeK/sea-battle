@@ -9,10 +9,13 @@
 #include "Scanner.h"
 #include "Attack.h"
 #include <typeinfo>
+#include "Observer.h"
+
+
 
 class ISkill;
 
-class ManagerSkills
+class ManagerSkills : public Observer
 {
 private:
     std::queue<std::shared_ptr<ISkill>> skills;
@@ -24,9 +27,7 @@ public:
 
     void use_skill(Table& table, int x, int y);
 
-
-
-
+    void accept() override;
 
     ManagerSkills(const ManagerSkills &other);
     ManagerSkills(ManagerSkills &&other);

@@ -84,3 +84,7 @@ void ManagerSkills::use_skill(Table& table, int x, int y)
 }
 
 
+void ManagerSkills::accept()
+{
+    this->add_skill();
+}
