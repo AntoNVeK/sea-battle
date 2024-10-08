@@ -116,7 +116,7 @@ const States Table::GetStateSegmentShip(int x, int y) const
 void Table::add_ship(Ship& ship, const Coord& coord)
 {
     std::vector<Coord> coords;
-    bool flag = true;
+
 
     if (ship.GetOrientation() == HORIZONTAL)
     {
@@ -128,8 +128,7 @@ void Table::add_ship(Ship& ship, const Coord& coord)
             }
             else
             {
-                flag = false;
-                break;
+                throw ShipPlacementException("incorrect ship placement");
             }
         }
     }
@@ -144,20 +143,14 @@ void Table::add_ship(Ship& ship, const Coord& coord)
             }
             else
             {
-                flag = false;
-                break;
+                throw ShipPlacementException("incorrect ship placement");
             }
         }
     }
-    if (flag)
-    {
-        coords_ships[ship] = coords;
-        this->add_ship_table(ship);
-    }
-    else
-    {
-        throw ShipPlacementException("incorrect ship placement");
-    }
+
+    coords_ships[ship] = coords;
+    this->add_ship_table(ship);
+
 
     
 }
