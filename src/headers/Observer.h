@@ -1,7 +1,7 @@
 #ifndef OBSERVER_H
 #define OBSERVER_H
 
-// Паттерн-Наблюдатель
+// РџР°С‚С‚РµСЂРЅ-РќР°Р±Р»СЋРґР°С‚РµР»СЊ
 class Observer
 {
 
