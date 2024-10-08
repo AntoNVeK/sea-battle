@@ -5,7 +5,8 @@
 
 class OutOfBoundsException : public GameException
 {
-    OutOfBoundsException(const std::string& msg) : GameException(msg) {}
+public:
+    OutOfBoundsException(const std::string& msg);
 };
 
 

@@ -6,8 +6,8 @@
 #include <set>
 #include "Ship.h"
 #include "Observer.h"
-
-
+#include "ShipPlacementException.h"
+#include "OutOfBoundsException.h"
 
 enum CellState
 {
@@ -50,11 +50,11 @@ public:
     Table& operator=(const Table &other);
     Table& operator=(Table &&other);
     
-    bool add_ship(Ship& ship, const Coord& coord);
-    bool add_ship(Ship& ship, int x, int y);
+    void add_ship(Ship& ship, const Coord& coord);
+    void add_ship(Ship& ship, int x, int y);
 
-    bool shoot(const Coord& coord);
-    bool shoot(int x, int y);
+    void shoot(const Coord& coord);
+    void shoot(int x, int y);
     
     bool check_point(const Coord& coord);
     bool check_point(int x, int y);

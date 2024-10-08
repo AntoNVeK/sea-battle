@@ -10,7 +10,7 @@
 #include "Attack.h"
 #include <typeinfo>
 #include "Observer.h"
-
+#include "NoSkillsException.h"
 
 
 class ISkill;

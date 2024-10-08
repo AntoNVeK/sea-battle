@@ -6,7 +6,8 @@
 
 class ShipPlacementException : public GameException
 {
-    explicit ShipPlacementException(const std::string& msg) : GameException(msg) {}
+public:
+    explicit ShipPlacementException(const std::string& msg);
 };
 
 

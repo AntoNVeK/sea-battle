@@ -5,7 +5,8 @@
 
 class NoSkillsException : public GameException
 {
-    explicit NoSkillsException(const std::string& msg) : GameException(msg) {}
+public:
+    explicit NoSkillsException(const std::string& msg);
 };
 
 

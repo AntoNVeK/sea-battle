@@ -74,7 +74,7 @@ void ManagerSkills::use_skill(Table& table, const Coord& coord)
         skill->use(table, coord.GetX(), coord.GetY());
         skills.pop();
     } else {
-        std::cout << "queue is empty" << std::endl;
+        throw NoSkillsException("hasn't skills");
     }
 }
 

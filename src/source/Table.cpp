@@ -113,7 +113,7 @@ const States Table::GetStateSegmentShip(int x, int y) const
 
 
 
-bool Table::add_ship(Ship& ship, const Coord& coord)
+void Table::add_ship(Ship& ship, const Coord& coord)
 {
     std::vector<Coord> coords;
     bool flag = true;
@@ -154,13 +154,17 @@ bool Table::add_ship(Ship& ship, const Coord& coord)
         coords_ships[ship] = coords;
         this->add_ship_table(ship);
     }
-    return flag;
+    else
+    {
+        throw ShipPlacementException("incorrect ship placement");
+    }
+
     
 }
 
-bool Table::add_ship(Ship& ship, int x, int y)
+void Table::add_ship(Ship& ship, int x, int y)
 {
-    return this->add_ship(ship, Coord(x, y));
+    this->add_ship(ship, Coord(x, y));
 }
 
 bool Table::check_point(const Coord& coord)
@@ -204,8 +208,14 @@ void Table::add_ship_table(Ship& ship)
 
 
 
-bool Table::shoot(const Coord& coord)
+void Table::shoot(const Coord& coord)
 {
+    if (coord.GetX() < 1 || coord.GetY() < 1 || coord.GetX() > this->width || coord.GetY() > this->height)
+    {
+        throw OutOfBoundsException("attack out of bounds");
+    }
+
+
     bool flag = false;
     int i = -1;
 
@@ -236,12 +246,12 @@ bool Table::shoot(const Coord& coord)
         }
     }
     attack_coords.insert(coord);
-    return flag;
+
 }
 
-bool Table::shoot(int x, int y)
+void Table::shoot(int x, int y)
 {
-    return this->shoot(Coord(x, y));
+    this->shoot(Coord(x, y));
 }
 
 
