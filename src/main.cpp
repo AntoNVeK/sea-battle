@@ -51,7 +51,7 @@ int main()
 
     Table table(&manager);
 
-    
+    DoubleAttack att;
 
     ManagerShips managerships({TWO, THREE, FOUR});
 

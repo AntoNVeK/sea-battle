@@ -6,7 +6,7 @@ Scanner::Scanner() {}
 
 void Scanner::use(Table& table, const Coord& coord)
 {
-    
+
     for(int j = coord.GetY() - 1; j < coord.GetY() + 1; j++)
     {
         for(int i = coord.GetX() - 1; i < coord.GetX() + 1; i++){

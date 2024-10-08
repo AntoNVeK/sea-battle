@@ -18,7 +18,7 @@ enum CellState
 
 class Scanner;
 class Attack;
-class Observer;
+
 
 
 class Table

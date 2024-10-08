@@ -1,9 +1,6 @@
 #ifndef OBSERVER_H
 #define OBSERVER_H
 
-
-
-
 // Паттерн-Наблюдатель
 class Observer
 {
