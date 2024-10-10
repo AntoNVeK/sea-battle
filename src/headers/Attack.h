@@ -14,6 +14,10 @@ public:
 
     void use(Table& table, int x, int y) override;
 
+    void install_reaction(std::function<void()> func) override;
+    
+    
+    ~Attack() override = default;
 private:
     Ship& get_random_ship_for_attack(const Table& table);
 

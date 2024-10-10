@@ -15,6 +15,9 @@ public:
 
     void use(Table& table, const Coord& coord) override;
 
+    void install_reaction(std::function<void()> func) override;
+
+    ~DoubleAttack() override = default;
 };
 
 

@@ -17,6 +17,13 @@ public:
 
     void use(Table& table, const Coord& coord) override;
 
+    void install_reaction(std::function<void()> func) override;
+
+    ~Scanner() override = default;
+private:
+
+    std::function<void()> _reaction;
+
 };
 
 

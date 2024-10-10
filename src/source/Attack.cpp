@@ -56,3 +56,11 @@ int Attack::get_random_index_segment_ship(const Ship& ship)
 
     return alive_segments[rand() % alive_segments.size()];
 }
+
+
+
+
+void Attack::install_reaction(std::function<void()> func)
+{
+    
+}

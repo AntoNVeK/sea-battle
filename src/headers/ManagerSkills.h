@@ -13,6 +13,7 @@
 #include "NoSkillsException.h"
 
 
+
 class ISkill;
 
 class ManagerSkills : public Observer
@@ -23,10 +24,8 @@ public:
 
     ManagerSkills();
 
-    void use_skill(Table& table, const Coord& coord);
-
-    void use_skill(Table& table, int x, int y);
-
+    std::shared_ptr<ISkill> GetFront();
+    
     void accept() override;
 
     ManagerSkills(const ManagerSkills &other);
@@ -36,6 +35,7 @@ public:
     ManagerSkills& operator=(const ManagerSkills &other);
     ManagerSkills& operator=(ManagerSkills &&other);
 
+    
 
     void add_skill();
 };

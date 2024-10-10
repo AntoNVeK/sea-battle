@@ -4,9 +4,9 @@
 ManagerSkills::ManagerSkills()
 {
     std::vector<std::shared_ptr<ISkill>> vector_skills;
-    vector_skills.push_back(std::make_shared<Attack>());
+    //vector_skills.push_back(std::make_shared<Attack>());
     vector_skills.push_back(std::make_shared<Scanner>());
-    vector_skills.push_back(std::make_shared<DoubleAttack>());
+    //vector_skills.push_back(std::make_shared<DoubleAttack>());
 
     srand(time(NULL));
     std::random_shuffle(vector_skills.begin(), vector_skills.end());
@@ -67,24 +67,18 @@ void ManagerSkills::add_skill()
 }
 
 
-void ManagerSkills::use_skill(Table& table, const Coord& coord)
-{
-    if (!skills.empty()) {
-        auto skill = skills.front();
-        skill->use(table, coord.GetX(), coord.GetY());
-        skills.pop();
-    } else {
-        throw NoSkillsException("hasn't skills");
-    }
-}
-
-void ManagerSkills::use_skill(Table& table, int x, int y)
-{
-    return this->use_skill(table, Coord(x, y));
-}
 
 
 void ManagerSkills::accept()
 {
     this->add_skill();
+}
+
+
+
+std::shared_ptr<ISkill> ManagerSkills::GetFront()
+{
+    std::shared_ptr<ISkill> skill = skills.front();
+    skills.pop();
+    return skill;
 }

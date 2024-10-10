@@ -1,12 +1,6 @@
 #include "../headers/DoubleAttack.h"
 
-
-
 DoubleAttack::DoubleAttack() {}
-
-
-
-
 
 void DoubleAttack::use(Table& table, const Coord& coord)
 {
@@ -33,5 +27,15 @@ void DoubleAttack::use(Table& table, int x, int y)
 
 void DoubleAttack::use(Table& table)
 {
-    this->use(table, Coord(1, 1));
+    throw std::invalid_argument("incorrect arguments");
 }
+
+
+void DoubleAttack::install_reaction(std::function<void()> func)
+{
+
+}
+
+
+
+

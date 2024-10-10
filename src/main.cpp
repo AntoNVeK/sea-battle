@@ -51,8 +51,6 @@ int main()
 
     Table table(&manager);
 
-    DoubleAttack att;
-
     ManagerShips managerships({TWO, THREE, FOUR});
 
     managerships[0].SetOrientation(VERTICAL);
@@ -63,12 +61,22 @@ int main()
 
     table.shoot(3, 5);
     table.shoot(3, 5);
-    manager.use_skill(table, 3, 4);
-    manager.use_skill(table, 3, 4);
-    manager.use_skill(table, 3, 4);
 
-    manager.use_skill(table, 8, 1);
 
+    //manager.use_skill(table, 3, 4);
+    //manager.use_skill(table, 3, 4);
+    //manager.use_skill(table, 3, 4);
+
+    std::shared_ptr<ISkill> skill = manager.GetFront();
+
+    bool flag = false;
+    skill.get()->install_reaction([&flag](){
+        flag = true;
+    });
+    skill.get()->use(table, 8, 1);
+
+    if (flag)
+        std::cout << "scanner found ship" << "\n";
 
     print(table);
 

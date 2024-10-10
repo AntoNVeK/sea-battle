@@ -11,18 +11,14 @@ void Scanner::use(Table& table, const Coord& coord)
     {
         for(int i = coord.GetX() - 1; i < coord.GetX() + 1; i++){
                    
-            if (table._cells[j][i] != SHIP)
+            if (table._cells[j][i] == SHIP)
             {
-                std::cout << static_cast<char>(table._cells[j][i]);
-            }
-            else
-            {
-                std::cout << static_cast<char>(table.GetStateSegmentShip(i, j));
+                _reaction();
+                return;
             }
             
-            std::cout << " ";
         }
-        std::cout << "\n";
+
     }
 
 
@@ -35,5 +31,14 @@ void Scanner::use(Table& table, int x, int y)
 
 void Scanner::use(Table& table)
 {
-    this->use(table, Coord(1, 1));
+    throw std::invalid_argument("incorrect arguments");
 }
+
+
+void Scanner::install_reaction(std::function<void()> func)
+{
+    this->_reaction = func;
+}
+
+
+
