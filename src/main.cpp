@@ -45,6 +45,8 @@ void print(Table& table)
 
 int main()
 {
+
+    
     ManagerSkills manager;
 
     Table table(&manager);
@@ -57,24 +59,24 @@ int main()
     table.add_ship(managerships[1], 8, 1);
     table.add_ship(managerships[2], 1, 10);
 
-    table.shoot(3, 4);
-    table.shoot(3, 4);
-    table.shoot(3, 5);
-    table.shoot(3, 5);
+    auto factory = manager.GetFront();
 
-    std::shared_ptr<ISkill> skill = manager.GetFront();
+    auto skill = factory->create(3, 4);
+
+    std::cout << factory->GetName() << "\n";
 
     bool flag = false;
     skill.get()->install_reaction([&flag](){
         flag = true;
     });
-    skill.get()->use(table, 8, 1);
+    skill.get()->use(table);
 
     if (flag)
         std::cout << "scanner found ship" << "\n";
 
     print(table);
 
+    
 
     return 0;
 }

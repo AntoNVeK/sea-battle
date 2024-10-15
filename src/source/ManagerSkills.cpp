@@ -3,10 +3,10 @@
 
 ManagerSkills::ManagerSkills()
 {
-    std::vector<std::shared_ptr<ISkill>> vector_skills;
-    vector_skills.push_back(std::make_shared<Attack>());
-    vector_skills.push_back(std::make_shared<Scanner>());
-    vector_skills.push_back(std::make_shared<DoubleAttack>());
+    std::vector<std::shared_ptr<ISkillFactory>> vector_skills;
+    vector_skills.push_back(std::make_shared<AttackFactory>());
+    vector_skills.push_back(std::make_shared<ScannerFactory>());
+    vector_skills.push_back(std::make_shared<DoubleAttackFactory>());
 
     srand(time(NULL));
     std::random_shuffle(vector_skills.begin(), vector_skills.end());
@@ -53,12 +53,12 @@ ManagerSkills& ManagerSkills::operator=(ManagerSkills &&other)
 
 void ManagerSkills::add_skill()
 {
-    std::vector<std::shared_ptr<ISkill>> vector_skills;
-    vector_skills.push_back(std::make_shared<Scanner>());
+    std::vector<std::shared_ptr<ISkillFactory>> vector_skills;
+    vector_skills.push_back(std::make_shared<ScannerFactory>());
 
-    vector_skills.push_back(std::make_shared<Attack>());
+    vector_skills.push_back(std::make_shared<AttackFactory>());
 
-    vector_skills.push_back(std::make_shared<DoubleAttack>());
+    vector_skills.push_back(std::make_shared<DoubleAttackFactory>());
 
     srand(time(NULL));
 
@@ -76,9 +76,9 @@ void ManagerSkills::accept()
 
 
 
-std::shared_ptr<ISkill> ManagerSkills::GetFront()
+std::shared_ptr<ISkillFactory> ManagerSkills::GetFront()
 {
-    std::shared_ptr<ISkill> skill = skills.front();
+    std::shared_ptr<ISkillFactory> skill = skills.front();
     skills.pop();
     return skill;
 }

@@ -2,20 +2,18 @@
 #define ISKILLFACTORY_H
 #include "ISkill.h"
 #include <string>
-
+#include <memory>
 
 class ISkillFactory
 {
 
 public:
 
-    virtual ISkill* create() = 0;
+    virtual std::shared_ptr<ISkill> create(int x = 0, int y = 0) = 0;
 
-    virtual ISkill* create(int x, int y) = 0;
+    virtual std::string GetName() const = 0;
 
-    virtual std::string& GetName() const = 0;
-
-    virtual ~ISkillFactory() = default;
+    virtual ~ISkillFactory() = 0;
 
 };
 

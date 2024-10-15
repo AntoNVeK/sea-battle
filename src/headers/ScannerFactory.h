@@ -1,14 +1,13 @@
 #ifndef SCANNERFACTORY_H
 #define SCANNERFACTORY_H
 #include "ISkillFactory.h"
+#include "Scanner.h"
 
 class ScannerFactory : public ISkillFactory
 {
 public:
 
-    ISkill* create() override;
-
-    ISkill* create(int x, int y) override;
+    std::shared_ptr<ISkill> create(int x = 0, int y = 0) override;
 
     std::string GetName() const override;
 

@@ -3,7 +3,7 @@
 #include "Table.h"
 #include "Coord.h"
 #include "ISkill.h"
-
+#include "Scanner.h"
 
 
 class Scanner : public ISkill
