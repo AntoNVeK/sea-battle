@@ -11,17 +11,18 @@ void Scanner::use(Table& table)
                    
             if (table._cells[j][i] == SHIP)
             {
-                _reaction();
+                _reaction(ScannerResult::ISSHIP);
                 return;
             }
             
         }
 
     }
+    _reaction(ScannerResult::NOSHIP);
 }
 
 
-void Scanner::install_reaction(std::function<void()> func)
+void Scanner::install_reaction(std::function<void(ScannerResult state)> func)
 {
     this->_reaction = func;
 }

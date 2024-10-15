@@ -17,7 +17,7 @@ void DoubleAttack::use(Table& table)
 }
 
 
-void DoubleAttack::install_reaction(std::function<void()> func)
+void DoubleAttack::install_reaction(std::function<void(ScannerResult state)> func)
 {
 
 }

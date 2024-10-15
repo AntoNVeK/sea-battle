@@ -11,7 +11,7 @@ public:
 
     void use(Table& table) override;
 
-    void install_reaction(std::function<void()> func) override;
+    void install_reaction(std::function<void(ScannerResult state)> func) override;
 
     ~DoubleAttack() override = default;
 

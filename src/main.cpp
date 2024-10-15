@@ -44,9 +44,7 @@ void print(Table& table)
 
 
 int main()
-{
-
-    
+{    
     ManagerSkills manager;
 
     Table table(&manager);
@@ -65,18 +63,21 @@ int main()
 
     std::cout << factory->GetName() << "\n";
 
-    bool flag = false;
-    skill.get()->install_reaction([&flag](){
-        flag = true;
+    ScannerResult flag = ScannerResult::null;
+
+    skill->install_reaction([&flag](ScannerResult state){
+        if (state == ScannerResult::ISSHIP)
+            flag = ScannerResult::ISSHIP;
+        else if (state == ScannerResult::NOSHIP)
+            flag = ScannerResult::NOSHIP;    
     });
-    skill.get()->use(table);
+    skill->use(table);
 
-    if (flag)
+    if (flag == ScannerResult::ISSHIP)
         std::cout << "scanner found ship" << "\n";
-
+    else if (flag == ScannerResult::NOSHIP)
+        std::cout << "scanner not found ship" << "\n";
     print(table);
-
-    
 
     return 0;
 }

@@ -50,7 +50,7 @@ int Attack::get_random_index_segment_ship(const Ship& ship)
 
 
 
-void Attack::install_reaction(std::function<void()> func)
+void Attack::install_reaction(std::function<void(ScannerResult state)> func)
 {
     
 }

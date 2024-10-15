@@ -9,11 +9,12 @@
 class Scanner : public ISkill
 {
 public:
+
     Scanner(int x, int y);
 
     void use(Table& table) override;
 
-    void install_reaction(std::function<void()> func) override;
+    void install_reaction(std::function<void(ScannerResult state)> func) override;
 
     ~Scanner() override = default;
 private:
@@ -21,7 +22,8 @@ private:
     int _x;
     int _y;
 
-    std::function<void()> _reaction;
+    std::function<void(ScannerResult state)> _reaction;
+
 
 };
 
