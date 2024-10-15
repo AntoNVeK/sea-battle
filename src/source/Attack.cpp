@@ -12,16 +12,6 @@ void Attack::use(Table& table)
 }
 
 
-void Attack::use(Table& table, const Coord& coord)
-{
-    this->use(table);
-}
-
-void Attack::use(Table& table, int x, int y)
-{
-    this->use(table);
-}
-
 
 Ship& Attack::get_random_ship_for_attack(const Table& table)
 {

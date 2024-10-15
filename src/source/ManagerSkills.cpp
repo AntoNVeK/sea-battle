@@ -4,9 +4,9 @@
 ManagerSkills::ManagerSkills()
 {
     std::vector<std::shared_ptr<ISkill>> vector_skills;
-    //vector_skills.push_back(std::make_shared<Attack>());
+    vector_skills.push_back(std::make_shared<Attack>());
     vector_skills.push_back(std::make_shared<Scanner>());
-    //vector_skills.push_back(std::make_shared<DoubleAttack>());
+    vector_skills.push_back(std::make_shared<DoubleAttack>());
 
     srand(time(NULL));
     std::random_shuffle(vector_skills.begin(), vector_skills.end());

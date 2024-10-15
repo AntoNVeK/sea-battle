@@ -1,33 +1,19 @@
 #include "../headers/DoubleAttack.h"
 
-DoubleAttack::DoubleAttack() {}
+DoubleAttack::DoubleAttack(int x, int y) : _x(x), _y(y) {}
 
-void DoubleAttack::use(Table& table, const Coord& coord)
+void DoubleAttack::use(Table& table)
 {
-    table.shoot(coord);
+    table.shoot(_x, _y);
 
     try
     {
-        table.shoot(coord);
+        table.shoot(_x, _y);
     }
     catch(...)
     {
         std::cout << "Ship already destroyed" << "\n";
     }
-}
-
-
-
-
-void DoubleAttack::use(Table& table, int x, int y)
-{
-    this->use(table, Coord(x, y));
-}
-
-
-void DoubleAttack::use(Table& table)
-{
-    throw std::invalid_argument("incorrect arguments");
 }
 
 

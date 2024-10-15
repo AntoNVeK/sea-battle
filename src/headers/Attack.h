@@ -10,10 +10,6 @@ public:
 
     void use(Table& table) override;
 
-    void use(Table& table, const Coord& coord) override;
-
-    void use(Table& table, int x, int y) override;
-
     void install_reaction(std::function<void()> func) override;
     
     

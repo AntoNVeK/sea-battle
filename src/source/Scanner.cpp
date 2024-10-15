@@ -1,15 +1,13 @@
 #include "../headers/Scanner.h"
 
 
-Scanner::Scanner() {}
+Scanner::Scanner(int x, int y) : _x(x), _y(y) {}
 
-
-void Scanner::use(Table& table, const Coord& coord)
+void Scanner::use(Table& table)
 {
-
-    for(int j = coord.GetY() - 1; j < coord.GetY() + 1; j++)
+    for(int j = _y - 1; j < _y + 1; j++)
     {
-        for(int i = coord.GetX() - 1; i < coord.GetX() + 1; i++){
+        for(int i = _x - 1; i < _x + 1; i++){
                    
             if (table._cells[j][i] == SHIP)
             {
@@ -20,18 +18,6 @@ void Scanner::use(Table& table, const Coord& coord)
         }
 
     }
-
-
-}
-
-void Scanner::use(Table& table, int x, int y)
-{
-    this->use(table, Coord(x, y));
-}
-
-void Scanner::use(Table& table)
-{
-    throw std::invalid_argument("incorrect arguments");
 }
 
 

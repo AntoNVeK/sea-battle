@@ -14,7 +14,7 @@
 
 
 
-class ISkill;
+
 
 class ManagerSkills : public Observer
 {

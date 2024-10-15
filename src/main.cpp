@@ -47,8 +47,6 @@ int main()
 {
     ManagerSkills manager;
 
-    
-
     Table table(&manager);
 
     ManagerShips managerships({TWO, THREE, FOUR});
@@ -59,13 +57,10 @@ int main()
     table.add_ship(managerships[1], 8, 1);
     table.add_ship(managerships[2], 1, 10);
 
+    table.shoot(3, 4);
+    table.shoot(3, 4);
     table.shoot(3, 5);
     table.shoot(3, 5);
-
-
-    //manager.use_skill(table, 3, 4);
-    //manager.use_skill(table, 3, 4);
-    //manager.use_skill(table, 3, 4);
 
     std::shared_ptr<ISkill> skill = manager.GetFront();
 
