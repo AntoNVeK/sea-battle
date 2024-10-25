@@ -11,7 +11,7 @@ class AttackFactory : public ISkillFactory
 public:
     AttackFactory();
     
-    std::shared_ptr<ISkill> create(Coord coord) override;
+    std::shared_ptr<ISkill> create() override;
 
     SkillName GetName() const override;
 

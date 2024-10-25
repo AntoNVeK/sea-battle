@@ -9,7 +9,7 @@ class ScannerFactory : public ISkillFactory
 public:
     ScannerFactory(SkillResult& results);
 
-    std::shared_ptr<ISkill> create(Coord coord) override;
+    std::shared_ptr<ISkill> create() override;
 
     SkillName GetName() const override;
 

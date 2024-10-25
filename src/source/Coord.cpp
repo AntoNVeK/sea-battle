@@ -10,7 +10,7 @@ Coord::Coord(int x, int y)
     this->y = y;
 }
 
-Coord::Coord() : Coord(1, 1){}
+Coord::Coord() : Coord(0, 0){}
 
 Coord::Coord(const Coord &other)
     : x(other.x), y(other.y)

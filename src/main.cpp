@@ -8,7 +8,9 @@
 #include "./headers/ManagerShips.h"
 #include "./headers/Ship.h"
 #include "./headers/SkillResult.h"
-#include "headers/skill_name.h"
+#include "./headers/skill_name.h"
+#include "./headers/Command.h"
+#include "./headers/GetCoord.h"
 
 
 void print(Table& table)
@@ -44,12 +46,14 @@ void print(Table& table)
 
 /*
 ¬ классе игры выбор что делать через соста€ни€
-
 */
 
 
 int main()
 {    
+    CoordSkillUse skillcoord;
+
+    std::shared_ptr<Command> command = std::make_shared<GetCoord>(skillcoord);
 
     ManagerSkills manager;
 
@@ -64,9 +68,13 @@ int main()
     table.shoot(3, 4);
 
     {
+        Coord coord_for_skill = Coord(3, 4);
+
+        skillcoord.SetCoord(coord_for_skill);
+
         auto factory = manager.GetFront();
         
-        auto skill = factory->create(Coord(3, 4));
+        auto skill = factory->create();
 
         std::cout << factory->GetName() << "\n";
 

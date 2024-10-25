@@ -6,7 +6,7 @@
 #include "AttackFactory.h"
 #include "ScannerFactory.h"
 #include "skill_name.h"
-
+#include "Command.h"
 
 
 class SkillFactory
@@ -23,6 +23,8 @@ public:
     SkillFactory& operator=(SkillFactory &&other);
 
     std::shared_ptr<ISkillFactory> get_factory(SkillName _sn) const;
+    
+    void SetCommand(std::shared_ptr<Command> command);
 
 private:
     std::shared_ptr<DoubleAttackFactory> _double_hit_factory;
@@ -30,6 +32,8 @@ private:
     std::shared_ptr<ScannerFactory> _scanner_factory;
 
     SkillResult& results;
+
+    std::shared_ptr<Command> command;
 };
 
 

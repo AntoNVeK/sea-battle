@@ -10,7 +10,7 @@ class ISkillFactory
 
 public:
 
-    virtual std::shared_ptr<ISkill> create(Coord coord) = 0;
+    virtual std::shared_ptr<ISkill> create() = 0;
 
     virtual SkillName GetName() const = 0;
 
