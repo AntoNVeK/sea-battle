@@ -1,4 +1,3 @@
-
 #ifndef SKILLFACTORY_H
 #define SKILLFACTORY_H
 
