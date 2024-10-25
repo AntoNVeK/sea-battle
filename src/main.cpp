@@ -7,7 +7,8 @@
 #include "./headers/ManagerSkills.h"
 #include "./headers/ManagerShips.h"
 #include "./headers/Ship.h"
-
+#include "./headers/SkillResult.h"
+#include "headers/skill_name.h"
 
 
 void print(Table& table)
@@ -41,10 +42,15 @@ void print(Table& table)
     }
 }
 
+/*
+¬ классе игры выбор что делать через соста€ни€
+
+*/
 
 
 int main()
 {    
+
     ManagerSkills manager;
 
     Table table(&manager);
@@ -54,30 +60,32 @@ int main()
     managerships[0].SetOrientation(VERTICAL);
 
     table.add_ship(managerships[0], 3, 4);
-    table.add_ship(managerships[1], 8, 1);
-    table.add_ship(managerships[2], 1, 10);
 
-    auto factory = manager.GetFront();
+    table.shoot(3, 4);
 
-    auto skill = factory->create(3, 4);
+    {
+        auto factory = manager.GetFront();
+        
+        auto skill = factory->create(Coord(3, 4));
 
-    std::cout << factory->GetName() << "\n";
+        std::cout << factory->GetName() << "\n";
 
-    ScannerResult flag = ScannerResult::null;
+        skill->use(table);
 
-    skill->install_reaction([&flag](ScannerResult state){
-        if (state == ScannerResult::ISSHIP)
-            flag = ScannerResult::ISSHIP;
-        else if (state == ScannerResult::NOSHIP)
-            flag = ScannerResult::NOSHIP;    
-    });
-    skill->use(table);
+        auto result = manager.GetResults();
+        if (!result.empty())
+            std::cout << result.GetLast() << "\n";
 
-    if (flag == ScannerResult::ISSHIP)
-        std::cout << "scanner found ship" << "\n";
-    else if (flag == ScannerResult::NOSHIP)
-        std::cout << "scanner not found ship" << "\n";
+    
+    }
+
+    for (int i = 0; i < managerships[0].GetLen(); i++)
+    {
+        std::cout << static_cast<char>(managerships[0].GetSegments()[i]) << "\n";
+    }
+
     print(table);
 
     return 0;
+
 }

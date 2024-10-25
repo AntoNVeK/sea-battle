@@ -3,15 +3,16 @@
 #include "ISkill.h"
 #include <string>
 #include <memory>
+#include "skill_name.h"
 
 class ISkillFactory
 {
 
 public:
 
-    virtual std::shared_ptr<ISkill> create(int x = 0, int y = 0) = 0;
+    virtual std::shared_ptr<ISkill> create(Coord coord) = 0;
 
-    virtual std::string GetName() const = 0;
+    virtual SkillName GetName() const = 0;
 
     virtual ~ISkillFactory() = 0;
 

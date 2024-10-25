@@ -1,14 +1,16 @@
 #include "../headers/ScannerFactory.h"
 
+ScannerFactory::ScannerFactory(SkillResult& results) : results(results)
+{}
 
-
-std::shared_ptr<ISkill> ScannerFactory::create(int x, int y)
+std::shared_ptr<ISkill> ScannerFactory::create(Coord coord)
 {
-    return std::make_shared<Scanner>(x, y);
+    
+    return std::make_shared<Scanner>(coord, results);
 }
 
 
-std::string ScannerFactory::GetName() const
+SkillName ScannerFactory::GetName() const
 {
-    return "Scanner";
+    return SkillName::Scanner;
 }

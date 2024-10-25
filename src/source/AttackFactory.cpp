@@ -1,14 +1,16 @@
 #include "../headers/AttackFactory.h"
 
+AttackFactory::AttackFactory(SkillResult& results) : results(results)
+{}
 
-std::shared_ptr<ISkill> AttackFactory::create(int x, int y)
+std::shared_ptr<ISkill> AttackFactory::create(Coord coord)
 {
-    return std::make_shared<Attack>();
+    return std::make_shared<Attack>(results);
 }
 
 
 
-std::string AttackFactory::GetName() const
+SkillName AttackFactory::GetName() const
 {
-    return "Attack";
+    return SkillName::Attack;
 }

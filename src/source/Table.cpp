@@ -117,6 +117,7 @@ void Table::add_ship(Ship& ship, const Coord& coord)
 {
     std::vector<Coord> coords;
 
+    
 
     if (ship.GetOrientation() == HORIZONTAL)
     {

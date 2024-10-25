@@ -1,13 +1,15 @@
 #include "../headers/DoubleAttackFactory.h"
 
+DoubleAttackFactory::DoubleAttackFactory(SkillResult& results) : results(results)
+{}
 
-std::shared_ptr<ISkill> DoubleAttackFactory::create(int x, int y)
+std::shared_ptr<ISkill> DoubleAttackFactory::create(Coord coord)
 {
-    return std::make_shared<DoubleAttack>(x, y);
+    return std::make_shared<DoubleAttack>(coord, results);
 }
 
 
-std::string DoubleAttackFactory::GetName() const
+SkillName DoubleAttackFactory::GetName() const
 {
-    return "DoubleAttack";
+    return SkillName::DoubleAttack;
 }

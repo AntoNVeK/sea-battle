@@ -3,22 +3,23 @@
 #include "Table.h"
 #include "Coord.h"
 #include "ISkill.h"
+#include "skill_name.h"
+
 
 class DoubleAttack : public ISkill
 {
 public:
-    DoubleAttack(int x, int y);
+    DoubleAttack(Coord coord, SkillResult& results);
 
     void use(Table& table) override;
-
-    void install_reaction(std::function<void(ScannerResult state)> func) override;
 
     ~DoubleAttack() override = default;
 
 private:
 
-    int _x;
-    int _y;
+    Coord coord;
+
+    SkillResult& results;
 };
 
 

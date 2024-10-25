@@ -3,21 +3,22 @@
 #include "ISkill.h"
 #include "Table.h"
 #include <ctime>
+
+
 class Attack : public ISkill
 {
 public:
-    Attack();
+    Attack(SkillResult& results);
 
-    void use(Table& table) override;
-
-    void install_reaction(std::function<void(ScannerResult state)> func) override;
-    
+    void use(Table& table) override;   
     
     ~Attack() override = default;
 private:
     Ship& get_random_ship_for_attack(const Table& table);
 
     int get_random_index_segment_ship(const Ship& ship);
+
+    SkillResult& results;
 };
 
 

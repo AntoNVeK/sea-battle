@@ -1,27 +1,24 @@
 #include "../headers/DoubleAttack.h"
 
-DoubleAttack::DoubleAttack(int x, int y) : _x(x), _y(y) {}
+DoubleAttack::DoubleAttack(Coord coord, SkillResult& results) : coord(coord), results(results)
+{
+    if (coord.GetX() < 1 || coord.GetY() < 1)
+    {
+        throw std::invalid_argument("invalid arguments");
+    }
+}
 
 void DoubleAttack::use(Table& table)
 {
-    table.shoot(_x, _y);
-
     try
     {
-        table.shoot(_x, _y);
+        table.shoot(coord);
+        table.shoot(coord);
+        results.add_result(200, "DoubleAttack success use on Coord " + std::to_string(coord.GetX()) + " " + std::to_string(coord.GetY()));
     }
-    catch(...)
+    catch(const std::runtime_error &err)
     {
-        std::cout << "Ship already destroyed" << "\n";
+        results.add_result(500, "DoubleAttack uncorrect use on Coord " + std::to_string(coord.GetX()) + " " + std::to_string(coord.GetY()) + " Ship already destroyed");
     }
-}
-
-
-void DoubleAttack::install_reaction(std::function<void(ScannerResult state)> func)
-{
 
 }
-
-
-
-

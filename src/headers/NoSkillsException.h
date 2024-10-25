@@ -1,5 +1,5 @@
-#ifndef NO_SKILLS_EXCEPTION
-#define NO_SKILLS_EXCEPTION
+#ifndef NO_SKILLS_EXCEPTION_H
+#define NO_SKILLS_EXCEPTION_H
 #include "GameException.h"
 
 

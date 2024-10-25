@@ -1,5 +1,5 @@
-#ifndef OUT_OF_BOUNDS_EXCEPTION
-#define OUT_OF_BOUNDS_EXCEPTION
+#ifndef OUT_OF_BOUNDS_EXCEPTION_H
+#define OUT_OF_BOUNDS_EXCEPTION_H
 #include "GameException.h"
 
 

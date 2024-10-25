@@ -10,19 +10,17 @@ class Scanner : public ISkill
 {
 public:
 
-    Scanner(int x, int y);
+    Scanner(Coord coord, SkillResult& results);
 
     void use(Table& table) override;
-
-    void install_reaction(std::function<void(ScannerResult state)> func) override;
 
     ~Scanner() override = default;
 private:
 
-    int _x;
-    int _y;
+    Coord coord;
 
-    std::function<void(ScannerResult state)> _reaction;
+
+    SkillResult& results;
 
 
 };

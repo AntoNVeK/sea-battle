@@ -1,5 +1,5 @@
-#ifndef SHIP_PLACE_EXCEPTION
-#define SHIP_PLACE_EXCEPTION
+#ifndef SHIP_PLACE_EXCEPTION_H
+#define SHIP_PLACE_EXCEPTION_H
 #include "GameException.h"
 
 

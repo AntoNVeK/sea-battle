@@ -1,31 +1,30 @@
 #include "../headers/Scanner.h"
 
 
-Scanner::Scanner(int x, int y) : _x(x), _y(y) {}
+Scanner::Scanner(Coord coord, SkillResult& results) : coord(coord), results(results)
+{
+    if (coord.GetX() < 1 || coord.GetY() < 1)
+    {
+        throw std::invalid_argument("invalid arguments");
+    }
+}
 
 void Scanner::use(Table& table)
 {
-    for(int j = _y - 1; j < _y + 1; j++)
+    for(int j = coord.GetY() - 1; j < coord.GetY() + 1; j++)
     {
-        for(int i = _x - 1; i < _x + 1; i++){
+        for(int i = coord.GetX() - 1; i < coord.GetX() + 1; i++){
                    
             if (table._cells[j][i] == SHIP)
             {
-                _reaction(ScannerResult::ISSHIP);
+                results.add_result(200, "Ship found");
                 return;
             }
             
         }
 
     }
-    _reaction(ScannerResult::NOSHIP);
+    results.add_result(404, "Ship not found");
 }
-
-
-void Scanner::install_reaction(std::function<void(ScannerResult state)> func)
-{
-    this->_reaction = func;
-}
-
 
 

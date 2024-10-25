@@ -3,28 +3,29 @@
 
 ManagerSkills::ManagerSkills()
 {
-    std::vector<std::shared_ptr<ISkillFactory>> vector_skills;
-    vector_skills.push_back(std::make_shared<AttackFactory>());
-    vector_skills.push_back(std::make_shared<ScannerFactory>());
-    vector_skills.push_back(std::make_shared<DoubleAttackFactory>());
-
+    this->skillfactory = SkillFactory(results);
+    std::vector<SkillName> _set_skills = {
+        SkillName::DoubleAttack,
+        SkillName::Attack,
+        SkillName::Scanner
+    };
     srand(time(NULL));
-    std::random_shuffle(vector_skills.begin(), vector_skills.end());
+    std::random_shuffle(_set_skills.begin(), _set_skills.end());
 
-    for (const auto& skill : vector_skills) {
-        skills.push(skill);
+    for (const auto& skillname : _set_skills) {
+        skills.push(skillfactory.get_factory(skillname));
     }
 }
 
 
-ManagerSkills::ManagerSkills(const ManagerSkills &other)
+ManagerSkills::ManagerSkills(const ManagerSkills &other) : results(results)
 {
     this->skills = other.skills;
 }
 
 
 
-ManagerSkills::ManagerSkills(ManagerSkills &&other)
+ManagerSkills::ManagerSkills(ManagerSkills &&other) : results(results)
 {
     this->skills = std::move(other.skills);
 }
@@ -35,6 +36,7 @@ ManagerSkills& ManagerSkills::operator=(const ManagerSkills &other)
 {
     if (this != &other)
     {
+        this->results = other.results;
         this->skills = other.skills;
     }
     return *this;
@@ -43,6 +45,7 @@ ManagerSkills& ManagerSkills::operator=(ManagerSkills &&other)
 {
     if (this != &other)
     {
+        this->results = other.results;
         this->skills = std::move(other.skills);
     }
     return *this;
@@ -53,16 +56,15 @@ ManagerSkills& ManagerSkills::operator=(ManagerSkills &&other)
 
 void ManagerSkills::add_skill()
 {
-    std::vector<std::shared_ptr<ISkillFactory>> vector_skills;
-    vector_skills.push_back(std::make_shared<ScannerFactory>());
-
-    vector_skills.push_back(std::make_shared<AttackFactory>());
-
-    vector_skills.push_back(std::make_shared<DoubleAttackFactory>());
+    std::vector<SkillName> _set_skills = {
+        SkillName::DoubleAttack,
+        SkillName::Attack,
+        SkillName::Scanner
+    };
 
     srand(time(NULL));
 
-    skills.push(vector_skills[rand() % 3]);
+    skills.push(skillfactory.get_factory(_set_skills[rand() % 3]));
 
 }
 
@@ -78,7 +80,24 @@ void ManagerSkills::accept()
 
 std::shared_ptr<ISkillFactory> ManagerSkills::GetFront()
 {
+    if (skills.empty())
+    {
+        throw NoSkillsException("skill hasn't");
+    }
     std::shared_ptr<ISkillFactory> skill = skills.front();
     skills.pop();
     return skill;
+}
+
+
+
+SkillName ManagerSkills::GetNameFrontSkill() const
+{
+    return skills.front()->GetName();
+}
+
+
+SkillResult& ManagerSkills::GetResults()
+{
+    return results;
 }

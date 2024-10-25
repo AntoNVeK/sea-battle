@@ -1,7 +1,8 @@
 #include "../headers/Attack.h"
 
 
-Attack::Attack() {}
+Attack::Attack(SkillResult& results) : results(results)
+{}
 
 
 void Attack::use(Table& table)
@@ -9,6 +10,13 @@ void Attack::use(Table& table)
     Ship& ship = get_random_ship_for_attack(table);
 
     ship.shoot(get_random_index_segment_ship(ship));
+
+    if (ship.is_destroyed())
+    {
+        table.circle_ship(table.coords_ships[ship]);
+        table.observer->accept();
+    }
+    results.add_result(200, "random attack success use");
 }
 
 
@@ -45,12 +53,4 @@ int Attack::get_random_index_segment_ship(const Ship& ship)
     srand(time(NULL));
 
     return alive_segments[rand() % alive_segments.size()];
-}
-
-
-
-
-void Attack::install_reaction(std::function<void(ScannerResult state)> func)
-{
-    
 }

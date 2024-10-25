@@ -8,16 +8,20 @@
 #include "Observer.h"
 #include "NoSkillsException.h"
 #include "ISkillFactory.h"
-
 #include "AttackFactory.h"
 #include "DoubleAttackFactory.h"
 #include "ScannerFactory.h"
-
+#include "skill_name.h"
+#include "SkillFactory.h"
 
 class ManagerSkills : public Observer
 {
 private:
     std::queue<std::shared_ptr<ISkillFactory>> skills;
+
+    SkillFactory skillfactory;
+
+    SkillResult results;
 public:
 
     ManagerSkills();
@@ -33,7 +37,9 @@ public:
     ManagerSkills& operator=(const ManagerSkills &other);
     ManagerSkills& operator=(ManagerSkills &&other);
 
+    SkillName GetNameFrontSkill() const;
     
+    SkillResult& GetResults();
 
     void add_skill();
 };

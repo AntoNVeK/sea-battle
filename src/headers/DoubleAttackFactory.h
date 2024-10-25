@@ -6,13 +6,15 @@
 class DoubleAttackFactory : public ISkillFactory
 {
 public:
+    DoubleAttackFactory(SkillResult& results);
 
-    std::shared_ptr<ISkill> create(int x = 0, int y = 0) override;
+    std::shared_ptr<ISkill> create(Coord coord) override;
 
-    std::string GetName() const override;
+    SkillName GetName() const override;
 
     ~DoubleAttackFactory() override = default;
-
+private:
+    SkillResult& results;
 };
 
 
