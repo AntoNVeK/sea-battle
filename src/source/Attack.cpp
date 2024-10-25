@@ -1,7 +1,7 @@
 #include "../headers/Attack.h"
 
 
-Attack::Attack(SkillResult& results) : results(results)
+Attack::Attack()
 {}
 
 
@@ -16,7 +16,7 @@ void Attack::use(Table& table)
         table.circle_ship(table.coords_ships[ship]);
         table.observer->accept();
     }
-    results.add_result(200, "random attack success use");
+
 }
 
 

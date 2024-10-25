@@ -8,7 +8,7 @@
 class Attack : public ISkill
 {
 public:
-    Attack(SkillResult& results);
+    Attack();
 
     void use(Table& table) override;   
     
@@ -18,7 +18,6 @@ private:
 
     int get_random_index_segment_ship(const Ship& ship);
 
-    SkillResult& results;
 };
 
 

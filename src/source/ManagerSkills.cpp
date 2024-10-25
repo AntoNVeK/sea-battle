@@ -1,9 +1,8 @@
 #include "../headers/ManagerSkills.h"
 
 
-ManagerSkills::ManagerSkills()
+ManagerSkills::ManagerSkills() : skillfactory(results)
 {
-    this->skillfactory = SkillFactory(results);
     std::vector<SkillName> _set_skills = {
         SkillName::DoubleAttack,
         SkillName::Attack,
@@ -18,14 +17,14 @@ ManagerSkills::ManagerSkills()
 }
 
 
-ManagerSkills::ManagerSkills(const ManagerSkills &other) : results(results)
+ManagerSkills::ManagerSkills(const ManagerSkills &other) : results(other.results), skillfactory(other.skillfactory)
 {
     this->skills = other.skills;
 }
 
 
 
-ManagerSkills::ManagerSkills(ManagerSkills &&other) : results(results)
+ManagerSkills::ManagerSkills(ManagerSkills &&other) : results(other.results), skillfactory(other.skillfactory)
 {
     this->skills = std::move(other.skills);
 }
@@ -36,6 +35,7 @@ ManagerSkills& ManagerSkills::operator=(const ManagerSkills &other)
 {
     if (this != &other)
     {
+        this->skillfactory = other.skillfactory;
         this->results = other.results;
         this->skills = other.skills;
     }
@@ -45,6 +45,7 @@ ManagerSkills& ManagerSkills::operator=(ManagerSkills &&other)
 {
     if (this != &other)
     {
+        this->skillfactory = other.skillfactory;
         this->results = other.results;
         this->skills = std::move(other.skills);
     }

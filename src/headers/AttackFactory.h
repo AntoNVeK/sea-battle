@@ -9,15 +9,14 @@
 class AttackFactory : public ISkillFactory
 {
 public:
-    AttackFactory(SkillResult& results);
+    AttackFactory();
     
     std::shared_ptr<ISkill> create(Coord coord) override;
 
     SkillName GetName() const override;
 
     ~AttackFactory() override = default;
-private:
-    SkillResult& results;
+
 };
 
 

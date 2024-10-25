@@ -1,11 +1,11 @@
 #include "../headers/AttackFactory.h"
 
-AttackFactory::AttackFactory(SkillResult& results) : results(results)
+AttackFactory::AttackFactory()
 {}
 
 std::shared_ptr<ISkill> AttackFactory::create(Coord coord)
 {
-    return std::make_shared<Attack>(results);
+    return std::make_shared<Attack>();
 }
 
 
