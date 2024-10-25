@@ -51,11 +51,13 @@ void print(Table& table)
 
 int main()
 {    
-    CoordSkillUse skillcoord;
+    Coord skillcoord;
 
     std::shared_ptr<Command> command = std::make_shared<GetCoord>(skillcoord);
+    
+    ManagerSkills manager(command);
 
-    ManagerSkills manager;
+    //manager.init_command(command);
 
     Table table(&manager);
 
@@ -68,9 +70,9 @@ int main()
     table.shoot(3, 4);
 
     {
-        Coord coord_for_skill = Coord(3, 4);
+        skillcoord = Coord(3, 4);
 
-        skillcoord.SetCoord(coord_for_skill);
+        std::cout << skillcoord.GetX() << " " << skillcoord.GetY() << "\n";
 
         auto factory = manager.GetFront();
         

@@ -3,7 +3,7 @@
 AttackFactory::AttackFactory()
 {}
 
-std::shared_ptr<ISkill> AttackFactory::create(Coord coord)
+std::shared_ptr<ISkill> AttackFactory::create()
 {
     return std::make_shared<Attack>();
 }

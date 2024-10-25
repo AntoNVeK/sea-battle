@@ -1,6 +1,6 @@
 #include "../headers/GetCoord.h"
 
-GetCoord::GetCoord(CoordSkillUse coord) : coord(&coord)
+GetCoord::GetCoord(Coord& coord) : coord(coord)
 {
 
 }
@@ -8,5 +8,5 @@ GetCoord::GetCoord(CoordSkillUse coord) : coord(&coord)
 
 Coord GetCoord::get_coord()
 {
-    return coord->get_coord();
+    return coord;
 }

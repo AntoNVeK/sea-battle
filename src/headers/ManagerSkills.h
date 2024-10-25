@@ -24,7 +24,7 @@ private:
     SkillResult results;
 public:
 
-    ManagerSkills();
+    ManagerSkills(std::shared_ptr<Command> command);
 
     std::shared_ptr<ISkillFactory> GetFront();
     
@@ -42,6 +42,8 @@ public:
     SkillResult& GetResults();
 
     void add_skill();
+
+    void init_command(std::shared_ptr<Command> command);
 };
 
 

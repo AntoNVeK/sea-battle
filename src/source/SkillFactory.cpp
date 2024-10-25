@@ -3,9 +3,9 @@
 
 SkillFactory::SkillFactory(SkillResult& results) : results(results)
 {
-    this->_double_hit_factory = std::make_shared<DoubleAttackFactory>(results);
+    this->_double_hit_factory = std::make_shared<DoubleAttackFactory>(results, command);
     this->_rocket_attack_factory = std::make_shared<AttackFactory>();
-    this->_scanner_factory = std::make_shared<ScannerFactory>(results);
+    this->_scanner_factory = std::make_shared<ScannerFactory>(results, command);
     
 }
 
@@ -68,4 +68,11 @@ std::shared_ptr<ISkillFactory> SkillFactory::get_factory(SkillName _sn) const
 
     }
 
+}
+
+
+
+void SkillFactory::SetCommand(std::shared_ptr<Command> command)
+{
+    this->command = command;
 }

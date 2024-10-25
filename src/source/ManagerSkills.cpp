@@ -1,8 +1,9 @@
 #include "../headers/ManagerSkills.h"
 
 
-ManagerSkills::ManagerSkills() : skillfactory(results)
+ManagerSkills::ManagerSkills(std::shared_ptr<Command> command) : skillfactory(results)
 {
+    skillfactory.SetCommand(command);
     std::vector<SkillName> _set_skills = {
         SkillName::DoubleAttack,
         SkillName::Attack,
@@ -101,4 +102,10 @@ SkillName ManagerSkills::GetNameFrontSkill() const
 SkillResult& ManagerSkills::GetResults()
 {
     return results;
+}
+
+
+void ManagerSkills::init_command(std::shared_ptr<Command> command)
+{
+    skillfactory.SetCommand(command);
 }

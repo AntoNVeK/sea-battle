@@ -2,11 +2,12 @@
 #define DOUBLEATTACKFACTORY_H
 #include "ISkillFactory.h"
 #include "DoubleAttack.h"
+#include "Command.h"
 
 class DoubleAttackFactory : public ISkillFactory
 {
 public:
-    DoubleAttackFactory(SkillResult& results);
+    DoubleAttackFactory(SkillResult& results, std::shared_ptr<Command> command);
 
     std::shared_ptr<ISkill> create() override;
 
@@ -15,6 +16,7 @@ public:
     ~DoubleAttackFactory() override = default;
 private:
     SkillResult& results;
+    std::shared_ptr<Command> command;
 };
 
 
