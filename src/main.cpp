@@ -57,8 +57,6 @@ int main()
     
     ManagerSkills manager(command);
 
-    //manager.init_command(command);
-
     Table table(&manager);
 
     ManagerShips managerships({TWO, THREE, FOUR});
@@ -71,8 +69,6 @@ int main()
 
     {
         skillcoord = Coord(3, 4);
-
-        std::cout << skillcoord.GetX() << " " << skillcoord.GetY() << "\n";
 
         auto factory = manager.GetFront();
         

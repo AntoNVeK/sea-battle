@@ -1,7 +1,7 @@
 #include "../headers/SkillFactory.h"
 
 
-SkillFactory::SkillFactory(SkillResult& results) : results(results)
+SkillFactory::SkillFactory(SkillResult& results, std::shared_ptr<Command> command) : results(results), command(command)
 {
     this->_double_hit_factory = std::make_shared<DoubleAttackFactory>(results, command);
     this->_rocket_attack_factory = std::make_shared<AttackFactory>();

@@ -42,8 +42,6 @@ public:
     SkillResult& GetResults();
 
     void add_skill();
-
-    void init_command(std::shared_ptr<Command> command);
 };
 
 
