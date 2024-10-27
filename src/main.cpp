@@ -50,22 +50,26 @@ void print(Table& table)
 
 
 int main()
-{    
+{
+    Table table;
+
+    ManagerShips managerships({TWO, THREE, FOUR});
+
     Coord skillcoord;
+
+    SkillResult results;
 
     std::shared_ptr<Command> command = std::make_shared<GetCoord>(skillcoord);
     
-    ManagerSkills manager(command);
+    SkillFactory skillfactory(results, command, table, managerships);
 
-    Table table(&manager);
+    ManagerSkills manager(skillfactory);
 
-    ManagerShips managerships({TWO, THREE, FOUR});
+    table.SetObserver(&manager);
 
     managerships[0].SetOrientation(VERTICAL);
 
     table.add_ship(managerships[0], 3, 4);
-
-    table.shoot(3, 4);
 
     {
         skillcoord = Coord(3, 4);
@@ -76,14 +80,15 @@ int main()
 
         std::cout << factory->GetName() << "\n";
 
-        skill->use(table);
+        skill->use();
 
-        auto result = manager.GetResults();
-        if (!result.empty())
-            std::cout << result.GetLast() << "\n";
+        if (!results.empty())
+            std::cout << results.GetLast() << "\n";
 
     
     }
+    table.shoot(3, 5);
+    table.shoot(3, 5);
 
     for (int i = 0; i < managerships[0].GetLen(); i++)
     {

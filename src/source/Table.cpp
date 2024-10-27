@@ -286,3 +286,7 @@ void Table::SetObserver(Observer* observer)
     this->observer = observer;
 }
 
+std::map<std::reference_wrapper<Ship>, std::vector<Coord>>& Table::get_ship_coords()
+{
+    return coords_ships;
+}

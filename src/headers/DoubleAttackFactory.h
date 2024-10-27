@@ -7,7 +7,7 @@
 class DoubleAttackFactory : public ISkillFactory
 {
 public:
-    DoubleAttackFactory(SkillResult& results, std::shared_ptr<Command> command);
+    DoubleAttackFactory(SkillResult& results, std::shared_ptr<Command> command, Table& table);
 
     std::shared_ptr<ISkill> create() override;
 
@@ -17,6 +17,7 @@ public:
 private:
     SkillResult& results;
     std::shared_ptr<Command> command;
+    Table& table;
 };
 
 

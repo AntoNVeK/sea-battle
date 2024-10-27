@@ -1,7 +1,7 @@
 #include "../headers/ManagerSkills.h"
 
 
-ManagerSkills::ManagerSkills(std::shared_ptr<Command> command) : skillfactory(results, command)
+ManagerSkills::ManagerSkills(SkillFactory& skillfactory) : skillfactory(skillfactory)
 {
     std::vector<SkillName> _set_skills = {
         SkillName::DoubleAttack,
@@ -17,14 +17,14 @@ ManagerSkills::ManagerSkills(std::shared_ptr<Command> command) : skillfactory(re
 }
 
 
-ManagerSkills::ManagerSkills(const ManagerSkills &other) : results(other.results), skillfactory(other.skillfactory)
+ManagerSkills::ManagerSkills(const ManagerSkills &other) : skillfactory(other.skillfactory)
 {
     this->skills = other.skills;
 }
 
 
 
-ManagerSkills::ManagerSkills(ManagerSkills &&other) : results(other.results), skillfactory(other.skillfactory)
+ManagerSkills::ManagerSkills(ManagerSkills &&other) : skillfactory(other.skillfactory)
 {
     this->skills = std::move(other.skills);
 }
@@ -36,7 +36,6 @@ ManagerSkills& ManagerSkills::operator=(const ManagerSkills &other)
     if (this != &other)
     {
         this->skillfactory = other.skillfactory;
-        this->results = other.results;
         this->skills = other.skills;
     }
     return *this;
@@ -46,7 +45,6 @@ ManagerSkills& ManagerSkills::operator=(ManagerSkills &&other)
     if (this != &other)
     {
         this->skillfactory = other.skillfactory;
-        this->results = other.results;
         this->skills = std::move(other.skills);
     }
     return *this;
@@ -98,8 +96,4 @@ SkillName ManagerSkills::GetNameFrontSkill() const
 }
 
 
-SkillResult& ManagerSkills::GetResults()
-{
-    return results;
-}
 

@@ -24,8 +24,8 @@ class Attack;
 class Table
 {
 
-    friend Scanner;
-    friend Attack;
+
+
 
 
 private:
@@ -72,10 +72,14 @@ public:
 
     void SetObserver(Observer* observer);
 
+    void circle_ship(std::vector<Coord> coords);
+
+    std::map<std::reference_wrapper<Ship>, std::vector<Coord>>& get_ship_coords();
+
 
 private:
     void add_ship_table(Ship& ship);
-    void circle_ship(std::vector<Coord> coords);
+
 
 };
 

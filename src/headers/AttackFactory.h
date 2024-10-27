@@ -9,13 +9,16 @@
 class AttackFactory : public ISkillFactory
 {
 public:
-    AttackFactory();
+    AttackFactory(ManagerShips& manager);
     
     std::shared_ptr<ISkill> create() override;
 
     SkillName GetName() const override;
 
     ~AttackFactory() override = default;
+
+private:
+    ManagerShips& manager;
 
 };
 

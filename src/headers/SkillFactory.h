@@ -12,7 +12,7 @@
 class SkillFactory
 {
 public:
-    SkillFactory(SkillResult& results, std::shared_ptr<Command> command);
+    SkillFactory(SkillResult& results, std::shared_ptr<Command> command, Table& table, ManagerShips& manager);
 
     SkillFactory(const SkillFactory &other);
     SkillFactory(SkillFactory &&other);
@@ -34,6 +34,10 @@ private:
     SkillResult& results;
 
     std::shared_ptr<Command> command;
+
+    Table& table;
+
+    ManagerShips& manager;
 };
 
 

@@ -8,7 +8,7 @@
 class ScannerFactory : public ISkillFactory
 {
 public:
-    ScannerFactory(SkillResult& results, std::shared_ptr<Command> command);
+    ScannerFactory(SkillResult& results, std::shared_ptr<Command> command, Table& table);
 
     std::shared_ptr<ISkill> create() override;
 
@@ -18,6 +18,7 @@ public:
 private:
     SkillResult& results;
     std::shared_ptr<Command> command;
+    Table& table;
 };
 
 

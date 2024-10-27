@@ -20,11 +20,9 @@ private:
     std::queue<std::shared_ptr<ISkillFactory>> skills;
 
     SkillFactory skillfactory;
-
-    SkillResult results;
 public:
 
-    ManagerSkills(std::shared_ptr<Command> command);
+    ManagerSkills(SkillFactory& skillfactory);
 
     std::shared_ptr<ISkillFactory> GetFront();
     
@@ -38,8 +36,6 @@ public:
     ManagerSkills& operator=(ManagerSkills &&other);
 
     SkillName GetNameFrontSkill() const;
-    
-    SkillResult& GetResults();
 
     void add_skill();
 };

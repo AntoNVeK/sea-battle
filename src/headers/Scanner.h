@@ -10,12 +10,13 @@ class Scanner : public ISkill
 {
 public:
 
-    Scanner(Coord coord, SkillResult& results);
+    Scanner(Coord coord, SkillResult& results, Table& table);
 
-    void use(Table& table) override;
+    void use() override;
 
     ~Scanner() override = default;
 private:
+    Table& table;
 
     Coord coord;
 

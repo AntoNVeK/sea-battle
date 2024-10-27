@@ -1,7 +1,7 @@
 #include "../headers/Scanner.h"
 
 
-Scanner::Scanner(Coord coord, SkillResult& results) : coord(coord), results(results)
+Scanner::Scanner(Coord coord, SkillResult& results, Table& table) : coord(coord), results(results), table(table)
 {
     if (coord.GetX() < 1 || coord.GetY() < 1)
     {
@@ -9,13 +9,13 @@ Scanner::Scanner(Coord coord, SkillResult& results) : coord(coord), results(resu
     }
 }
 
-void Scanner::use(Table& table)
+void Scanner::use()
 {
     for(int j = coord.GetY() - 1; j < coord.GetY() + 1; j++)
     {
         for(int i = coord.GetX() - 1; i < coord.GetX() + 1; i++){
                    
-            if (table._cells[j][i] == SHIP)
+            if (table.GetCoords()[j][i] == SHIP)
             {
                 results.add_result(200, "Ship found");
                 return;

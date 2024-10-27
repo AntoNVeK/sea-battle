@@ -9,13 +9,14 @@
 class DoubleAttack : public ISkill
 {
 public:
-    DoubleAttack(Coord coord, SkillResult& results);
+    DoubleAttack(Coord coord, SkillResult& results, Table& table);
 
-    void use(Table& table) override;
+    void use() override;
 
     ~DoubleAttack() override = default;
 
 private:
+    Table& table;
 
     Coord coord;
 

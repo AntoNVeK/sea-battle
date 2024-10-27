@@ -1,6 +1,6 @@
 #include "../headers/DoubleAttack.h"
 
-DoubleAttack::DoubleAttack(Coord coord, SkillResult& results) : coord(coord), results(results)
+DoubleAttack::DoubleAttack(Coord coord, SkillResult& results, Table& table) : coord(coord), results(results), table(table)
 {
     if (coord.GetX() < 1 || coord.GetY() < 1)
     {
@@ -8,7 +8,7 @@ DoubleAttack::DoubleAttack(Coord coord, SkillResult& results) : coord(coord), re
     }
 }
 
-void DoubleAttack::use(Table& table)
+void DoubleAttack::use()
 {
     try
     {

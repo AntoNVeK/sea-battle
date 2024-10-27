@@ -1,20 +1,23 @@
 #ifndef ATTACK_H
 #define ATTACK_H
 #include "ISkill.h"
-#include "Table.h"
+#include "ManagerShips.h"
 #include <ctime>
 
 
 class Attack : public ISkill
 {
 public:
-    Attack();
+    ManagerShips& manager;
 
-    void use(Table& table) override;   
+public:
+    Attack(ManagerShips& manager);
+
+    void use() override;   
     
     ~Attack() override = default;
 private:
-    Ship& get_random_ship_for_attack(const Table& table);
+    int get_random_index_ship_for_attack(const ManagerShips& manager);
 
     int get_random_index_segment_ship(const Ship& ship);
 

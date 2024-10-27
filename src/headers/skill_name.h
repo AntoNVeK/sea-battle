@@ -1,6 +1,3 @@
-#pragma once
-
-
 #ifndef _SKILL_NAME_H
 #define _SKILL_NAME_H
 

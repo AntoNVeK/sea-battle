@@ -1,40 +1,36 @@
 #include "../headers/Attack.h"
 
 
-Attack::Attack()
+Attack::Attack(ManagerShips& manager) : manager(manager)
 {}
 
 
-void Attack::use(Table& table)
+void Attack::use()
 {
-    Ship& ship = get_random_ship_for_attack(table);
+    int index_ship = get_random_index_ship_for_attack(manager);
 
-    ship.shoot(get_random_index_segment_ship(ship));
-
-    if (ship.is_destroyed())
-    {
-        table.circle_ship(table.coords_ships[ship]);
-        table.observer->accept();
-    }
-
+    manager[index_ship].shoot(get_random_index_segment_ship(manager[index_ship]));
 }
 
 
 
-Ship& Attack::get_random_ship_for_attack(const Table& table)
+int Attack::get_random_index_ship_for_attack(const ManagerShips& manager)
 {
 
-    std::vector<std::reference_wrapper<Ship>> alive_ships;
+    std::vector<int> alive_ships;
 
+    int index = 0;
 
-    for (const auto &ship_coords : table.coords_ships)
+    for (const auto &ship : manager.GetShips())
     {
-        if (!ship_coords.first.get().is_destroyed())
-            alive_ships.push_back(ship_coords.first);
+        if (!ship.is_destroyed())
+            alive_ships.push_back(index);
+        
+        index++;
     }
     srand(time(NULL));
 
-    return alive_ships[rand() % alive_ships.size()].get();
+    return alive_ships[rand() % manager.GetCountShips()];
 
 }
 

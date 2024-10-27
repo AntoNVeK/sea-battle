@@ -1,11 +1,11 @@
 #include "../headers/AttackFactory.h"
 
-AttackFactory::AttackFactory()
+AttackFactory::AttackFactory(ManagerShips& manager) : manager(manager)
 {}
 
 std::shared_ptr<ISkill> AttackFactory::create()
 {
-    return std::make_shared<Attack>();
+    return std::make_shared<Attack>(manager);
 }
 
 
