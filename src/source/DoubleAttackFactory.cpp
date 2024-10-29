@@ -1,13 +1,11 @@
 #include "../headers/DoubleAttackFactory.h"
 
-DoubleAttackFactory::DoubleAttackFactory(SkillResult& results, std::shared_ptr<Command> command, Table& table) : results(results), command(command), table(table)
+DoubleAttackFactory::DoubleAttackFactory(SkillResult& results, Shooter& shooter) : results(results), shooter(shooter)
 {}
 
 std::shared_ptr<ISkill> DoubleAttackFactory::create()
 {
-    Coord coord = command->get_coord();
-
-    return std::make_shared<DoubleAttack>(coord, results, table);
+    return std::make_shared<DoubleAttack>(results, shooter);
 }
 
 

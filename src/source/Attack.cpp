@@ -8,8 +8,11 @@ Attack::Attack(ManagerShips& manager) : manager(manager)
 void Attack::use()
 {
     int index_ship = get_random_index_ship_for_attack(manager);
+    
+    int index_for_attack = get_random_index_segment_ship(manager[index_ship]);
 
-    manager[index_ship].shoot(get_random_index_segment_ship(manager[index_ship]));
+    manager[index_ship].shoot(index_for_attack);
+
 }
 
 

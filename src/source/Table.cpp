@@ -202,7 +202,7 @@ void Table::add_ship_table(Ship& ship)
 
 
 
-void Table::shoot(const Coord& coord)
+bool Table::shoot(const Coord& coord)
 {
     if (coord.GetX() < 1 || coord.GetY() < 1 || coord.GetX() > this->width || coord.GetY() > this->height)
     {
@@ -241,11 +241,12 @@ void Table::shoot(const Coord& coord)
     }
     attack_coords.insert(coord);
 
+    return flag;
 }
 
-void Table::shoot(int x, int y)
+bool Table::shoot(int x, int y)
 {
-    this->shoot(Coord(x, y));
+    return this->shoot(Coord(x, y));
 }
 
 

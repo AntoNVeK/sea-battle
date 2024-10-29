@@ -7,12 +7,12 @@
 #include "ScannerFactory.h"
 #include "skill_name.h"
 #include "Command.h"
-
+#include "Shooter.h"
 
 class SkillFactory
 {
 public:
-    SkillFactory(SkillResult& results, std::shared_ptr<Command> command, Table& table, ManagerShips& manager);
+    SkillFactory(SkillResult& results, std::shared_ptr<Command> command, Table& table, ManagerShips& manager, Shooter& shooter);
 
     SkillFactory(const SkillFactory &other);
     SkillFactory(SkillFactory &&other);
@@ -38,6 +38,8 @@ private:
     Table& table;
 
     ManagerShips& manager;
+
+    Shooter& shooter;
 };
 
 

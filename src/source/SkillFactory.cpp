@@ -1,9 +1,9 @@
 #include "../headers/SkillFactory.h"
 
 
-SkillFactory::SkillFactory(SkillResult& results, std::shared_ptr<Command> command, Table& table, ManagerShips& manager) : results(results), command(command), table(table), manager(manager)
+SkillFactory::SkillFactory(SkillResult& results, std::shared_ptr<Command> command, Table& table, ManagerShips& manager, Shooter& shooter) : results(results), command(command), table(table), manager(manager), shooter(shooter)
 {
-    this->_double_hit_factory = std::make_shared<DoubleAttackFactory>(results, command, table);
+    this->_double_hit_factory = std::make_shared<DoubleAttackFactory>(results, shooter);
     this->_rocket_attack_factory = std::make_shared<AttackFactory>(manager);
     this->_scanner_factory = std::make_shared<ScannerFactory>(results, command, table);
     
@@ -16,7 +16,8 @@ SkillFactory::SkillFactory(const SkillFactory &other)
       _scanner_factory(other._scanner_factory),
       results(other.results),
       table(other.table),
-      manager(other.manager)
+      manager(other.manager),
+      shooter(other.shooter)
 {    }
 
 SkillFactory::SkillFactory(SkillFactory &&other)
@@ -25,7 +26,8 @@ SkillFactory::SkillFactory(SkillFactory &&other)
       _scanner_factory(std::move(other._scanner_factory)),
       results(other.results),
       table(other.table),
-      manager(other.manager)
+      manager(other.manager),
+      shooter(other.shooter)
 {    }
 
 

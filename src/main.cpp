@@ -53,6 +53,8 @@ int main()
 {
     Table table;
 
+    Shooter shooter(table);
+    
     ManagerShips managerships({TWO, THREE, FOUR});
 
     Coord skillcoord;
@@ -61,7 +63,7 @@ int main()
 
     std::shared_ptr<Command> command = std::make_shared<GetCoord>(skillcoord);
     
-    SkillFactory skillfactory(results, command, table, managerships);
+    SkillFactory skillfactory(results, command, table, managerships, shooter);
 
     ManagerSkills manager(skillfactory);
 
@@ -87,9 +89,8 @@ int main()
 
     
     }
-    table.shoot(3, 5);
-    table.shoot(3, 5);
-
+    shooter(Coord(3, 5));
+    
     for (int i = 0; i < managerships[0].GetLen(); i++)
     {
         std::cout << static_cast<char>(managerships[0].GetSegments()[i]) << "\n";

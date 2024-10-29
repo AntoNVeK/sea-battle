@@ -3,11 +3,12 @@
 #include "ISkillFactory.h"
 #include "DoubleAttack.h"
 #include "Command.h"
+#include "Shooter.h"
 
 class DoubleAttackFactory : public ISkillFactory
 {
 public:
-    DoubleAttackFactory(SkillResult& results, std::shared_ptr<Command> command, Table& table);
+    DoubleAttackFactory(SkillResult& results, Shooter& shooter);
 
     std::shared_ptr<ISkill> create() override;
 
@@ -16,8 +17,8 @@ public:
     ~DoubleAttackFactory() override = default;
 private:
     SkillResult& results;
-    std::shared_ptr<Command> command;
-    Table& table;
+
+    Shooter& shooter;
 };
 
 

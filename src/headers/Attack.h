@@ -7,7 +7,7 @@
 
 class Attack : public ISkill
 {
-public:
+private:
     ManagerShips& manager;
 
 public:
