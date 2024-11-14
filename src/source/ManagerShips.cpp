@@ -53,13 +53,13 @@ ManagerShips& ManagerShips::operator=(ManagerShips &&other)
 
 void ManagerShips::create_ship(Length len, Orientation orientation)
 {
-    this->ships.push_back(Ship(len, orientation));
+    this->ships.push_back(Ship(len, orientation, ships.size()));
 }
 
 
 void ManagerShips::create_ship(Length len)
 {
-    this->ships.push_back(Ship(len, HORIZONTAL));
+    this->create_ship(len, HORIZONTAL);
 }
 
 

@@ -34,10 +34,11 @@ private:
     std::vector<States> _segments;
     Length _len;
     std::size_t count_destroyed;
+    int id;
 public:
-    Ship();
-    Ship(Length len, Orientation orientation);
-    Ship(Length len);
+    Ship(int id);
+    Ship(Length len, Orientation orientation, int id);
+    Ship(Length len, int id);
 
 
     Ship(const Ship &other);
@@ -60,6 +61,7 @@ public:
 
     bool is_destroyed() const;
 
+    const int GetId() const;
 };
 
 

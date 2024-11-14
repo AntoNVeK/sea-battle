@@ -2,17 +2,18 @@
 
 
 
-Ship::Ship() : Ship(Length::ONE)
+Ship::Ship(int id) : Ship(Length::ONE, id)
 {}
 
-Ship::Ship(Length len) : Ship(len, Orientation::HORIZONTAL)
+Ship::Ship(Length len, int id) : Ship(len, Orientation::HORIZONTAL, id)
 {}
 
-Ship::Ship(Length len, Orientation orientation)
+Ship::Ship(Length len, Orientation orientation, int id)
 {
     this->count_destroyed = 0;
     this->_len = len;
     this->_orientation = orientation;
+    this->id = id;
     for (std::uint8_t i = 0; i < this->_len; i++)
     {
         this->_segments.push_back(States::FULL);
@@ -26,6 +27,7 @@ Ship::Ship(const Ship &other)
     this->_len = other._len;
     this->_orientation = other._orientation;
     this->_segments = other._segments;
+    this->id = other.id;
 }
 
 Ship::Ship(Ship &&other)
@@ -33,6 +35,7 @@ Ship::Ship(Ship &&other)
     this->_len = other._len;
     this->_orientation = other._orientation;
     this->_segments = std::move(other._segments);
+    this->id = other.id;
 }
 
 
@@ -43,6 +46,7 @@ Ship& Ship::operator=(const Ship &other)
         this->_len = other._len;
         this->_orientation = other._orientation;
         this->_segments = other._segments;
+        this->id = other.id;
     }
     return *this;
 }
@@ -56,6 +60,7 @@ Ship& Ship::operator=(Ship &&other)
         this->_len = other._len;
         this->_orientation = other._orientation;
         this->_segments = std::move(other._segments);
+        this->id = other.id;
     }
     return *this;
 }
@@ -119,6 +124,11 @@ bool Ship::is_destroyed() const
         }
     }
     return true;
+}
+
+const int Ship::GetId() const
+{
+    return id;
 }
 
 namespace std

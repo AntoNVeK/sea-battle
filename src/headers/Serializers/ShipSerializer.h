@@ -1,16 +1,16 @@
 #ifndef SHIP_SERIALIZER_H
 #define SHIP_SERIALIZER_H
 #include "Serializer.h"
-#include "Table.h"
+#include "../Ship.h"
 
 class ShipSerializer : public Serializer
 {
 
 private:
-    Ship& ship;
+    const Ship& ship;
     
 public:
-    ShipSerializer(Ship& ship);
+    ShipSerializer(const Ship& ship);
 
     void load() override;
 

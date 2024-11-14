@@ -11,7 +11,7 @@
 #include "./headers/skill_name.h"
 #include "./headers/GetCoord.h"
 #include "nlohmann/json.hpp"
-
+#include "./headers/Serializers/ManagerShipsSerializer.h"
 using json = nlohmann::json;
 
 void print(Table& table)
@@ -107,8 +107,14 @@ int main()
 
     */
 
-    json j;
-    j["test"] = 123;
+    ManagerShips manager({TWO, THREE, FOUR});
+
+    ManagerShipsSerializer s(manager);
+
+    s.load();
+
+    json j = s.get();
+    
 
     std::cout << j << std::endl;
 

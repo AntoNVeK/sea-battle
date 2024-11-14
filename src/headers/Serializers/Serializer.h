@@ -1,14 +1,14 @@
 #ifndef SERIALIZER_H
 #define SERIALIZER_H
 
-#include "../nlohmann/json.hpp"
+#include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
 
 
 class Serializer
 {
-private:
+protected:
     json __json;
   
 public:
