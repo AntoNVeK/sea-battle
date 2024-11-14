@@ -9,9 +9,10 @@
 #include "./headers/Ship.h"
 #include "./headers/SkillResult.h"
 #include "./headers/skill_name.h"
-#include "./headers/Command.h"
 #include "./headers/GetCoord.h"
+#include "nlohmann/json.hpp"
 
+using json = nlohmann::json;
 
 void print(Table& table)
 {
@@ -51,17 +52,18 @@ void print(Table& table)
 
 int main()
 {
+    /*
     Table table;
 
     Shooter shooter(table);
     
-    ManagerShips managerships({TWO, THREE, FOUR});
+    ManagerShips managerships({TWO});
 
     Coord skillcoord;
 
     SkillResult results;
 
-    std::shared_ptr<Command> command = std::make_shared<GetCoord>(skillcoord);
+    GetCoord command(skillcoord);
     
     SkillFactory skillfactory(results, command, table, managerships, shooter);
 
@@ -87,9 +89,14 @@ int main()
         if (!results.empty())
             std::cout << results.GetLast() << "\n";
 
+        manager.delete_skill();
+
+        skillcoord = Coord();
     
     }
     shooter(Coord(3, 5));
+
+    shooter(Coord(3, 4));
     
     for (int i = 0; i < managerships[0].GetLen(); i++)
     {
@@ -97,6 +104,13 @@ int main()
     }
 
     print(table);
+
+    */
+
+    json j;
+    j["test"] = 123;
+
+    std::cout << j << std::endl;
 
     return 0;
 

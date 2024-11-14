@@ -38,6 +38,8 @@ public:
     SkillName GetNameFrontSkill() const;
 
     void add_skill();
+
+    void delete_skill();
 };
 
 

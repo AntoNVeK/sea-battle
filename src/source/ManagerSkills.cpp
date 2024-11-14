@@ -84,7 +84,6 @@ std::shared_ptr<ISkillFactory> ManagerSkills::GetFront()
         throw NoSkillsException("skill hasn't");
     }
     std::shared_ptr<ISkillFactory> skill = skills.front();
-    skills.pop();
     return skill;
 }
 
@@ -96,4 +95,7 @@ SkillName ManagerSkills::GetNameFrontSkill() const
 }
 
 
-
+void ManagerSkills::delete_skill()
+{
+    skills.pop();
+}

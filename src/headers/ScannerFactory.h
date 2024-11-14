@@ -3,12 +3,12 @@
 #include "ISkillFactory.h"
 #include "Scanner.h"
 #include "SkillResult.h"
-#include "Command.h"
+#include "GetCoord.h"
 
 class ScannerFactory : public ISkillFactory
 {
 public:
-    ScannerFactory(SkillResult& results, std::shared_ptr<Command> command, Table& table);
+    ScannerFactory(SkillResult& results, GetCoord& command, Table& table);
 
     std::shared_ptr<ISkill> create() override;
 
@@ -17,7 +17,7 @@ public:
     ~ScannerFactory() override = default;
 private:
     SkillResult& results;
-    std::shared_ptr<Command> command;
+    GetCoord& command;
     Table& table;
 };
 

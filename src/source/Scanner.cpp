@@ -17,14 +17,14 @@ void Scanner::use()
                    
             if (table.GetCoords()[j][i] == SHIP)
             {
-                results.add_result(200, "Ship found");
+                results.add_result("Ship found");
                 return;
             }
             
         }
 
     }
-    results.add_result(404, "Ship not found");
+    results.add_result("Ship not found");
 }
 
 

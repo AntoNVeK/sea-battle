@@ -5,6 +5,7 @@ set(CMAKE_CPP_STANDARD 17)
 project(seagame)
 
 include_directories("./src/headers")
+include_directories("./nlohmann-json/include")
 
 aux_source_directory("./src/source" SRC)
 

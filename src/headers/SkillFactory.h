@@ -6,13 +6,13 @@
 #include "AttackFactory.h"
 #include "ScannerFactory.h"
 #include "skill_name.h"
-#include "Command.h"
+#include "GetCoord.h"
 #include "Shooter.h"
 
 class SkillFactory
 {
 public:
-    SkillFactory(SkillResult& results, std::shared_ptr<Command> command, Table& table, ManagerShips& manager, Shooter& shooter);
+    SkillFactory(SkillResult& results, GetCoord& command, Table& table, ManagerShips& manager, Shooter& shooter);
 
     SkillFactory(const SkillFactory &other);
     SkillFactory(SkillFactory &&other);
@@ -24,16 +24,15 @@ public:
 
     std::shared_ptr<ISkillFactory> get_factory(SkillName _sn) const;
     
-    void SetCommand(std::shared_ptr<Command> command);
 
 private:
-    std::shared_ptr<DoubleAttackFactory> _double_hit_factory;
-    std::shared_ptr<AttackFactory> _rocket_attack_factory;
-    std::shared_ptr<ScannerFactory> _scanner_factory;
+    std::shared_ptr<ISkillFactory> _double_attack_factory;
+    std::shared_ptr<ISkillFactory> _attack_factory;
+    std::shared_ptr<ISkillFactory> _scanner_factory;
 
     SkillResult& results;
 
-    std::shared_ptr<Command> command;
+    GetCoord& command;
 
     Table& table;
 

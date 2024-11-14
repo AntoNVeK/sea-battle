@@ -7,14 +7,14 @@
 class SkillResult
 {
 private:
-    std::vector<std::map<std::string, std::string>> results;
+    std::vector<std::string> results;
 
 public:
-    const std::vector<std::map<std::string, std::string>>& GetResults() const;
+    const std::vector<std::string>& GetResults() const;
     
     const std::string& GetLast() const;
     
-    void add_result(int status, const std::string& data);
+    void add_result(const std::string& data);
     
     bool empty() const;
 };

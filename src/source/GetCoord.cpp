@@ -6,7 +6,7 @@ GetCoord::GetCoord(Coord& coord) : coord(coord)
 }
 
 
-Coord GetCoord::get_coord()
+Coord GetCoord::operator()()
 {
     return coord;
 }

@@ -2,7 +2,6 @@
 #define DOUBLEATTACKFACTORY_H
 #include "ISkillFactory.h"
 #include "DoubleAttack.h"
-#include "Command.h"
 #include "Shooter.h"
 
 class DoubleAttackFactory : public ISkillFactory
