@@ -3,7 +3,10 @@
     "",
     "\\src",
     "\\src\\headers",
-    "\\src\\source"
+    "\\src\\headers\\Serializers",
+    "\\src\\source",
+    "\\src\\source\\Serializers"
   ],
+  "SelectedNode": "\\src\\source\\Serializers\\ManagerSkillsSerializer.cpp",
   "PreviewInSolutionExplorer": false
 }

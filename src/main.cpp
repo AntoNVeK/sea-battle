@@ -11,7 +11,7 @@
 #include "./headers/skill_name.h"
 #include "./headers/GetCoord.h"
 #include "nlohmann/json.hpp"
-#include "./headers/Serializers/ManagerShipsSerializer.h"
+#include "./headers/Serializers/ManagerSkillsSerializer.h"
 using json = nlohmann::json;
 
 void print(Table& table)
@@ -52,7 +52,9 @@ void print(Table& table)
 
 int main()
 {
-    /*
+
+    
+    
     Table table;
 
     Shooter shooter(table);
@@ -68,6 +70,16 @@ int main()
     SkillFactory skillfactory(results, command, table, managerships, shooter);
 
     ManagerSkills manager(skillfactory);
+
+
+    ManagerSkillsSerializer s(manager);
+
+    s.load();
+
+    json j = s.get();
+    
+
+    std::cout << j << std::endl;
 
     table.SetObserver(&manager);
 
@@ -105,18 +117,7 @@ int main()
 
     print(table);
 
-    */
 
-    ManagerShips manager({TWO, THREE, FOUR});
-
-    ManagerShipsSerializer s(manager);
-
-    s.load();
-
-    json j = s.get();
-    
-
-    std::cout << j << std::endl;
 
     return 0;
 

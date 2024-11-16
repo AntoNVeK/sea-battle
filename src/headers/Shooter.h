@@ -16,7 +16,9 @@ public:
     void operator()(Coord coord);
 
     void SetState(DoubleAttackState state);
-    
+
+private:
+    void attack(Coord coord,int count_attack);
 };
 
 #endif

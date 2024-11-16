@@ -40,6 +40,8 @@ public:
     void add_skill();
 
     void delete_skill();
+
+    std::vector<std::string> GetQueueName() const;
 };
 
 

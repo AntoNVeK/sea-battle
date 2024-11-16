@@ -6,5 +6,7 @@ SkillResultSerializer::SkillResultSerializer(SkillResult& results) : results(res
 
 void SkillResultSerializer::load()
 {
-   
+   this->__json = json{
+        {"results", results.GetResults()}
+   };
 }

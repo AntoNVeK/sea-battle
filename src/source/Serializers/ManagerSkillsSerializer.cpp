@@ -6,5 +6,8 @@ ManagerSkillsSerializer::ManagerSkillsSerializer(ManagerSkills& manager) : manag
 
 void ManagerSkillsSerializer::load()
 {
-   
+    this->__json = json{
+        {"skills", manager.GetQueueName()}
+    };
+    
 }

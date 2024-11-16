@@ -99,3 +99,30 @@ void ManagerSkills::delete_skill()
 {
     skills.pop();
 }
+
+std::vector<std::string> ManagerSkills::GetQueueName() const
+{
+    std::queue<std::shared_ptr<ISkillFactory>> tempQueue = skills;
+    std::vector<std::string> res;
+
+    while (!tempQueue.empty()) {
+        switch (tempQueue.front().get()->GetName())
+        {
+        case SkillName::Attack:
+            res.push_back("Attack");    
+            break;
+        case SkillName::DoubleAttack:
+            res.push_back("DoubleAttack");    
+            break;
+        case SkillName::Scanner:
+            res.push_back("Scanner");    
+            break;
+        default:
+            break;
+        }
+
+        tempQueue.pop();
+    }
+
+    return res;
+}
