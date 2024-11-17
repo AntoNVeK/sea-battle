@@ -78,6 +78,8 @@ const ManagerShips& GameState::getShipManager_Enemy() const
 const ManagerSkills& GameState::getManager_Skills() const 
 { return this->Manager_Skills; }
 
+const SkillResult& GameState::getResult() const
+{ return this->results;}
 
 void 
 GameState::setTable_Player(Table& Table_Player) 
@@ -134,38 +136,38 @@ std::ofstream &operator<<(std::ofstream &out,const GameState &state)
 {
     json gameStateJson;
 
-    // Сохранение таблицы игрока
+ 
     TableSerializer tablePlayerSerializer(state.getTable_Player());
     tablePlayerSerializer.load();
     gameStateJson["Table_Player"] = tablePlayerSerializer.get();
 
-    // Сохранение таблицы противника
+
     TableSerializer tableEnemySerializer(state.getTable_Player());
     tableEnemySerializer.load();
     gameStateJson["Table_Enemy"] = tableEnemySerializer.get();
 
-    // Сохранение менеджера кораблей игрока
+  
     ManagerShipsSerializer shipManagerPlayerSerializer(state.getShipManager_Player());
     shipManagerPlayerSerializer.load();
     gameStateJson["ShipManager_Player"] = shipManagerPlayerSerializer.get();
 
-    // Сохранение менеджера кораблей противника
+    
     ManagerShipsSerializer shipManagerEnemySerializer(state.getShipManager_Enemy());
     shipManagerEnemySerializer.load();
     gameStateJson["ShipManager_Enemy"] = shipManagerEnemySerializer.get();
 
-    // Сохранение менеджера навыков
+    
     ManagerSkillsSerializer managerSkillsSerializer(state.getManager_Skills());
     managerSkillsSerializer.load();
     gameStateJson["Manager_Skills"] = managerSkillsSerializer.get();
 
-	// Сохранение результатов способностей
-    //SkillResultSerializer skillResultSerializer(state.getResult());
-    //skillResultSerializer.load();
-    //gameStateJson["results"] = skillResultSerializer.get();
+	
+    SkillResultSerializer skillResultSerializer(state.getResult());
+    skillResultSerializer.load();
+    gameStateJson["results"] = skillResultSerializer.get();
 
 
-    out << gameStateJson.dump(4); // 4 - количество пробелов для отступа
+    out << gameStateJson.dump(4);
 
 
     return out;

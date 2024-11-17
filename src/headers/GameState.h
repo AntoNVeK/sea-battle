@@ -48,7 +48,7 @@ public:
 
 	void setManager_Skills(ManagerSkills& Manager_Skills);
 
-	void setResult(Table& Table_Player);
+	void setResult(SkillResult& result);
 
 	void saveGame(const std::string& fileName) const;
     void loadGame(const std::string& filename);

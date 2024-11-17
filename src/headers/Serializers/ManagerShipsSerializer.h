@@ -1,5 +1,5 @@
-#ifndef SKILLRESULT_SERIALIZER_H
-#define SKILLRESULT_SERIALIZER_H
+#ifndef MANAGER_SHIPS_SERIALIZER_H
+#define MANAGER_SHIPS_SERIALIZER_H
 #include "Serializer.h"
 #include "../ManagerShips.h"
 #include "ShipSerializer.h"
