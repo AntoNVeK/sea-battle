@@ -36,3 +36,8 @@ void Shooter::attack(Coord coord, int count_attack)
 
     }
 }
+
+bool Shooter::DoubleAttack() const
+{
+    return state == DoubleAttackState::ON ? true : false;
+}

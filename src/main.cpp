@@ -12,6 +12,7 @@
 #include "./headers/GetCoord.h"
 #include "nlohmann/json.hpp"
 #include "./headers/Serializers/ManagerSkillsSerializer.h"
+#include "./headers/Serializers/ShooterSerializer.h"
 using json = nlohmann::json;
 
 void print(Table& table)
@@ -106,6 +107,16 @@ int main()
         skillcoord = Coord();
     
     }
+    ShooterSerializer s1(shooter);
+
+    s1.load();
+
+    json j1 = s1.get();
+    
+
+    std::cout << j1 << std::endl;
+
+    
     shooter(Coord(3, 5));
 
     shooter(Coord(3, 4));

@@ -16,6 +16,8 @@ public:
     void operator()(Coord coord);
 
     void SetState(DoubleAttackState state);
+    
+    bool DoubleAttack() const;
 
 private:
     void attack(Coord coord,int count_attack);
