@@ -129,7 +129,7 @@ void GameState::saveGame(const std::string &fileName) {
 }
 
 
-std::ostream &operator<<(std::ostream &out,const GameState &state) {
+std::ofstream &operator<<(std::ofstream &out,const GameState &state) {
     json gameStateJson;
 
     // Сохранение таблицы игрока
@@ -156,6 +156,11 @@ std::ostream &operator<<(std::ostream &out,const GameState &state) {
     ManagerSkillsSerializer managerSkillsSerializer(state.getManager_Skills());
     managerSkillsSerializer.load();
     gameStateJson["Manager_Skills"] = managerSkillsSerializer.get();
+
+	//// Сохранение результатов способностей
+    //SkillResultSerializer managerSkillsSerializer(state.getManager_Skills());
+    //managerSkillsSerializer.load();
+    //gameStateJson["Manager_Skills"] = managerSkillsSerializer.get();
 
 
     out << gameStateJson.dump(4); // 4 - количество пробелов для отступа
