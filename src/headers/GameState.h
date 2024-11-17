@@ -1,15 +1,26 @@
 #ifndef GAME_STATE_H
 #define GAME_STATE_H
-
+#include <fstream>
+#include <sstream>
+#include <filesystem>
+#include "FileInteractionError.h"
 #include "Table.h"
 #include "ManagerShips.h"
 #include "ManagerSkills.h"
+#include "Serializers/CoordSerializer.h"
+#include "Serializers/ManagerShipsSerializer.h"
+#include "Serializers/ManagerSkillsSerializer.h"
+#include "Serializers/Serializer.h"
+#include "Serializers/ShipSerializer.h"
+#include "Serializers/ShooterSerializer.h"
+#include "Serializers/SkillResultSerializer.h"
+#include "Serializers/TableSerializer.h"
 
 class GameState
 {
 
 public:
-	GameState(const Table& Table_Player, const Table& Table_Enemy, const ManagerShips& ShipManager_Player, const ManagerShips& ShipManager_Enemy, const ManagerSkills& Manager_Skills);
+	GameState(Table& Table_Player, Table& Table_Enemy, ManagerShips& ShipManager_Player, ManagerShips& ShipManager_Enemy, ManagerSkills& Manager_Skills);
 
 	GameState(const GameState& other);
 	GameState(GameState&& other);
@@ -19,13 +30,13 @@ public:
 	GameState& operator=(const GameState& other);
 	GameState& operator=(GameState&& other);
 
-	const Table& getTable_Player() const;
-	const Table& getTable_Enemy() const;
+	Table& getTable_Player() const;
+	Table& getTable_Enemy() const;
 
-	const ManagerShips& getShipManager_Player() const;
-	const ManagerShips& getShipManager_Enemy() const;
+	ManagerShips& getShipManager_Player() const;
+	ManagerShips& getShipManager_Enemy() const;
 
-	const ManagerSkills& getManager_Skills() const;
+	ManagerSkills& getManager_Skills() const;
 
 
 	void setTable_Player(Table& Table_Player);
@@ -36,7 +47,11 @@ public:
 
 	void setManager_Skills(ManagerSkills& Manager_Skills);
 
-	void download();
+	void saveGame(const std::string& fileName) const;
+    void loadGame(const std::string& filename);
+
+	std::ostream& operator<<(std::ostream& out, GameState& state);
+    std::istream& operator>>(std::istream& in, GameState& state);
 
 	
 
@@ -48,6 +63,9 @@ private:
 	ManagerShips ShipManager_Enemy;
 
 	ManagerSkills Manager_Skills;
+
+public:
+	std::string filename;
 
 };
 
