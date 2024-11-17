@@ -113,7 +113,7 @@ GameState::setManager_Skills(ManagerSkills& Manager_Skills)
 
 
 
-void GameState::saveGame(const std::string &fileName) {
+void GameState::saveGame(const std::string &fileName) const{
     
 
     std::ofstream fileToWrite("../src/saves/"+fileName + ".json");
@@ -122,7 +122,7 @@ void GameState::saveGame(const std::string &fileName) {
     }
 
 
-    fileToWrite << this;
+    fileToWrite << *this;
 	
 
     fileToWrite.close();
@@ -157,10 +157,10 @@ std::ofstream &operator<<(std::ofstream &out,const GameState &state) {
     managerSkillsSerializer.load();
     gameStateJson["Manager_Skills"] = managerSkillsSerializer.get();
 
-	//// Сохранение результатов способностей
-    //SkillResultSerializer managerSkillsSerializer(state.getManager_Skills());
-    //managerSkillsSerializer.load();
-    //gameStateJson["Manager_Skills"] = managerSkillsSerializer.get();
+	// Сохранение результатов способностей
+    //SkillResultSerializer skillResultSerializer(state.getResult());
+    //skillResultSerializer.load();
+    //gameStateJson["results"] = skillResultSerializer.get();
 
 
     out << gameStateJson.dump(4); // 4 - количество пробелов для отступа

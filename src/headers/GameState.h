@@ -38,6 +38,9 @@ public:
 
 	const ManagerSkills& getManager_Skills() const;
 
+	const ManagerSkills& getManager_Skills() const;
+
+	const SkillResult& getResult() const;
 
 	void setTable_Player(Table& Table_Player);
 	void setTable_Enemy(Table& Table_Enemy);
@@ -47,7 +50,9 @@ public:
 
 	void setManager_Skills(ManagerSkills& Manager_Skills);
 
-	void saveGame(const std::string& fileName);
+	void setResult(Table& Table_Player);
+
+	void saveGame(const std::string& fileName) const;
     void loadGame(const std::string& filename);
 
 	
