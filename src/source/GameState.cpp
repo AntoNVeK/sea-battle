@@ -113,7 +113,8 @@ GameState::setManager_Skills(ManagerSkills& Manager_Skills)
 
 
 
-void GameState::saveGame(const std::string &fileName) const{
+void GameState::saveGame(const std::string &fileName) const
+{
     
 
     std::ofstream fileToWrite("../src/saves/"+fileName + ".json");
@@ -129,7 +130,8 @@ void GameState::saveGame(const std::string &fileName) const{
 }
 
 
-std::ofstream &operator<<(std::ofstream &out,const GameState &state) {
+std::ofstream &operator<<(std::ofstream &out,const GameState &state)
+{
     json gameStateJson;
 
     // Сохранение таблицы игрока

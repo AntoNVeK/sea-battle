@@ -38,8 +38,6 @@ public:
 
 	const ManagerSkills& getManager_Skills() const;
 
-	const ManagerSkills& getManager_Skills() const;
-
 	const SkillResult& getResult() const;
 
 	void setTable_Player(Table& Table_Player);
@@ -70,6 +68,10 @@ private:
 
 
 };
+
+
+std::ofstream &operator<<(std::ofstream &out,const GameState &state);
+
 
 
 #endif
