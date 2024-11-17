@@ -59,7 +59,7 @@ int main()
 
     Shooter shooter(table);
     
-    ManagerShips managerships({TWO});
+    ManagerShips managerships({TWO, ONE, FOUR});
 
     Coord skillcoord;
 
@@ -76,6 +76,8 @@ int main()
     managerships[0].SetOrientation(VERTICAL);
 
     table.add_ship(managerships[0], 3, 4);
+    table.add_ship(managerships[1], 10, 10);
+    table.add_ship(managerships[2], 7, 1);
 
     {
         skillcoord = Coord(3, 4);
@@ -111,11 +113,15 @@ int main()
     print(table);
 
 
-    GameState state(table, table, managerships, managerships, manager, results);
+    GameState state(table, table, managerships, managerships, manager, results, shooter);
 
-    state.saveGame("1");
+    state.loadGame("1");
 
 
+    std::cout << manager.GetFront().get()->GetName() << "\n";
+
+    if (!results.empty())
+            std::cout << results.GetLast() << "\n";
     return 0;
 
 }

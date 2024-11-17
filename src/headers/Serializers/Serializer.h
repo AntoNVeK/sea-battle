@@ -19,6 +19,8 @@ public:
     const json& get();
 
 
+    virtual ~Serializer() = 0;
+
 
 };
 

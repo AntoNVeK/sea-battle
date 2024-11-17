@@ -15,12 +15,16 @@
 #include "Serializers/ShooterSerializer.h"
 #include "Serializers/SkillResultSerializer.h"
 #include "Serializers/TableSerializer.h"
+#include "Loaders/Loader.h"
+#include "Loaders/ManagerSkillsLoader.h"
+#include "Loaders/ShooterLoader.h"
+#include "Loaders/SkillResultLoader.h"
 
 class GameState
 {
 
 public:
-	GameState(const Table& Table_Player, const Table& Table_Enemy, const ManagerShips& ShipManager_Player, const ManagerShips& ShipManager_Enemy, const ManagerSkills& Manager_Skills, const SkillResult& results);
+	GameState(Table& Table_Player, Table& Table_Enemy, ManagerShips& ShipManager_Player, ManagerShips& ShipManager_Enemy, ManagerSkills& Manager_Skills, SkillResult& results, Shooter& shooter);
 
 	GameState(const GameState& other);
 	GameState(GameState&& other);
@@ -30,15 +34,17 @@ public:
 	GameState& operator=(const GameState& other);
 	GameState& operator=(GameState&& other);
 
-	const Table& getTable_Player() const;
-	const Table& getTable_Enemy() const;
+	Table& getTable_Player() const;
+	Table& getTable_Enemy() const;
 
-	const ManagerShips& getShipManager_Player() const;
-	const ManagerShips& getShipManager_Enemy() const;
+	ManagerShips& getShipManager_Player() const;
+	ManagerShips& getShipManager_Enemy() const;
 
-	const ManagerSkills& getManager_Skills() const;
+	ManagerSkills& getManager_Skills() const;
 
-	const SkillResult& getResult() const;
+	SkillResult& getResult() const;
+
+	Shooter& getShooter() const;
 
 	void setTable_Player(Table& Table_Player);
 	void setTable_Enemy(Table& Table_Enemy);
@@ -48,7 +54,9 @@ public:
 
 	void setManager_Skills(ManagerSkills& Manager_Skills);
 
-	void setResult(SkillResult& result);
+	void setResult(SkillResult& results);
+
+	void setShooter(Shooter& shooter);
 
 	void saveGame(const std::string& fileName) const;
     void loadGame(const std::string& filename);
@@ -56,22 +64,24 @@ public:
 	
 
 private:
-	Table Table_Player;
-	Table Table_Enemy;
+	Table& Table_Player;
+	Table& Table_Enemy;
 
-	ManagerShips ShipManager_Player;
-	ManagerShips ShipManager_Enemy;
+	ManagerShips& ShipManager_Player;
+	ManagerShips& ShipManager_Enemy;
 
-	ManagerSkills Manager_Skills;
+	ManagerSkills& Manager_Skills;
 
-	SkillResult results;
+	SkillResult& results;
+
+	Shooter& shooter;
 
 
 };
 
 
-std::ofstream &operator<<(std::ofstream &out,const GameState &state);
-
+std::ostream &operator<<(std::ostream &out,const GameState &state);
+std::istream &operator>>(std::istream &in, GameState &state);
 
 
 #endif

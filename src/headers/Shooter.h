@@ -19,6 +19,13 @@ public:
     
     bool DoubleAttack() const;
 
+
+    Shooter(const Shooter &other);
+    Shooter(Shooter &&other);
+
+    Shooter& operator=(const Shooter &other);
+    Shooter& operator=(Shooter &&other);
+
 private:
     void attack(Coord coord,int count_attack);
 };

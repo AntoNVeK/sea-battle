@@ -37,7 +37,45 @@ void Shooter::attack(Coord coord, int count_attack)
     }
 }
 
+/*
+DoubleAttackState state;
+Table& table;
+*/
+
 bool Shooter::DoubleAttack() const
 {
     return state == DoubleAttackState::ON ? true : false;
 }
+
+
+Shooter::Shooter(const Shooter &other) : state(other.state), table(other.table)
+{
+
+}
+
+
+Shooter::Shooter(Shooter &&other) : state(other.state), table(other.table)
+{
+    
+}
+Shooter& Shooter::operator=(const Shooter &other)
+{
+    if (this != &other)
+        {
+            this->state = other.state;
+            this->table = other.table;
+        }
+    return *this;
+}
+Shooter& Shooter::operator=(Shooter &&other)
+{
+    if (this != &other)
+        {
+            this->state = other.state;
+            this->table = other.table;
+        }
+    return *this;
+}
+
+
+

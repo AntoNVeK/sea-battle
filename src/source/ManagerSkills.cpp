@@ -126,3 +126,28 @@ std::vector<std::string> ManagerSkills::GetQueueName() const
 
     return res;
 }
+
+
+void ManagerSkills::clear()
+{
+    while (!skills.empty()) {
+        skills.pop();
+    }
+}
+
+
+void ManagerSkills::add_skill(std::string skillname)
+{
+    
+    
+    if(skillname == "Attack"){
+        skills.push(skillfactory.get_factory(SkillName::Attack));
+    }
+    if(skillname == "DoubleAttack"){
+        skills.push(skillfactory.get_factory(SkillName::DoubleAttack));   
+    }
+    if(skillname == "Scanner"){
+        skills.push(skillfactory.get_factory(SkillName::Scanner));   
+    }
+
+}

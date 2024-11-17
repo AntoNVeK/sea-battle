@@ -3,11 +3,12 @@
 using json = nlohmann::json;
 
 
-GameState::GameState(const Table& Table_Player, const Table& Table_Enemy, const ManagerShips& ShipManager_Player, const ManagerShips& ShipManager_Enemy, const ManagerSkills& Manager_Skills, const SkillResult& results)
+GameState::GameState(Table& Table_Player, Table& Table_Enemy, ManagerShips& ShipManager_Player, ManagerShips& ShipManager_Enemy, ManagerSkills& Manager_Skills, SkillResult& results, Shooter& shooter)
 	: Table_Player(Table_Player), Table_Enemy(Table_Enemy),
 	  ShipManager_Player(ShipManager_Player), ShipManager_Enemy(ShipManager_Enemy),
 	  Manager_Skills(Manager_Skills),
-	  results(results)
+	  results(results),
+	  shooter(shooter)
 {    }
 
 GameState::GameState(const GameState& other)
@@ -18,7 +19,8 @@ GameState::GameState(const GameState& other)
 	  ShipManager_Enemy(other.ShipManager_Enemy),
 
 	  Manager_Skills(other.Manager_Skills),
-	  results(results)
+	  results(results),
+	  shooter(shooter)
 {    }
 
 GameState::GameState(GameState&& other)
@@ -29,7 +31,8 @@ GameState::GameState(GameState&& other)
 	  ShipManager_Enemy(other.ShipManager_Enemy),
 
 	  Manager_Skills(other.Manager_Skills),
-	  results(results)
+	  results(results),
+	  shooter(shooter)
 {    }
 
 GameState& 
@@ -43,6 +46,7 @@ GameState::operator=(const GameState& other)
 		this->ShipManager_Enemy = other.ShipManager_Enemy;
 		this->Manager_Skills = other.Manager_Skills;
 		this->results = other.results;
+		this->shooter = other.shooter;
 	}
 	return *this;
 }
@@ -58,28 +62,32 @@ GameState::operator=(GameState&& other)
 		this->ShipManager_Enemy = other.ShipManager_Enemy;
 		this->Manager_Skills = other.Manager_Skills;
 		this->results = other.results;
+		this->shooter = other.shooter;
 	}
 	return *this;
 }
 
 
-const Table&  GameState::getTable_Player() const 
+Table&  GameState::getTable_Player() const 
 { return this->Table_Player; }
 
-const Table& GameState::getTable_Enemy() const 
+Table& GameState::getTable_Enemy() const 
 { return this->Table_Enemy; }
 
-const ManagerShips& GameState::getShipManager_Player() const 
+ManagerShips& GameState::getShipManager_Player() const 
 { return this->ShipManager_Player; }
 
-const ManagerShips& GameState::getShipManager_Enemy() const 
+ManagerShips& GameState::getShipManager_Enemy() const 
 { return this->ShipManager_Enemy; }
 
-const ManagerSkills& GameState::getManager_Skills() const 
+ManagerSkills& GameState::getManager_Skills() const 
 { return this->Manager_Skills; }
 
-const SkillResult& GameState::getResult() const
+SkillResult& GameState::getResult() const
 { return this->results;}
+
+Shooter& GameState::getShooter() const
+{ return this->shooter;}
 
 void 
 GameState::setTable_Player(Table& Table_Player) 
@@ -111,9 +119,15 @@ GameState::setManager_Skills(ManagerSkills& Manager_Skills)
 	this->Manager_Skills = Manager_Skills;
 }
 
+void GameState::setResult(SkillResult& results)
+{
+	this->results = results;
+}
 
-
-
+void GameState::setShooter(Shooter& shooter)
+{
+	this->shooter = shooter;
+}
 
 void GameState::saveGame(const std::string &fileName) const
 {
@@ -132,7 +146,7 @@ void GameState::saveGame(const std::string &fileName) const
 }
 
 
-std::ofstream &operator<<(std::ofstream &out,const GameState &state)
+std::ostream &operator<<(std::ostream &out,const GameState &state)
 {
     json gameStateJson;
 
@@ -166,9 +180,47 @@ std::ofstream &operator<<(std::ofstream &out,const GameState &state)
     skillResultSerializer.load();
     gameStateJson["results"] = skillResultSerializer.get();
 
+	ShooterSerializer shooterSerializer(state.getShooter());
+    shooterSerializer.load();
+    gameStateJson["shooter"] = shooterSerializer.get();
+
 
     out << gameStateJson.dump(4);
 
 
     return out;
+}
+
+
+
+void GameState::loadGame(const std::string& filename)
+{
+	
+
+    std::ifstream fileToRead("../src/saves/" + filename + ".json");
+    if (!fileToRead.is_open()) {
+        throw FileInteractionError("File open error " + filename+".json\n");
+    }
+
+    fileToRead >> *this;
+
+    fileToRead.close();
+}
+
+
+std::istream &operator>>(std::istream &in, GameState &state)
+{
+	json gameStateJson;
+	in >> gameStateJson;
+	
+	ManagerSkillsLoader managerskillsloader(state.getManager_Skills());
+	managerskillsloader.loadFromJson(gameStateJson);
+
+	ShooterLoader shooterloader(state.getShooter());
+	shooterloader.loadFromJson(gameStateJson);
+
+	SkillResultLoader skillresultloader(state.getResult());
+	skillresultloader.loadFromJson(gameStateJson);
+	
+	return in;
 }

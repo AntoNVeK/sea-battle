@@ -42,6 +42,10 @@ public:
     void delete_skill();
 
     std::vector<std::string> GetQueueName() const;
+    
+    void clear();
+
+    void add_skill(std::string skillname);
 };
 
 
