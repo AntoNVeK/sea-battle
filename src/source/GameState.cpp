@@ -121,13 +121,13 @@ void GameState::saveGame(const std::string &fileName) {
         throw FileInteractionError("File open error " + fileName+".json\n");
     }
 
-	this->filename = fileName;
+
     fileToWrite << this;
+	
 
-
-	this->filename = "";
     fileToWrite.close();
 }
+
 
 std::ostream &operator<<(std::ostream &out,const GameState &state) {
     json gameStateJson;
@@ -157,15 +157,8 @@ std::ostream &operator<<(std::ostream &out,const GameState &state) {
     managerSkillsSerializer.load();
     gameStateJson["Manager_Skills"] = managerSkillsSerializer.get();
 
-    // «апись в файл
-    std::ofstream fileToWrite("../src/saves/" + state.filename + ".json");
-    if (!fileToWrite.is_open()) {
-        throw FileInteractionError("File open error " + state.filename + ".json\n");
-    }
 
-    fileToWrite << gameStateJson.dump(4); // 4 - количество пробелов дл€ отступа
-
-
+    out << gameStateJson.dump(4); // 4 - количество пробелов дл€ отступа
 
 
     return out;

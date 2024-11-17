@@ -62,10 +62,7 @@ private:
 	ManagerSkills Manager_Skills;
 
 	SkillResult results;
-	
 
-public:
-	std::string filename;
 
 };
 
