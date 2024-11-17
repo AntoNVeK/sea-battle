@@ -50,9 +50,6 @@ public:
 	void saveGame(const std::string& fileName);
     void loadGame(const std::string& filename);
 
-	std::ostream& operator<<(std::ostream& out, GameState& state);
-    std::istream& operator>>(std::istream& in, GameState& state);
-
 	
 
 private:

@@ -108,7 +108,7 @@ GameState::setManager_Skills(ManagerSkills& Manager_Skills)
 
 
 
-void GameState::saveGame(const std::string fileName) {
+void GameState::saveGame(const std::string &fileName) {
     if (!std::filesystem::exists("../saves/")) {
         throw FileInteractionError("Directory ../saves/ does not exist.\n");
     }
@@ -126,7 +126,7 @@ void GameState::saveGame(const std::string fileName) {
     fileToWrite.close();
 }
 
-std::ostream &operator<<(std::ostream &out, GameState &state) {
+std::ostream &operator<<(std::ostream &out,const GameState &state) {
     json gameStateJson;
 
     // Сохранение таблицы игрока
