@@ -7,10 +7,10 @@ class ManagerShipsSerializer : public Serializer
 {
 
 private:
-    ManagerShips& manager;
+    const ManagerShips& manager;
     
 public:
-    ManagerShipsSerializer(ManagerShips& manager);
+    ManagerShipsSerializer(const ManagerShips& manager);
 
     void load() override;
 

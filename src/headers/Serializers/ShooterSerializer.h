@@ -7,10 +7,10 @@ class ShooterSerializer : public Serializer
 {
 
 private:
-    Shooter& shooter;
+    const Shooter& shooter;
     
 public:
-    ShooterSerializer(Shooter& shooter);
+    ShooterSerializer(const Shooter& shooter);
 
     void load() override;
 

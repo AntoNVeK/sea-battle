@@ -1,7 +1,7 @@
 #include "../../headers/Serializers/SkillResultSerializer.h"
 
 
-SkillResultSerializer::SkillResultSerializer(SkillResult& results) : results(results)
+SkillResultSerializer::SkillResultSerializer(const SkillResult& results) : results(results)
 {}
 
 void SkillResultSerializer::load()

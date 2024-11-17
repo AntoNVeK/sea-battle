@@ -1,7 +1,7 @@
 #include "../../headers/Serializers/ShooterSerializer.h"
 
 
-ShooterSerializer::ShooterSerializer(Shooter& shooter) : shooter(shooter)
+ShooterSerializer::ShooterSerializer(const Shooter& shooter) : shooter(shooter)
 {}
 
 void ShooterSerializer::load()

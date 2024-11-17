@@ -7,10 +7,10 @@ class TableSerializer : public Serializer
 {
 
 private:
-    Table& table;
+    const Table& table;
     
 public:
-    TableSerializer(Table& table);
+    TableSerializer(const Table& table);
 
     void load() override;
 

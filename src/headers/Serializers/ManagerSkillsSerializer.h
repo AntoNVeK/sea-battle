@@ -7,10 +7,10 @@ class ManagerSkillsSerializer : public Serializer
 {
 
 private:
-    ManagerSkills& manager;
+    const ManagerSkills& manager;
     
 public:
-    ManagerSkillsSerializer(ManagerSkills& manager);
+    ManagerSkillsSerializer(const ManagerSkills& manager);
 
     void load() override;
 

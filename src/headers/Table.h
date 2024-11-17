@@ -71,7 +71,7 @@ public:
 
     void circle_ship(std::vector<Coord> coords);
 
-    std::map<std::reference_wrapper<Ship>, std::vector<Coord>>& get_ship_coords();
+    const std::map<std::reference_wrapper<Ship>, std::vector<Coord>>& get_ship_coords() const;
 
 
 private:

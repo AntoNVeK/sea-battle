@@ -1,7 +1,7 @@
 #include "../../headers/Serializers/ManagerShipsSerializer.h"
 
 
-ManagerShipsSerializer::ManagerShipsSerializer(ManagerShips& manager) : manager(manager)
+ManagerShipsSerializer::ManagerShipsSerializer(const ManagerShips& manager) : manager(manager)
 {}
 
 void ManagerShipsSerializer::load()

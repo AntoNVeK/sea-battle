@@ -30,13 +30,13 @@ public:
 	GameState& operator=(const GameState& other);
 	GameState& operator=(GameState&& other);
 
-	Table& getTable_Player() const;
-	Table& getTable_Enemy() const;
+	const Table& getTable_Player() const;
+	const Table& getTable_Enemy() const;
 
-	ManagerShips& getShipManager_Player() const;
-	ManagerShips& getShipManager_Enemy() const;
+	const ManagerShips& getShipManager_Player() const;
+	const ManagerShips& getShipManager_Enemy() const;
 
-	ManagerSkills& getManager_Skills() const;
+	const ManagerSkills& getManager_Skills() const;
 
 
 	void setTable_Player(Table& Table_Player);
@@ -47,7 +47,7 @@ public:
 
 	void setManager_Skills(ManagerSkills& Manager_Skills);
 
-	void saveGame(const std::string& fileName) const;
+	void saveGame(const std::string& fileName);
     void loadGame(const std::string& filename);
 
 	std::ostream& operator<<(std::ostream& out, GameState& state);

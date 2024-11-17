@@ -7,10 +7,10 @@ class SkillResultSerializer : public Serializer
 {
 
 private:
-    SkillResult& results;
+    const SkillResult& results;
     
 public:
-    SkillResultSerializer(SkillResult& results);
+    SkillResultSerializer(const SkillResult& results);
 
     void load() override;
 

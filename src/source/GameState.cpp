@@ -58,19 +58,19 @@ GameState::operator=(GameState&& other)
 }
 
 
-Table&  GameState::getTable_Player() const 
+const Table&  GameState::getTable_Player() const 
 { return this->Table_Player; }
 
-Table& GameState::getTable_Enemy() const 
+const Table& GameState::getTable_Enemy() const 
 { return this->Table_Enemy; }
 
-ManagerShips& GameState::getShipManager_Player() const 
+const ManagerShips& GameState::getShipManager_Player() const 
 { return this->ShipManager_Player; }
 
-ManagerShips& GameState::getShipManager_Enemy() const 
+const ManagerShips& GameState::getShipManager_Enemy() const 
 { return this->ShipManager_Enemy; }
 
-ManagerSkills& GameState::getManager_Skills() const 
+const ManagerSkills& GameState::getManager_Skills() const 
 { return this->Manager_Skills; }
 
 
@@ -108,7 +108,7 @@ GameState::setManager_Skills(ManagerSkills& Manager_Skills)
 
 
 
-void GameState::saveGame(const std::string fileName) const {
+void GameState::saveGame(const std::string fileName) {
     if (!std::filesystem::exists("../saves/")) {
         throw FileInteractionError("Directory ../saves/ does not exist.\n");
     }
@@ -121,6 +121,8 @@ void GameState::saveGame(const std::string fileName) const {
 	this->filename = fileName;
     fileToWrite << this;
 
+
+	this->filename = "";
     fileToWrite.close();
 }
 
