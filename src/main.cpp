@@ -11,8 +11,7 @@
 #include "./headers/skill_name.h"
 #include "./headers/GetCoord.h"
 #include "nlohmann/json.hpp"
-#include "./headers/Serializers/ManagerSkillsSerializer.h"
-#include "./headers/Serializers/ShooterSerializer.h"
+#include "./headers/GameState.h"
 using json = nlohmann::json;
 
 void print(Table& table)
@@ -72,16 +71,6 @@ int main()
 
     ManagerSkills manager(skillfactory);
 
-
-    ManagerSkillsSerializer s(manager);
-
-    s.load();
-
-    json j = s.get();
-    
-
-    std::cout << j << std::endl;
-
     table.SetObserver(&manager);
 
     managerships[0].SetOrientation(VERTICAL);
@@ -107,14 +96,7 @@ int main()
         skillcoord = Coord();
     
     }
-    ShooterSerializer s1(shooter);
-
-    s1.load();
-
-    json j1 = s1.get();
     
-
-    std::cout << j1 << std::endl;
 
     
     shooter(Coord(3, 5));
@@ -128,6 +110,10 @@ int main()
 
     print(table);
 
+
+    GameState state(table, table, managerships, managerships, manager, results);
+
+    state.saveGame("1");
 
 
     return 0;

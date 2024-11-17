@@ -3,10 +3,11 @@
 using json = nlohmann::json;
 
 
-GameState::GameState(Table& Table_Player, Table& Table_Enemy, ManagerShips& ShipManager_Player, ManagerShips& ShipManager_Enemy, ManagerSkills& Manager_Skills)
+GameState::GameState(const Table& Table_Player, const Table& Table_Enemy, const ManagerShips& ShipManager_Player, const ManagerShips& ShipManager_Enemy, const ManagerSkills& Manager_Skills, const SkillResult& results)
 	: Table_Player(Table_Player), Table_Enemy(Table_Enemy),
 	  ShipManager_Player(ShipManager_Player), ShipManager_Enemy(ShipManager_Enemy),
-	  Manager_Skills(Manager_Skills)
+	  Manager_Skills(Manager_Skills),
+	  results(results)
 {    }
 
 GameState::GameState(const GameState& other)
@@ -16,7 +17,8 @@ GameState::GameState(const GameState& other)
 	  ShipManager_Player(other.ShipManager_Player),
 	  ShipManager_Enemy(other.ShipManager_Enemy),
 
-	  Manager_Skills(other.Manager_Skills)
+	  Manager_Skills(other.Manager_Skills),
+	  results(results)
 {    }
 
 GameState::GameState(GameState&& other)
@@ -26,7 +28,8 @@ GameState::GameState(GameState&& other)
 	  ShipManager_Player(other.ShipManager_Player),
 	  ShipManager_Enemy(other.ShipManager_Enemy),
 
-	  Manager_Skills(other.Manager_Skills)
+	  Manager_Skills(other.Manager_Skills),
+	  results(results)
 {    }
 
 GameState& 
@@ -39,6 +42,7 @@ GameState::operator=(const GameState& other)
 		this->ShipManager_Player = other.ShipManager_Player;
 		this->ShipManager_Enemy = other.ShipManager_Enemy;
 		this->Manager_Skills = other.Manager_Skills;
+		this->results = other.results;
 	}
 	return *this;
 }
@@ -53,6 +57,7 @@ GameState::operator=(GameState&& other)
 		this->ShipManager_Player = other.ShipManager_Player;
 		this->ShipManager_Enemy = other.ShipManager_Enemy;
 		this->Manager_Skills = other.Manager_Skills;
+		this->results = other.results;
 	}
 	return *this;
 }
@@ -109,11 +114,9 @@ GameState::setManager_Skills(ManagerSkills& Manager_Skills)
 
 
 void GameState::saveGame(const std::string &fileName) {
-    if (!std::filesystem::exists("../saves/")) {
-        throw FileInteractionError("Directory ../saves/ does not exist.\n");
-    }
+    
 
-    std::ofstream fileToWrite("../saves/"+fileName + ".json");
+    std::ofstream fileToWrite("../src/saves/"+fileName + ".json");
     if (!fileToWrite.is_open()) {
         throw FileInteractionError("File open error " + fileName+".json\n");
     }
@@ -155,7 +158,7 @@ std::ostream &operator<<(std::ostream &out,const GameState &state) {
     gameStateJson["Manager_Skills"] = managerSkillsSerializer.get();
 
     // Запись в файл
-    std::ofstream fileToWrite("../saves/" + state.filename + ".json");
+    std::ofstream fileToWrite("../src/saves/" + state.filename + ".json");
     if (!fileToWrite.is_open()) {
         throw FileInteractionError("File open error " + state.filename + ".json\n");
     }

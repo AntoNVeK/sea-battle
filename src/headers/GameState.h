@@ -20,7 +20,7 @@ class GameState
 {
 
 public:
-	GameState(Table& Table_Player, Table& Table_Enemy, ManagerShips& ShipManager_Player, ManagerShips& ShipManager_Enemy, ManagerSkills& Manager_Skills);
+	GameState(const Table& Table_Player, const Table& Table_Enemy, const ManagerShips& ShipManager_Player, const ManagerShips& ShipManager_Enemy, const ManagerSkills& Manager_Skills, const SkillResult& results);
 
 	GameState(const GameState& other);
 	GameState(GameState&& other);
@@ -60,6 +60,9 @@ private:
 	ManagerShips ShipManager_Enemy;
 
 	ManagerSkills Manager_Skills;
+
+	SkillResult results;
+	
 
 public:
 	std::string filename;
