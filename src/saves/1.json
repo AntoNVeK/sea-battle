@@ -1,8 +1,8 @@
 {
     "Manager_Skills": {
         "skills": [
-            "Attack",
-            "DoubleAttack"
+            "DoubleAttack",
+            "Scanner"
         ]
     },
     "ShipManager_Enemy": [
@@ -11,7 +11,7 @@
             "len": 2,
             "orientation": 1,
             "segments": [
-                42,
+                35,
                 42
             ]
         },
@@ -41,7 +41,7 @@
             "len": 2,
             "orientation": 1,
             "segments": [
-                42,
+                35,
                 42
             ]
         },
@@ -422,9 +422,7 @@
         "width": 10
     },
     "results": {
-        "results": [
-            "Ship found"
-        ]
+        "results": []
     },
     "shooter": {
         "state": false

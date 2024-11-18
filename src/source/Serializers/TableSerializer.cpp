@@ -29,8 +29,8 @@ void TableSerializer::load()
             s.load();
             j1.push_back(s.get());
         }
-        json j2 = json::object();
-        j2.emplace(std::to_string(pair.first.get().GetId()), j1);
+        json j2;
+        j2[std::to_string(pair.first.get().GetId())] = j1;
         j.push_back(j2);
     }
     __json.emplace("ships_coords", j);

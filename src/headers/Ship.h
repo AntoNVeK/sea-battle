@@ -27,8 +27,15 @@ enum Length
 };
 
 
+
+class ManagerShipsTableLoader;
+
+
 class Ship
 {
+
+    friend ManagerShipsTableLoader;
+
 private:
     Orientation _orientation;
     std::vector<States> _segments;

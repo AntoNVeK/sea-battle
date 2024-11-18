@@ -3,8 +3,14 @@
 #include <vector>
 #include "Ship.h"
 
+
+class ManagerShipsTableLoader;
+
 class ManagerShips
 {
+
+    friend ManagerShipsTableLoader;
+
 private:
     std::vector<Ship> ships;
 

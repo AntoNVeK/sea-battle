@@ -19,6 +19,7 @@
 #include "Loaders/ManagerSkillsLoader.h"
 #include "Loaders/ShooterLoader.h"
 #include "Loaders/SkillResultLoader.h"
+#include "Loaders/ManagerShipsTableLoader.h"
 
 class GameState
 {

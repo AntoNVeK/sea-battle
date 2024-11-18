@@ -23,8 +23,8 @@ void print(Table& table)
     {
         for(int i = 0; i < table.GetX(); i++){
             state = vec[j][i];
-            if (attack_elements.find(Coord(i + 1, j + 1)) != attack_elements.end())
-            {
+            //if (attack_elements.find(Coord(i + 1, j + 1)) != attack_elements.end())
+            //{
                 
                 if (state != SHIP)
                 {
@@ -34,11 +34,11 @@ void print(Table& table)
                 {
                     std::cout << static_cast<char>(table.GetStateSegmentShip(i, j));
                 }
-            }
-            else
-            {
-                std::cout << static_cast<char>(UNKNOWN);
-            }
+            //}
+            //else
+            //{
+            //    std::cout << static_cast<char>(UNKNOWN);
+            //}
             std::cout << " ";
         }
         std::cout << "\n";
@@ -59,7 +59,7 @@ int main()
 
     Shooter shooter(table);
     
-    ManagerShips managerships({TWO, ONE, FOUR});
+    ManagerShips managerships({THREE});
 
     Coord skillcoord;
 
@@ -73,42 +73,42 @@ int main()
 
     table.SetObserver(&manager);
 
-    managerships[0].SetOrientation(VERTICAL);
+    //managerships[0].SetOrientation(VERTICAL);
+//
+    //table.add_ship(managerships[0], 3, 4);
+    //table.add_ship(managerships[1], 10, 10);
+    //table.add_ship(managerships[2], 7, 1);
 
-    table.add_ship(managerships[0], 3, 4);
-    table.add_ship(managerships[1], 10, 10);
-    table.add_ship(managerships[2], 7, 1);
-
-    {
-        skillcoord = Coord(3, 4);
-
-        auto factory = manager.GetFront();
-        
-        auto skill = factory->create();
-
-        std::cout << factory->GetName() << "\n";
-
-        skill->use();
-
-        if (!results.empty())
-            std::cout << results.GetLast() << "\n";
-
-        manager.delete_skill();
-
-        skillcoord = Coord();
+    //{
+    //    skillcoord = Coord(3, 4);
+//
+    //    auto factory = manager.GetFront();
+    //    
+    //    auto skill = factory->create();
+//
+    //    std::cout << factory->GetName() << "\n";
+//
+    //    skill->use();
+//
+    //    if (!results.empty())
+    //        std::cout << results.GetLast() << "\n";
+//
+    //    manager.delete_skill();
+//
+    //    skillcoord = Coord();
+    //
+    //}
     
-    }
-    
 
     
-    shooter(Coord(3, 5));
-
-    shooter(Coord(3, 4));
+    //shooter(Coord(3, 5));
+//
+    //shooter(Coord(3, 4));
     
-    for (int i = 0; i < managerships[0].GetLen(); i++)
-    {
-        std::cout << static_cast<char>(managerships[0].GetSegments()[i]) << "\n";
-    }
+    //for (int i = 0; i < managerships[0].GetLen(); i++)
+    //{
+    //    std::cout << static_cast<char>(managerships[0].GetSegments()[i]) << "\n";
+    //}
 
     print(table);
 
@@ -117,11 +117,18 @@ int main()
 
     state.loadGame("1");
 
+    for (const auto& ship : managerships.GetShips())
+    {
+        std::cout << ship.GetLen() << "\n";
+    }
 
     std::cout << manager.GetFront().get()->GetName() << "\n";
 
     if (!results.empty())
             std::cout << results.GetLast() << "\n";
+
+    print(table);
+
     return 0;
 
 }

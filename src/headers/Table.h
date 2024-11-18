@@ -19,11 +19,12 @@ enum CellState
 class Scanner;
 class Attack;
 
-
+class ManagerShipsTableLoader;
 
 class Table
 {
 
+    friend ManagerShipsTableLoader;
 
 private:
     int width;

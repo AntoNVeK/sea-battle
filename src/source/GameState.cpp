@@ -221,6 +221,32 @@ std::istream &operator>>(std::istream &in, GameState &state)
 
 	SkillResultLoader skillresultloader(state.getResult());
 	skillresultloader.loadFromJson(gameStateJson);
+
+
+
+	json tablePlayerJson = gameStateJson["Table_Player"];
+	json managerPlayerJson = gameStateJson["ShipManager_Player"];
+
+	json JsonPlayer;
+
+	JsonPlayer["Table"] = tablePlayerJson;
+	JsonPlayer["ManagerShips"] = managerPlayerJson;
+
+    ManagerShipsTableLoader tablePlayerLoader(state.getShipManager_Player(), state.getTable_Player());
+    tablePlayerLoader.loadFromJson(JsonPlayer);
+
+    
+    json tableEnemyJson = gameStateJson["Table_Enemy"];
+	json managerEnemyJson = gameStateJson["ShipManager_Enemy"];
+
+	json JsonEnemy;
+
+	JsonEnemy["Table"] = tableEnemyJson;
+	JsonEnemy["ManagerShips"] = managerEnemyJson;
+	
+    ManagerShipsTableLoader tableEnemyLoader(state.getShipManager_Enemy(), state.getTable_Enemy());
+    tableEnemyLoader.loadFromJson(JsonEnemy);
+
 	
 	return in;
 }
