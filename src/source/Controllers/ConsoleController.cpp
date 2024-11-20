@@ -28,3 +28,19 @@ void ConsoleController::setFilename()
     game.SetFilename(filename);
     
 }
+
+
+void ConsoleController::setPlaceship()
+{
+    Length len = game.GetShipNeedPlacement().GetLen();
+
+    int x, y, orientation;
+
+
+    std::cout << "Print coord and orientation for ship len " << len << ": (x, y, orientation(0 : horizontical 1 : vertical))\n";
+
+    std::cin >> x >> y >> orientation;
+
+    game.SetPlaceShip({x, y}, (Orientation)orientation);
+
+}

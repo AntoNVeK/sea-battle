@@ -97,5 +97,5 @@ bool ManagerShips::have_alive_ships()
 
 void ManagerShips::accept()
 {
-    count_alive_ships--;
+    this->count_alive_ships--;
 }

@@ -5,6 +5,7 @@
 #include "Controllers/Controller.h"
 #include "SetModeCommand.h"
 #include "SetFileNameCommand.h"
+#include "SetPlaceShipCommand.h"
 
 class Commands
 {
@@ -15,6 +16,8 @@ private:
 
     Command* set_filename_command;
 
+    Command* set_placeship_command;
+
 public:
     Commands();
 
@@ -23,6 +26,8 @@ public:
     void set_mode();
 
     void set_filename();
+
+    void set_placeship();
 
 
     ~Commands();

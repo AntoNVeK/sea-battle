@@ -30,6 +30,14 @@ public:
 
 	void start_new_game();
 
+	void SetPlaceShip(Coord coord, Orientation orientation);
+
+	const Ship& GetShipNeedPlacement() const;
+
+	void print(Table& table);
+
+	void placeEnemyShips();
+
 private:
 	GameState state;
 	
@@ -65,6 +73,11 @@ private:
 
 	std::string filename;
 
+	Ship& ship;
+
+	Coord coord_place_ship;
+
+	Orientation orientation_place_ship;
 
 };
 

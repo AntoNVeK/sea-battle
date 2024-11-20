@@ -18,6 +18,8 @@ public:
 
     void setFilename() override;
 
+    void setPlaceship() override;
+    
     ~ConsoleController() override = default;
     
 };

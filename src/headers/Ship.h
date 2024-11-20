@@ -8,7 +8,8 @@
 enum Orientation
 {
     HORIZONTAL,
-    VERTICAL
+    VERTICAL,
+    UNDEFINE
 };
 
 enum States

@@ -30,7 +30,8 @@ private:
     int width;
     int height;
 
-    std::vector<Observer*> observers;
+    //std::vector<Observer*> observers;
+    Observer* observers;
     std::vector<std::vector<CellState>> _cells;
     std::set<Coord> attack_coords;
     std::map<std::reference_wrapper<Ship>, std::vector<Coord>> coords_ships;

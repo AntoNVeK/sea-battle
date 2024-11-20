@@ -225,10 +225,10 @@ bool Table::shoot(const Coord& coord)
                     pair.first.get().shoot(i);
                     if (pair.first.get().is_destroyed())
                     {   
-                        for (Observer* observer : observers)
-                        {
-                            observer->accept();
-                        }
+                        //for (Observer* observer : observers)
+                        //{
+                            observers->accept();
+                        //}
                         circle_ship(pair.second);
                     }
                     flag = true;
@@ -287,7 +287,8 @@ const std::set<Coord>& Table::GetAttackCoords() const
 
 void Table::AddObserver(Observer* observer)
 {
-    this->observers.push_back(observer);
+    //this->observers.push_back(observer);
+    this->observers = observer;
 }
 
 const std::map<std::reference_wrapper<Ship>, std::vector<Coord>>& Table::get_ship_coords() const
