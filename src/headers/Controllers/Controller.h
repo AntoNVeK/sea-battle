@@ -6,7 +6,7 @@ class Controller
 {
 public:
 
-
+    virtual void setMode() = 0;
 
     virtual ~Controller() = 0;
     
