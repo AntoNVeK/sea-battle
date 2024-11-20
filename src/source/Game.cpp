@@ -8,8 +8,11 @@ Game::Game(Command* set_mode_command)
       command(skillcoord),
       skillfactory(results, command, Table_Enemy, ShipManager_Enemy, shooter),
       Manager_Skills(skillfactory),
-      state(Table_Player, Table_Enemy, ShipManager_Player, ShipManager_Enemy, Manager_Skills, results, shooter) {
+      state(Table_Player, Table_Enemy, ShipManager_Player, ShipManager_Enemy, Manager_Skills, results, shooter) 
+      {
+        
     mode = ModeStartGame::UNKNOWN;
+
 }
 
 void Game::play() {

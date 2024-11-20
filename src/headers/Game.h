@@ -31,8 +31,6 @@ private:
 	ManagerShips ShipManager_Player;
 	ManagerShips ShipManager_Enemy;
 
-	ManagerSkills Manager_Skills;
-
 	SkillResult results;
 
 	Shooter shooter;
@@ -42,6 +40,9 @@ private:
 	GetCoord command;
 
 	SkillFactory skillfactory;
+
+	ManagerSkills Manager_Skills;
+
 
 	Coord attack_coord;
 
