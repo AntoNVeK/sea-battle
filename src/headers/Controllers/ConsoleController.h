@@ -20,6 +20,10 @@ public:
 
     void setPlaceship() override;
     
+    void setNumberMove() override;
+
+    void setPlayerAttack() override;
+
     ~ConsoleController() override = default;
     
 };

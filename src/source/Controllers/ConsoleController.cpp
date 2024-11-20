@@ -44,3 +44,31 @@ void ConsoleController::setPlaceship()
     game.SetPlaceShip({x, y}, (Orientation)orientation);
 
 }
+
+
+void ConsoleController::setNumberMove()
+{
+    int number_move;
+    std::cout << "Enter mode (1 for Simple Attack, 2 for Skill, 3 for save game, 4 for load game): ";
+
+    std::cin >> number_move;
+
+    game.SetNumberMove(number_move);
+
+}
+
+
+void ConsoleController::setPlayerAttack()
+{
+    int x, y;
+
+    std::cout << "Print coord: (x, y)\n";
+    
+    std::cin >> x >> y;
+
+    
+    
+    
+
+    game.SetAttackCoord({x, y});
+}

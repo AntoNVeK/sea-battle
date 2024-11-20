@@ -6,6 +6,8 @@
 #include "SetModeCommand.h"
 #include "SetFileNameCommand.h"
 #include "SetPlaceShipCommand.h"
+#include "SetNumberMoveCommand.h"
+#include "SetPlayerAttackCommand.h"
 
 class Commands
 {
@@ -18,6 +20,10 @@ private:
 
     Command* set_placeship_command;
 
+    Command* set_numbermove_command;
+
+    Command* set_playerattack_command;
+
 public:
     Commands();
 
@@ -29,6 +35,9 @@ public:
 
     void set_placeship();
 
+    void set_numbermove();
+
+    void set_playerattackmove();
 
     ~Commands();
 };

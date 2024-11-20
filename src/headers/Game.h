@@ -32,11 +32,25 @@ public:
 
 	void SetPlaceShip(Coord coord, Orientation orientation);
 
+	void SetNumberMove(int number_move);
+
+	void SetAttackCoord(Coord coord);
+
 	const Ship& GetShipNeedPlacement() const;
+
+	void placeEnemyShips();
 
 	void print(Table& table);
 
-	void placeEnemyShips();
+	void check_end_game();
+
+	void next_move();
+
+	void player_attack();
+
+	void computer_attack();
+
+	void use_skill();
 
 private:
 	GameState state;
@@ -61,7 +75,7 @@ private:
 	ManagerSkills Manager_Skills;
 
 
-	Coord attack_coord;
+	
 
 
 	ModeStartGame mode;
@@ -78,6 +92,14 @@ private:
 	Coord coord_place_ship;
 
 	Orientation orientation_place_ship;
+
+	int number_move;
+	
+	Coord attack_coord;
+
+
+	std::set<Coord> bot_attack_coords;
+	
 
 };
 

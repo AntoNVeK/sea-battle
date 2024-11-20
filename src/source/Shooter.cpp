@@ -37,10 +37,7 @@ void Shooter::attack(Coord coord, int count_attack)
     }
 }
 
-/*
-DoubleAttackState state;
-Table& table;
-*/
+
 
 bool Shooter::DoubleAttack() const
 {

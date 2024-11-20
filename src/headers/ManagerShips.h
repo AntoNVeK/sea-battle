@@ -3,17 +3,18 @@
 #include <vector>
 #include "Ship.h"
 #include "Observer.h"
+#include <algorithm>
 
 class ManagerShipsTableLoader;
 
-class ManagerShips : public Observer
+class ManagerShips
 {
 
     friend ManagerShipsTableLoader;
 
 private:
     std::vector<Ship> ships;
-    int count_alive_ships;
+    
 
 public:
     ManagerShips();
@@ -37,9 +38,9 @@ public:
 
     const std::vector<Ship>& GetShips() const;
     std::size_t GetCountShips() const;
-    bool have_alive_ships();
+    bool all_destroyed_ships();
 
-    void accept() override;
+
 
 };
 

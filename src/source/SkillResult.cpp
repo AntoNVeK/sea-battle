@@ -19,3 +19,9 @@ bool SkillResult::empty() const
 {
     return results.empty();
 }
+
+
+void SkillResult::pop()
+{
+    results.pop_back();
+}

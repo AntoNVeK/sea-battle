@@ -17,6 +17,8 @@ public:
     void add_result(const std::string& data);
     
     bool empty() const;
+
+    void pop();
 };
 
 #endif

@@ -88,7 +88,7 @@ const std::vector<States>& Ship::GetSegments() const
 
 void Ship::shoot(std::uint8_t index_segment)
 {
-    if (index_segment >= this->_len or index_segment < 0)
+    if (index_segment >= this->_len || index_segment < 0)
     {
         throw std::runtime_error("Incorrect index");
     }
@@ -136,7 +136,7 @@ namespace std
     
     bool operator<(const std::reference_wrapper<Ship>& a, const std::reference_wrapper<Ship>& b)
     {
-        return a.get().GetLen() < b.get().GetLen();
+        return a.get().GetId() < b.get().GetId();
     }
 
 }

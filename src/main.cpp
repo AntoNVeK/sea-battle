@@ -51,16 +51,17 @@ void print(Table& table)
 int main()
 {
 
-   Commands commands;
-
-   Game game(commands);
-
-   ConsoleController controller(game);
-
-   commands.SetController(&controller);
-
-   game.play();
+    Commands commands;
     
+    Game game(commands);
+    
+    ConsoleController controller(game);
+    
+    commands.SetController(&controller);
+    
+    game.play();
+
+    game.next_move();
 
 
 

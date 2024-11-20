@@ -16,8 +16,6 @@ enum CellState
     SHIP = 'S'
 };
 
-class Scanner;
-class Attack;
 
 class ManagerShipsTableLoader;
 
@@ -30,8 +28,8 @@ private:
     int width;
     int height;
 
-    //std::vector<Observer*> observers;
-    Observer* observers;
+
+    Observer* observer;
     std::vector<std::vector<CellState>> _cells;
     std::set<Coord> attack_coords;
     std::map<std::reference_wrapper<Ship>, std::vector<Coord>> coords_ships;
