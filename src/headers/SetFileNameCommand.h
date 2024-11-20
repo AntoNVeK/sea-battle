@@ -1,21 +1,21 @@
-#ifndef SET_MODE_COMMAND_H
-#define SET_MODE_COMMAND_H
+#ifndef SET_FILE_NAME_COMMAND_H
+#define SET_FILE_NAME_COMMAND_H
 #include <iostream>
 #include "Command.h"
 #include "Controllers/Controller.h"
-class SetModeCommand : public Command 
+class SetFileNameCommand : public Command 
 {
 private:
     Controller* controller;
 
 public:
-    SetModeCommand();
+    SetFileNameCommand();
 
     void SetController(Controller* controller) override;
 
     void execute() override;
 
-    ~SetModeCommand() override = default;
+    ~SetFileNameCommand() override = default;
 };
 
 #endif

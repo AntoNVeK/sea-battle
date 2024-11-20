@@ -11,15 +11,24 @@
 #include "GetCoord.h"
 #include "GameEnums.h"
 #include "SetModeCommand.h"
+#include "Commands.h"
 
 class Game
 {
 public:
-	Game(Command* set_mode_command);
+	Game(Commands& commands);
+
+	void load_game();
+
+	void save_game();
 
 	void play();
 
 	void SetModeStartGame(ModeStartGame mode);
+
+	void SetFilename(std::string filename);
+
+	void start_new_game();
 
 private:
 	GameState state;
@@ -49,8 +58,13 @@ private:
 
 	ModeStartGame mode;
 
-	Command* set_mode_command;
+	Commands commands;
 	
+
+
+
+	std::string filename;
+
 
 };
 

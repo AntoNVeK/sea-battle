@@ -7,7 +7,7 @@ Table::Table() : Table(10, 10, nullptr) {}
 Table::Table(Observer* observer) : Table(10, 10, observer) {}
 
 
-Table::Table(int x, int y, Observer* observer) : width(x), height(y), observer(observer)
+Table::Table(int x, int y, Observer* observer) : width(x), height(y), observers(observers)
 {
     if (x <= 0 || y <= 0)
     {
@@ -21,14 +21,14 @@ Table::Table(int x, int y, Observer* observer) : width(x), height(y), observer(o
 
 Table::Table(const Table &other)
     : width(other.width), height(other.height),
-      _cells(other._cells), attack_coords(other.attack_coords), coords_ships(other.coords_ships), observer(other.observer)
+      _cells(other._cells), attack_coords(other.attack_coords), coords_ships(other.coords_ships), observers(other.observers)
 {
 }
 
 
 Table::Table(Table &&other)
     : width(other.width), height(other.height),
-      _cells(std::move(other._cells)), attack_coords(std::move(other.attack_coords)), coords_ships(std::move(other.coords_ships)), observer(other.observer)
+      _cells(std::move(other._cells)), attack_coords(std::move(other.attack_coords)), coords_ships(std::move(other.coords_ships)), observers(std::move(other.observers))
 {
 }
 
@@ -39,7 +39,7 @@ Table& Table::operator=(const Table &other)
     {
         width = other.width;
         height = other.height;
-        observer = other.observer;
+        observers = other.observers;
         _cells = other._cells;
         attack_coords = other.attack_coords;
         coords_ships = other.coords_ships;
@@ -55,7 +55,7 @@ Table& Table::operator=(Table &&other)
     {
         width = other.width;
         height = other.height;
-        observer = other.observer;
+        observers = std::move(other.observers);
         _cells = std::move(other._cells);
         attack_coords = std::move(other.attack_coords);
         coords_ships = std::move(other.coords_ships);
@@ -224,8 +224,11 @@ bool Table::shoot(const Coord& coord)
                 {
                     pair.first.get().shoot(i);
                     if (pair.first.get().is_destroyed())
-                    {
-                        observer->accept();
+                    {   
+                        for (Observer* observer : observers)
+                        {
+                            observer->accept();
+                        }
                         circle_ship(pair.second);
                     }
                     flag = true;
@@ -282,9 +285,9 @@ const std::set<Coord>& Table::GetAttackCoords() const
 
 
 
-void Table::SetObserver(Observer* observer)
+void Table::AddObserver(Observer* observer)
 {
-    this->observer = observer;
+    this->observers.push_back(observer);
 }
 
 const std::map<std::reference_wrapper<Ship>, std::vector<Coord>>& Table::get_ship_coords() const

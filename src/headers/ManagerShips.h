@@ -2,17 +2,18 @@
 #define MANAGER_H
 #include <vector>
 #include "Ship.h"
-
+#include "Observer.h"
 
 class ManagerShipsTableLoader;
 
-class ManagerShips
+class ManagerShips : public Observer
 {
 
     friend ManagerShipsTableLoader;
 
 private:
     std::vector<Ship> ships;
+    int count_alive_ships;
 
 public:
     ManagerShips();
@@ -36,6 +37,9 @@ public:
 
     const std::vector<Ship>& GetShips() const;
     std::size_t GetCountShips() const;
+    bool have_alive_ships();
+
+    void accept() override;
 
 };
 

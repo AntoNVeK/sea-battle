@@ -16,6 +16,8 @@ public:
 
     void setMode() override;
 
+    void setFilename() override;
+
     ~ConsoleController() override = default;
     
 };

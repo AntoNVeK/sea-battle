@@ -7,6 +7,8 @@ ManagerShips::ManagerShips(const std::initializer_list<Length>& shipLengths)
     {
         this->create_ship(length);
     }
+
+    count_alive_ships = shipLengths.size();
 }
 
 
@@ -16,6 +18,8 @@ ManagerShips::ManagerShips(const std::vector<Length>& shipLengths)
     {
         this->create_ship(length);
     }
+
+    count_alive_ships = shipLengths.size();
 }
 ManagerShips::ManagerShips(const ManagerShips &other)
 {
@@ -54,6 +58,7 @@ ManagerShips& ManagerShips::operator=(ManagerShips &&other)
 void ManagerShips::create_ship(Length len, Orientation orientation)
 {
     this->ships.push_back(Ship(len, orientation, ships.size()));
+    count_alive_ships++;
 }
 
 
@@ -82,4 +87,15 @@ const Ship& ManagerShips::operator[](std::uint8_t index) const
 std::size_t ManagerShips::GetCountShips() const
 {
     return this->ships.size();
+}
+
+bool ManagerShips::have_alive_ships()
+{
+    return true ? count_alive_ships > 0 : false;
+}
+
+
+void ManagerShips::accept()
+{
+    count_alive_ships--;
 }

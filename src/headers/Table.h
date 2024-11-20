@@ -30,7 +30,7 @@ private:
     int width;
     int height;
 
-    Observer* observer;
+    std::vector<Observer*> observers;
     std::vector<std::vector<CellState>> _cells;
     std::set<Coord> attack_coords;
     std::map<std::reference_wrapper<Ship>, std::vector<Coord>> coords_ships;
@@ -68,7 +68,7 @@ public:
     const std::set<Coord>& GetAttackCoords() const;
     
 
-    void SetObserver(Observer* observer);
+    void AddObserver(Observer* observer);
 
     void circle_ship(std::vector<Coord> coords);
 

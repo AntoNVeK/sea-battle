@@ -8,6 +8,7 @@
 #include "./headers/Views/ConsoleView.h"
 #include "./headers/Command.h"
 #include "./headers/SetModeCommand.h"
+#include "./headers/Commands.h"
 
 using json = nlohmann::json;
 
@@ -50,13 +51,13 @@ void print(Table& table)
 int main()
 {
 
-   SetModeCommand command;
+   Commands commands;
 
-   Game game(&command);
+   Game game(commands);
 
    ConsoleController controller(game);
 
-   command.SetController(&controller);
+   commands.SetController(&controller);
 
    game.play();
     

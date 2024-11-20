@@ -16,3 +16,15 @@ void ConsoleController::setMode() {
         game.SetModeStartGame(ModeStartGame::NEW);
     }
 }
+
+
+
+void ConsoleController::setFilename()
+{
+    std::string filename;
+    std::cout << "Print filename: ";
+    std::cin >> filename;
+
+    game.SetFilename(filename);
+    
+}
