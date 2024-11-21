@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 #include <iostream>
+#include <fstream>
 #include "GameState.h"
 #include "Table.h"
 #include "ManagerSkills.h"

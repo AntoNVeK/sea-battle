@@ -133,7 +133,7 @@ void GameState::saveGame(const std::string &fileName) const
 {
     
 
-    std::ofstream fileToWrite("saves/"+fileName + ".json");
+    std::ofstream fileToWrite("../src/saves/"+fileName + ".json");
     if (!fileToWrite.is_open()) {
         throw FileInteractionError("File open error " + fileName+".json\n");
     }
@@ -197,7 +197,7 @@ void GameState::loadGame(const std::string& filename)
 {
 	
 
-    std::ifstream fileToRead("saves/" + filename + ".json");
+    std::ifstream fileToRead("../src/saves/" + filename + ".json");
     if (!fileToRead.is_open()) {
         throw FileInteractionError("File open error " + filename+".json\n");
     }
