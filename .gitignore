@@ -42,3 +42,5 @@ tmp*
 
 # cmake dir
 build/
+
+.vs/

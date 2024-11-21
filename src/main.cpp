@@ -64,7 +64,6 @@ int main()
     game.next_move();
 
 
-
     return 0;
 
 }

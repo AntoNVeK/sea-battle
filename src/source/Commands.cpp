@@ -7,6 +7,8 @@ Commands::Commands() : controller(nullptr)
     set_placeship_command = new SetPlaceShipCommand();
     set_numbermove_command = new SetNumberMoveCommand();
     set_playerattack_command = new SetPlayerAttackCommand();
+    set_skillcoord_command = new SetSkillCoordCommand();
+    set_modeend_command = new SetModeEndCommand();
 }
 
 
@@ -18,16 +20,14 @@ void Commands::SetController(Controller* controller) {
     set_placeship_command->SetController(controller);
     set_numbermove_command->SetController(controller);
     set_playerattack_command->SetController(controller);
+    set_skillcoord_command->SetController(controller);
+    set_modeend_command->SetController(controller);
 }
 
 
 Commands::~Commands()
 {
-    delete set_mode_command;
-    delete set_filename_command;
-    delete set_placeship_command;
-    delete set_numbermove_command;
-    delete set_playerattack_command;
+
 }
 
 
@@ -56,4 +56,15 @@ void Commands::set_numbermove()
 void Commands::set_playerattackmove()
 {
     set_playerattack_command->execute();
+}
+
+void Commands::set_skillcoord()
+{
+    set_skillcoord_command->execute();
+}
+
+
+void Commands::set_modeend()
+{
+    set_modeend_command->execute();
 }

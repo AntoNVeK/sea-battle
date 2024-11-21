@@ -8,6 +8,8 @@
 #include "SetPlaceShipCommand.h"
 #include "SetNumberMoveCommand.h"
 #include "SetPlayerAttackCommand.h"
+#include "SetSkillCoordCommand.h"
+#include "SetModeEndCommand.h"
 
 class Commands
 {
@@ -24,6 +26,10 @@ private:
 
     Command* set_playerattack_command;
 
+    Command* set_skillcoord_command;
+
+    Command* set_modeend_command;
+
 public:
     Commands();
 
@@ -38,6 +44,10 @@ public:
     void set_numbermove();
 
     void set_playerattackmove();
+
+    void set_skillcoord();
+
+    void set_modeend();
 
     ~Commands();
 };

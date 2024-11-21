@@ -26,9 +26,9 @@ public:
     
 
 private:
-    std::shared_ptr<ISkillFactory> _double_attack_factory;
-    std::shared_ptr<ISkillFactory> _attack_factory;
-    std::shared_ptr<ISkillFactory> _scanner_factory;
+    std::shared_ptr<DoubleAttackFactory> _double_attack_factory;
+    std::shared_ptr<AttackFactory> _attack_factory;
+    std::shared_ptr<ScannerFactory> _scanner_factory;
 
     SkillResult& results;
 

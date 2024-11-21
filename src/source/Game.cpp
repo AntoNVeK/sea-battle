@@ -3,7 +3,7 @@
 Game::Game(Commands& commands) 
     : commands(commands),
       Table_Player(), Table_Enemy(),
-      ShipManager_Player({ONE}), ShipManager_Enemy({FOUR, THREE, THREE, TWO, TWO, TWO, ONE, ONE, ONE, ONE}),
+      ShipManager_Player({FOUR}), ShipManager_Enemy({FOUR, THREE, THREE, TWO, TWO, TWO, ONE, ONE, ONE, ONE}),
       results(), skillcoord(), shooter(Table_Enemy),
       command(skillcoord),
       skillfactory(results, command, Table_Enemy, ShipManager_Enemy, shooter),
@@ -102,6 +102,7 @@ void Game::start_new_game()
 
             }
         }
+        print(Table_Player);
     }
 
     print(Table_Player);
@@ -171,13 +172,35 @@ void Game::print(Table& table)
 
 void Game::check_end_game()
 {
-     if (ShipManager_Player.all_destroyed_ships())
+    if (ShipManager_Player.all_destroyed_ships())
     {
-        start_new_game();
+        commands.set_modeend();
+
+        switch (mode_end)
+        {
+        case 1:
+            start_new_game();
+            break;
+        case 2:
+            //TODO: command endgame
+            break;
+        default:
+            break;
+        }
     }
     else if (ShipManager_Enemy.all_destroyed_ships())
     {
-        placeEnemyShips();
+        switch (mode_end)
+        {
+        case 1:
+            placeEnemyShips();
+            break;
+        case 2:
+            //TODO: command endgame
+            break;
+        default:
+            break;
+        }
     }
 }
 
@@ -186,21 +209,23 @@ void Game::next_move()
 {
     commands.set_numbermove();
     
-    if (number_move == 1)
+    switch (number_move)
     {
-        player_attack();
-    }
-    else if (number_move == 2)
-    {
-        use_skill();
-    }
-    else if (number_move == 3)
-    {
-        save_game();
-    }
-    else if (number_move == 4)
-    {
-        load_game();
+        case 1:
+            player_attack();
+            break;
+        case 2:
+            use_skill();
+            break;
+        case 3:
+            save_game();
+            break;
+        case 4:
+            load_game();
+            break;
+        default:
+            std::cout << "Unknown number move" << "\n";
+            break;
     }
 }
 
@@ -221,7 +246,6 @@ void Game::player_attack()
     try
     {
         shooter(attack_coord);
-        std::cout << attack_coord.GetX() << " " << attack_coord.GetY() << "\n";
         attack_coord = Coord();
     }
     catch (const OutOfBoundsException &e)
@@ -248,11 +272,8 @@ void Game::computer_attack()
         int x = rand() % (Table_Enemy.GetX());
         int y = rand() % (Table_Enemy.GetY());
 
-        if (bot_attack_coords.find(Coord(x, y)) != bot_attack_coords.end())
-        {
-            continue;
-        }
-        else
+        
+        if ((Table_Player.GetCoords()[y][x] == SHIP && bot_attack_coords.find(Coord(x, y)) != bot_attack_coords.end()) || Table_Player.GetCoords()[y][x] != SHIP)
         {
             bot_attack_coords.insert({x, y});
             Table_Player.shoot({x, y});
@@ -267,18 +288,17 @@ void Game::use_skill()
 {
     try
     {
-        // TODO: command for skill use
 
         auto factory = Manager_Skills.GetFront();
+
+        if (factory->GetName() == SkillName::Scanner)
+        {
+            commands.set_skillcoord();
+        }
 
         auto skill = factory->create();
 
         std::cout << factory->GetName() << "\n";
-
-        if (factory->GetName() == SkillName::Scanner)
-        {
-
-        }
 
         skill->use();
 
@@ -296,4 +316,22 @@ void Game::use_skill()
         std::cerr << e.what() << '\n';
     }
     
+}
+
+
+
+void Game::SetSkillCoord(Coord coord)
+{
+    skillcoord = coord;
+}
+
+
+const std::string& Game::GetMessage() const
+{
+    return message;
+}
+
+void Game::SetModeEndGame(int mode)
+{
+    mode_end = mode;
 }

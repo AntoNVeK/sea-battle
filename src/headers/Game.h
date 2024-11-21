@@ -52,6 +52,12 @@ public:
 
 	void use_skill();
 
+	void SetSkillCoord(Coord coord);
+
+	const std::string& GetMessage() const;
+
+	void SetModeEndGame(int mode);
+	
 private:
 	GameState state;
 	
@@ -74,17 +80,10 @@ private:
 
 	ManagerSkills Manager_Skills;
 
-
-	
-
-
 	ModeStartGame mode;
 
 	Commands commands;
 	
-
-
-
 	std::string filename;
 
 	Ship& ship;
@@ -97,9 +96,11 @@ private:
 	
 	Coord attack_coord;
 
-
 	std::set<Coord> bot_attack_coords;
 	
+	std::string message;
+
+	int mode_end;
 
 };
 

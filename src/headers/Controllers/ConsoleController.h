@@ -24,6 +24,10 @@ public:
 
     void setPlayerAttack() override;
 
+    void setSkillCoord() override;
+
+    void setModeEnd() override;
+
     ~ConsoleController() override = default;
     
 };

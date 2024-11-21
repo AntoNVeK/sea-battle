@@ -1,9 +1,9 @@
 {
     "Manager_Skills": {
         "skills": [
-            "DoubleAttack",
             "Attack",
-            "Scanner"
+            "Scanner",
+            "DoubleAttack"
         ]
     },
     "ShipManager_Enemy": [
