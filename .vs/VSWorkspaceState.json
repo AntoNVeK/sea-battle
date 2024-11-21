@@ -13,5 +13,6 @@
     "\\src\\source",
     "\\src\\source\\Serializers"
   ],
+  "SelectedNode": "\\nlohmann-json",
   "PreviewInSolutionExplorer": false
 }

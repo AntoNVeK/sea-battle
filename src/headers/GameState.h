@@ -81,7 +81,7 @@ private:
 };
 
 
-std::ostream &operator<<(std::ostream &out,const GameState &state);
+std::ofstream &operator<<(std::ofstream &out,const GameState &state);
 std::istream &operator>>(std::istream &in, GameState &state);
 
 

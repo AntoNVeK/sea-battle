@@ -146,7 +146,7 @@ void GameState::saveGame(const std::string &fileName) const
 }
 
 
-std::ostream &operator<<(std::ostream &out,const GameState &state)
+std::ofstream &operator<<(std::ofstream &out,const GameState &state)
 {
     json gameStateJson;
 
