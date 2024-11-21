@@ -10,6 +10,7 @@
 #include "SetPlayerAttackCommand.h"
 #include "SetSkillCoordCommand.h"
 #include "SetModeEndCommand.h"
+#include "EndGameCommand.h"
 
 class Commands
 {
@@ -29,6 +30,8 @@ private:
     Command* set_skillcoord_command;
 
     Command* set_modeend_command;
+    
+    Command* endgame_command;
 
 public:
     Commands();
@@ -48,6 +51,8 @@ public:
     void set_skillcoord();
 
     void set_modeend();
+
+    void endgame();
 
     ~Commands();
 };

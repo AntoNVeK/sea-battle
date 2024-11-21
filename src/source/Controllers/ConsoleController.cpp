@@ -99,3 +99,8 @@ void ConsoleController::setModeEnd()
 
 
 }
+
+void ConsoleController::Endgame()
+{
+    std::cout << "End game" << "\n";
+}

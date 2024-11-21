@@ -22,15 +22,16 @@ Game::Game(Commands& commands)
 void Game::play() {
     commands.set_mode();
 
-    if (mode == ModeStartGame::NEW) {
-        
-        start_new_game();
-        
-    } else if (mode == ModeStartGame::LOAD) {
-        load_game();
-        
-    } else {
-        std::cerr << "Error: Mode not set. Exiting.\n";
+    switch (mode) {
+        case ModeStartGame::NEW:
+            start_new_game();
+            break;
+        case ModeStartGame::LOAD:
+            load_game();
+            break;
+        default:
+            std::cerr << "Error: Mode not set. Exiting.\n";
+            break;
     }
 }
 
@@ -182,7 +183,7 @@ void Game::check_end_game()
             start_new_game();
             break;
         case 2:
-            //TODO: command endgame
+            commands.endgame();
             break;
         default:
             break;
@@ -196,7 +197,7 @@ void Game::check_end_game()
             placeEnemyShips();
             break;
         case 2:
-            //TODO: command endgame
+            commands.endgame();
             break;
         default:
             break;
@@ -224,7 +225,7 @@ void Game::next_move()
             load_game();
             break;
         default:
-            std::cout << "Unknown number move" << "\n";
+            std::cerr << "Unknown number move" << "\n";
             break;
     }
 }
@@ -281,6 +282,7 @@ void Game::computer_attack()
         }
     }
 
+    print(Table_Player);
 
 }
 

@@ -9,6 +9,7 @@ Commands::Commands() : controller(nullptr)
     set_playerattack_command = new SetPlayerAttackCommand();
     set_skillcoord_command = new SetSkillCoordCommand();
     set_modeend_command = new SetModeEndCommand();
+    endgame_command = new EndGameCommand();
 }
 
 
@@ -22,6 +23,7 @@ void Commands::SetController(Controller* controller) {
     set_playerattack_command->SetController(controller);
     set_skillcoord_command->SetController(controller);
     set_modeend_command->SetController(controller);
+    endgame_command->SetController(controller);
 }
 
 
@@ -67,4 +69,9 @@ void Commands::set_skillcoord()
 void Commands::set_modeend()
 {
     set_modeend_command->execute();
+}
+
+void Commands::endgame()
+{
+    endgame_command->execute();
 }

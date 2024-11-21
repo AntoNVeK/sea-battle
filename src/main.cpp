@@ -63,6 +63,7 @@ int main()
 
     game.next_move();
 
+    game.computer_attack();
 
     return 0;
 

@@ -28,6 +28,8 @@ public:
 
     void setModeEnd() override;
 
+    void Endgame() override;
+
     ~ConsoleController() override = default;
     
 };
