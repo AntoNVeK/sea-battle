@@ -63,7 +63,11 @@ int main()
 
     game.next_move();
 
+    game.next_move();
+
     game.computer_attack();
+
+    game.check_end_game();
 
     return 0;
 

@@ -4,6 +4,7 @@
 #include "Ship.h"
 #include "Observer.h"
 #include <algorithm>
+#include <iostream>
 
 class ManagerShipsTableLoader;
 

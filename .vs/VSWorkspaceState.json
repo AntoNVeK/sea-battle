@@ -13,6 +13,6 @@
     "\\src\\source",
     "\\src\\source\\Serializers"
   ],
-  "SelectedNode": "\\nlohmann-json",
+  "SelectedNode": "\\src\\source\\Game.cpp",
   "PreviewInSolutionExplorer": false
 }

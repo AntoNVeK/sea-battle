@@ -3,18 +3,16 @@
 Game::Game(Commands& commands) 
     : commands(commands),
       Table_Player(), Table_Enemy(),
-      ShipManager_Player({FOUR}), ShipManager_Enemy({FOUR, THREE, THREE, TWO, TWO, TWO, ONE, ONE, ONE, ONE}),
+      ShipManager_Player({FOUR}), ShipManager_Enemy({FOUR}),
       results(), skillcoord(), shooter(Table_Enemy),
       command(skillcoord),
       skillfactory(results, command, Table_Enemy, ShipManager_Enemy, shooter),
       Manager_Skills(skillfactory),
       state(Table_Player, Table_Enemy, ShipManager_Player, ShipManager_Enemy, Manager_Skills, results, shooter),
-      ship(ShipManager_Player[0])
+      ship(nullptr)
       {
         
     mode = ModeStartGame::UNKNOWN;
-
-    Table_Enemy.AddObserver(&Manager_Skills);
     
     
 }
@@ -43,9 +41,11 @@ void Game::load_game()
 {
     commands.set_filename();
     state.loadGame(this->filename);
-    print(Table_Player);
 
     this->filename = "";
+
+    print(Table_Player);
+    print(Table_Enemy);
 }
 
 
@@ -68,16 +68,20 @@ void Game::SetPlaceShip(Coord coord, Orientation orientation)
     orientation_place_ship = orientation;
 }
 
-const Ship& Game::GetShipNeedPlacement() const
+const Ship* Game::GetShipNeedPlacement() const
 {
     return ship;
 }
 
 void Game::start_new_game()
 {
+
+    ShipManager_Player = ManagerShips({TWO, THREE, FOUR});
+    Table_Player = Table();
+
     for (int i = 0; i < ShipManager_Player.GetCountShips(); i++)
     {
-        ship = ShipManager_Player[i];
+        ship = &ShipManager_Player[i];
         
 
         while (true)
@@ -93,8 +97,8 @@ void Game::start_new_game()
 
             try
             {
-                ship.SetOrientation(orientation_place_ship);
-                Table_Player.add_ship(ship, coord_place_ship);
+                ShipManager_Player[i].SetOrientation(orientation_place_ship);
+                Table_Player.add_ship(ShipManager_Player[i], coord_place_ship);
                 break;
             }
             catch (const ShipPlacementException &e)
@@ -103,7 +107,7 @@ void Game::start_new_game()
 
             }
         }
-        print(Table_Player);
+        
     }
 
     print(Table_Player);
@@ -113,10 +117,11 @@ void Game::start_new_game()
 
 void Game::placeEnemyShips()
 {
-    
+    ShipManager_Enemy = ManagerShips({ONE});
+    Table_Enemy = Table();
+    Table_Enemy.AddObserver(&Manager_Skills);
     for (int i = 0; i < ShipManager_Enemy.GetCountShips(); i++)
     {
-        ship = ShipManager_Enemy[i];
         while(true)
         {
             try
@@ -124,7 +129,7 @@ void Game::placeEnemyShips()
                 int x = rand() % (Table_Enemy.GetX());
                 int y = rand() % (Table_Enemy.GetY());
                 
-                ship.SetOrientation((Orientation)(rand() % 2));
+                ShipManager_Enemy[i].SetOrientation((Orientation)(rand() % 2));
                 Table_Enemy.add_ship(ShipManager_Enemy[i], {x,y});
                 break;
             }
@@ -136,6 +141,7 @@ void Game::placeEnemyShips()
         }
     }
     print(Table_Enemy);
+    //Table_Enemy.print_map();
 }
 
 void Game::print(Table& table)
@@ -173,14 +179,13 @@ void Game::print(Table& table)
 
 void Game::check_end_game()
 {
-    if (ShipManager_Player.all_destroyed_ships())
+    if (ShipManager_Enemy.all_destroyed_ships())
     {
         commands.set_modeend();
-
         switch (mode_end)
         {
         case 1:
-            start_new_game();
+            placeEnemyShips();
             break;
         case 2:
             commands.endgame();
@@ -189,12 +194,14 @@ void Game::check_end_game()
             break;
         }
     }
-    else if (ShipManager_Enemy.all_destroyed_ships())
+    if (ShipManager_Player.all_destroyed_ships())
     {
+        commands.set_modeend();
+
         switch (mode_end)
         {
         case 1:
-            placeEnemyShips();
+            start_new_game();
             break;
         case 2:
             commands.endgame();
@@ -258,7 +265,7 @@ void Game::player_attack()
     {
         std::cerr << e.what() << '\n';
     }
-    //print(Table_Player);
+    
     print(Table_Enemy);
     
 }
@@ -276,9 +283,17 @@ void Game::computer_attack()
         
         if ((Table_Player.GetCoords()[y][x] == SHIP && bot_attack_coords.find(Coord(x, y)) != bot_attack_coords.end()) || Table_Player.GetCoords()[y][x] != SHIP)
         {
-            bot_attack_coords.insert({x, y});
-            Table_Player.shoot({x, y});
-            was_attack = true;
+            try
+            {
+                Table_Player.shoot({x, y});
+                bot_attack_coords.insert({x, y});
+
+                was_attack = true;
+            }
+            catch(const std::exception& e)
+            {
+                
+            }
         }
     }
 

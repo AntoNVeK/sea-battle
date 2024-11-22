@@ -131,7 +131,6 @@ void GameState::setShooter(Shooter& shooter)
 
 void GameState::saveGame(const std::string &fileName) const
 {
-    
 
     std::ofstream fileToWrite("../src/saves/"+fileName + ".json");
     if (!fileToWrite.is_open()) {
@@ -156,7 +155,7 @@ std::ofstream &operator<<(std::ofstream &out,const GameState &state)
     gameStateJson["Table_Player"] = tablePlayerSerializer.get();
 
 
-    TableSerializer tableEnemySerializer(state.getTable_Player());
+    TableSerializer tableEnemySerializer(state.getTable_Enemy());
     tableEnemySerializer.load();
     gameStateJson["Table_Enemy"] = tableEnemySerializer.get();
 

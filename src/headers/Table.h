@@ -19,10 +19,14 @@ enum CellState
 
 class ManagerShipsTableLoader;
 
+class TableSerializer;
+
 class Table
 {
 
     friend ManagerShipsTableLoader;
+
+    friend TableSerializer;
 
 private:
     int width;
@@ -72,6 +76,8 @@ public:
     void circle_ship(std::vector<Coord> coords);
 
     const std::map<std::reference_wrapper<Ship>, std::vector<Coord>>& get_ship_coords() const;
+
+    void print_map() const;
 
 
 private:

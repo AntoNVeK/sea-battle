@@ -293,3 +293,21 @@ const std::map<std::reference_wrapper<Ship>, std::vector<Coord>>& Table::get_shi
 {
     return coords_ships;
 }
+
+void Table::print_map() const
+{
+    for (const auto& pair : coords_ships) {
+        const Ship& ship = pair.first.get(); // Получаем ссылку на объект Ship
+        const std::vector<Coord>& coords = pair.second;
+
+        // Вывод информации о корабле
+        std::cout << "Ship ID: " << ship.GetId() << ", Length: " << ship.GetLen() << ", Orientation: " << ship.GetOrientation() << "\n";
+
+        // Вывод координат
+        std::cout << "Coordinates: ";
+        for (const Coord& coord : coords) {
+            std::cout << "(" << coord.GetX() << ", " << coord.GetY() << ") ";
+        }
+        std::cout << "\n";
+    }
+}

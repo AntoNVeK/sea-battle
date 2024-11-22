@@ -37,7 +37,7 @@ public:
 
 	void SetAttackCoord(Coord coord);
 
-	const Ship& GetShipNeedPlacement() const;
+	const Ship* GetShipNeedPlacement() const;
 
 	void placeEnemyShips();
 
@@ -87,7 +87,7 @@ private:
 	
 	std::string filename;
 
-	Ship& ship;
+	Ship* ship;
 
 	Coord coord_place_ship;
 

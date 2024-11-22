@@ -32,7 +32,7 @@ void ConsoleController::setFilename()
 
 void ConsoleController::setPlaceship()
 {
-    Length len = game.GetShipNeedPlacement().GetLen();
+    Length len = game.GetShipNeedPlacement()->GetLen();
 
     int x, y, orientation;
 

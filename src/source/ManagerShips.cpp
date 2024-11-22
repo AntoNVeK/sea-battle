@@ -91,8 +91,14 @@ std::size_t ManagerShips::GetCountShips() const
 
 bool ManagerShips::all_destroyed_ships()
 {
-    return std::all_of(ships.begin(), ships.end(), [](const Ship& ship)
-                       { return ship.is_destroyed(); });
+    for (auto& ship : ships)
+    {
+        if (!ship.is_destroyed())
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 
