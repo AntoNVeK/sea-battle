@@ -43,11 +43,6 @@ void Game::load_game()
     std::string filename = set_file_name.execute();
 
     state.loadGame(filename);
-
-
-
-    print(Table_Player, true);
-    print(Table_Enemy, false);
 }
 
 
@@ -70,7 +65,7 @@ void Game::start_new_game()
 
 void Game::placePlayerShips()
 {
-    ShipManager_Player = ManagerShips({FOUR});
+    ShipManager_Player = ManagerShips({FOUR, THREE, THREE, TWO, TWO, TWO, ONE, ONE, ONE, ONE});
     Table_Player = Table();
 
     for (int i = 0; i < ShipManager_Player.GetCountShips(); i++)
@@ -114,7 +109,7 @@ void Game::placePlayerShips()
 void Game::placeEnemyShips()
 {
 
-    ShipManager_Enemy = ManagerShips({ONE});
+    ShipManager_Enemy = ManagerShips({FOUR, THREE, THREE, TWO, TWO, TWO, ONE, ONE, ONE, ONE});
     Table_Enemy = Table();
     Table_Enemy.AddObserver(&Manager_Skills);
 
@@ -138,7 +133,7 @@ void Game::placeEnemyShips()
 
         }
     }
-    print(Table_Enemy, false);
+
     
 }
 
@@ -228,6 +223,7 @@ void Game::player_attack()
     {
         last_attack_result = shooter(attack_coord);
         attack_coord = Coord();
+
     }
     catch (const OutOfBoundsException &e)
     {
@@ -238,7 +234,7 @@ void Game::player_attack()
     {
         std::cerr << e.what() << '\n';
     }
-    print(Table_Enemy, false);
+
     
     
     
@@ -263,6 +259,7 @@ void Game::computer_attack()
                 bot_attack_coords.insert({x, y});
 
                 was_attack = true;
+
             }
             catch(const std::exception& e)
             {

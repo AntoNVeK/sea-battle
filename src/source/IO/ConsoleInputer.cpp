@@ -5,11 +5,14 @@ std::string ConsoleInputer::getInput()
 {
     bool valid_command = false;
     std::string command = "";
+
+
+
     while (!valid_command)
     {
         std::cout << "Enter command: ";
         std::string input = input_metod.input();
-
+        
         try
         {
             command = getCommand(input);
@@ -20,6 +23,7 @@ std::string ConsoleInputer::getInput()
             std::cerr << e.what()  << '\n';
             std::cerr << "Please try again." << std::endl;
         }
+        
     }
     return command;
 }
@@ -27,15 +31,19 @@ std::string ConsoleInputer::getInput()
 std::string ConsoleInputer::getCommand(const std::string& input)
 {
 
-    if (std::find(commands.get_long_commands().begin(), commands.get_long_commands().end(), input) != commands.get_long_commands().end())
+    for (auto command : commands.get_long_commands())
     {
-        return input;
+        if (input == command)
+            return input;
     }
 
 
-    if(commands.get_command_map().find(input) == commands.get_command_map().end())
+    for (auto command : commands.get_command_map())
     {
-        throw std::invalid_argument("Unknown command: " + input);
+        if (input == command.first)
+            return commands.get_command_map()[input];
+
     }
-    return commands.get_command_map()[input];
+    
+    throw std::invalid_argument("Unknown command: " + input);
 }

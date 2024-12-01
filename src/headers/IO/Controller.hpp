@@ -5,7 +5,10 @@ void Controller<Inputer, Printer_Table, Printer_Message>::initialize_commands()
 {
     commands["attack"] = [&]() { 
         game.player_attack();
+        view.solve("attack_message");
         view.solve("fields");
+        if (!game.get_result_attack())
+            game.swap();
     };
     commands["state_my_ships"] = [&]() { view.solve("state_my_ships"); };
     commands["state_enemy_ships"] = [&]() { view.solve("state_enemy_ships"); };
@@ -33,20 +36,23 @@ void Controller<Inputer, Printer_Table, Printer_Message>::run()
 
     while (isGameRunning)
     {
-        std::string input = inputer.getInput();
-        if(commands.find(input) != commands.end())
+        if (game.get_current_player() == Player::User)
         {
-            commands[input]();
+            std::string input = inputer.getInput();
+            if(commands.find(input) != commands.end())
+            {
+                commands[input]();
+            }
         }
         else
         {
-            std::cout << "Unknown command" << std::endl;
+            game.computer_attack();
+            view.solve("attack_message");
+            view.solve("fields");
+            if (!game.get_result_attack())
+                game.swap();
         }
         
-        game.computer_attack();
-        game.check_end_game();
-        view.solve("attack_message");
-        view.solve("fields");
     }
     
 }

@@ -7,7 +7,7 @@ Input::Input(){}
 
 std::string Input::input()
 {
-    std::string controller;
-    std::getline(std::cin, controller);
-    return controller;
+    std::string input;
+    std::cin >> input;
+    return input;
 }

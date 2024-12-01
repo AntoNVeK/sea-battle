@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <utility>
-#include "../headers/ManagerShips.h"
-#include "../headers/Table.h"
+#include "../ManagerShips.h"
+#include "../Table.h"
 
 class ConsoleShow_Table
 {
