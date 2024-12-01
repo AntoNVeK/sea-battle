@@ -4,11 +4,11 @@
 #include <stdlib.h>
 #include <iterator>
 #include "./headers/Game.h"
-#include "./headers/Controllers/ConsoleController.h"
-#include "./headers/Views/ConsoleView.h"
+#include "./headers/IO/ConsoleInput.h"
+
 #include "./headers/Command.h"
 #include "./headers/SetModeCommand.h"
-#include "./headers/Commands.h"
+#include "./headers/IO/Controller.h"
 
 using json = nlohmann::json;
 
@@ -51,23 +51,26 @@ void print(Table& table)
 int main()
 {
 
-    Commands commands;
+    SetFileNameCommand set_file_name;
+    SetModeCommand set_mode;
+    SetCoordCommand set_coord;
+    SetPlaceShipCommand set_place_ship;
+
+
+    EndGameCommand end_game;
     
-    Game game(commands);
+    Game game(set_file_name, set_mode, set_coord, set_place_ship, end_game);
     
-    ConsoleController controller(game);
+    ConsoleInput input(game);
     
-    commands.SetController(&controller);
+    set_file_name.SetInput(&input);
+    set_mode.SetInput(&input);
+    set_coord.SetInput(&input);
+    set_place_ship.SetInput(&input);
+    end_game.SetInput(&input);
     
     game.play();
 
-    game.next_move();
-
-    game.next_move();
-
-    game.computer_attack();
-
-    game.check_end_game();
 
     return 0;
 

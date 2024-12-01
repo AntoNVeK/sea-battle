@@ -20,12 +20,13 @@
 #include "Loaders/ShooterLoader.h"
 #include "Loaders/SkillResultLoader.h"
 #include "Loaders/ManagerShipsTableLoader.h"
+#include "FileWrapper.h"
 
 class GameState
 {
 
 public:
-	GameState(Table& Table_Player, Table& Table_Enemy, ManagerShips& ShipManager_Player, ManagerShips& ShipManager_Enemy, ManagerSkills& Manager_Skills, SkillResult& results, Shooter& shooter);
+	GameState(Table& Table_Player, Table& Table_Enemy, ManagerShips& ShipManager_Player, ManagerShips& ShipManager_Enemy, ManagerSkills& Manager_Skills, Shooter& shooter);
 
 	GameState(const GameState& other);
 	GameState(GameState&& other);
@@ -35,34 +36,14 @@ public:
 	GameState& operator=(const GameState& other);
 	GameState& operator=(GameState&& other);
 
-	Table& getTable_Player() const;
-	Table& getTable_Enemy() const;
+	void saveGame(std::string Filename) const;
+    void loadGame(std::string Filename);
 
-	ManagerShips& getShipManager_Player() const;
-	ManagerShips& getShipManager_Enemy() const;
 
-	ManagerSkills& getManager_Skills() const;
+	void writeState();
 
-	SkillResult& getResult() const;
-
-	Shooter& getShooter() const;
-
-	void setTable_Player(Table& Table_Player);
-	void setTable_Enemy(Table& Table_Enemy);
-
-	void setShipManager_Player(ManagerShips& ShipManager_Player);
-	void setShipManager_Enemy(ManagerShips& ShipManager_Enemy);
-
-	void setManager_Skills(ManagerSkills& Manager_Skills);
-
-	void setResult(SkillResult& results);
-
-	void setShooter(Shooter& shooter);
-
-	void saveGame(const std::string& fileName) const;
-    void loadGame(const std::string& filename);
-
-	
+	friend std::ofstream &operator<<(std::ofstream &out,const GameState &state);
+	friend std::istream &operator>>(std::istream &in, GameState &state);
 
 private:
 	Table& Table_Player;
@@ -73,16 +54,17 @@ private:
 
 	ManagerSkills& Manager_Skills;
 
-	SkillResult& results;
-
 	Shooter& shooter;
 
+	json data;
+	
+	
+	std::string filename;
 
 };
 
 
-std::ofstream &operator<<(std::ofstream &out,const GameState &state);
-std::istream &operator>>(std::istream &in, GameState &state);
+
 
 
 #endif

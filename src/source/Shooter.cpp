@@ -6,19 +6,19 @@ Shooter::Shooter(Table& table) : table(table)
     state = DoubleAttackState::OFF;
 }
 
-void Shooter::operator()(Coord coord)
+bool Shooter::operator()(Coord coord)
 {
     if (state == DoubleAttackState::ON)
     {
         
-        attack(coord, 2);
 
         state = DoubleAttackState::OFF;
         
+        return attack(coord, 2);
     }
     else
     {
-        attack(coord, 1);
+        return attack(coord, 1);
     }
 }
 
@@ -28,13 +28,20 @@ void Shooter::SetState(DoubleAttackState state)
 }
 
 
-void Shooter::attack(Coord coord, int count_attack)
+bool Shooter::attack(Coord coord, int count_attack)
 {
+    bool flag = false;
     for (int i = 0; i < count_attack; i++){
-
-        table.shoot(coord);
-
+        if (i == 0)
+        {
+            flag = table.shoot(coord);
+        }
+        else
+        {
+            table.shoot(coord);
+        }
     }
+    return flag;
 }
 
 

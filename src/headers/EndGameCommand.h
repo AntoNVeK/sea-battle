@@ -1,21 +1,20 @@
 #ifndef END_GAME_COMMAND_H
 #define END_GAME_COMMAND_H
 #include <iostream>
-#include "Command.h"
-#include "Controllers/Controller.h"
-class EndGameCommand : public Command 
+#include "IO/Input.h"
+class EndGameCommand
 {
 private:
-    Controller* controller;
+    Input* input;
 
 public:
     EndGameCommand();
 
-    void SetController(Controller* controller) override;
+    void SetInput(Input* input);
 
-    void execute() override;
+    void execute();
 
-    ~EndGameCommand() override = default;
+    ~EndGameCommand() = default;
 };
 
 #endif

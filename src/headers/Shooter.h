@@ -13,7 +13,7 @@ private:
 public:
     Shooter(Table& table);
 
-    void operator()(Coord coord);
+    bool operator()(Coord coord);
 
     void SetState(DoubleAttackState state);
     
@@ -27,7 +27,7 @@ public:
     Shooter& operator=(Shooter &&other);
 
 private:
-    void attack(Coord coord,int count_attack);
+    bool attack(Coord coord,int count_attack);
 };
 
 #endif

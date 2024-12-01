@@ -19,14 +19,12 @@ enum CellState
 
 class ManagerShipsTableLoader;
 
-class TableSerializer;
 
 class Table
 {
 
     friend ManagerShipsTableLoader;
 
-    friend TableSerializer;
 
 private:
     int width;

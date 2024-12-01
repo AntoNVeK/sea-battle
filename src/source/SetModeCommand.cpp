@@ -1,15 +1,15 @@
 #include "../headers/SetModeCommand.h"
 
-SetModeCommand::SetModeCommand() : controller(nullptr) {}
+SetModeCommand::SetModeCommand() : input(nullptr) {}
 
-void SetModeCommand::execute() {
-    if (controller != nullptr) {
-        controller->setMode();
+int SetModeCommand::execute() {
+    if (input != nullptr) {
+        return input->setMode();
     } else {
-        std::cerr << "Error: Controller not set. Cannot execute command.\n";
+        std::cerr << "Error: Input not set. Cannot execute command.\n";
     }
 }
 
-void SetModeCommand::SetController(Controller* controller) {
-    this->controller = controller;
+void SetModeCommand::SetInput(Input* input) {
+    this->input = input;
 }

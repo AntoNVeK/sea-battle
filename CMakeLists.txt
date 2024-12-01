@@ -9,13 +9,13 @@ include_directories("./src/headers/Serializers")
 include_directories("./src/headers/Loaders")
 include_directories("./nlohmann-json/include")
 
-include_directories("./src/headers/Controllers")
+include_directories("./src/headers/IO")
 include_directories("./src/headers/Views")
 
 aux_source_directory("./src/source" SRC)
 aux_source_directory("./src/source/Serializers" SERIALIZERS)
 aux_source_directory("./src/source/Loaders" LOADERS)
-aux_source_directory("./src/source/Controllers" CONTROLLERS)
+aux_source_directory("./src/source/IO" IO)
 aux_source_directory("./src/source/Views" VIEWS)
 
 add_executable(seagame
@@ -23,6 +23,6 @@ add_executable(seagame
   ${SRC}
   ${SERIALIZERS}
   ${LOADERS}
-  ${CONTROLLERS}
+  ${IO}
   ${VIEWS}
 )

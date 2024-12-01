@@ -1,15 +1,15 @@
 #include "../headers/EndGameCommand.h"
 
-EndGameCommand::EndGameCommand() : controller(nullptr) {}
+EndGameCommand::EndGameCommand() : input(nullptr) {}
 
 void EndGameCommand::execute() {
-    if (controller != nullptr) {
-        controller->Endgame();
+    if (input != nullptr) {
+        input->Endgame();
     } else {
-        std::cerr << "Error: Controller not set. Cannot execute command.\n";
+        std::cerr << "Error: Input not set. Cannot execute command.\n";
     }
 }
 
-void EndGameCommand::SetController(Controller* controller) {
-    this->controller = controller;
+void EndGameCommand::SetInput(Input* input) {
+    this->input = input;
 }

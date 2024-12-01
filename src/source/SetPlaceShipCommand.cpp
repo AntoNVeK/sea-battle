@@ -1,15 +1,15 @@
 #include "../headers/SetPlaceShipCommand.h"
 
-SetPlaceShipCommand::SetPlaceShipCommand() : controller(nullptr) {}
+SetPlaceShipCommand::SetPlaceShipCommand() : input(nullptr) {}
 
-void SetPlaceShipCommand::execute() {
-    if (controller != nullptr) {
-        controller->setPlaceship();
+std::vector<int> SetPlaceShipCommand::execute(int len_ship) {
+    if (input != nullptr) {
+        return input->setPlaceship(len_ship);
     } else {
-        std::cerr << "Error: Controller not set. Cannot execute command.\n";
+        std::cerr << "Error: Input not set. Cannot execute command.\n";
     }
 }
 
-void SetPlaceShipCommand::SetController(Controller* controller) {
-    this->controller = controller;
+void SetPlaceShipCommand::SetInput(Input* input) {
+    this->input = input;
 }

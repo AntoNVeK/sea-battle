@@ -6,8 +6,8 @@
 enum class ModeStartGame : char
 {
     UNKNOWN,
-    LOAD,
-    NEW
+    NEW,
+    LOAD
 };
 
 

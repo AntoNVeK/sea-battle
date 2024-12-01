@@ -1,15 +1,15 @@
 #include "../headers/SetFileNameCommand.h"
 
-SetFileNameCommand::SetFileNameCommand() : controller(nullptr) {}
+SetFileNameCommand::SetFileNameCommand() : input(nullptr) {}
 
-void SetFileNameCommand::execute() {
-    if (controller != nullptr) {
-        controller->setFilename();
+std::string SetFileNameCommand::execute() {
+    if (input != nullptr) {
+        return input->setFilename();
     } else {
-        std::cerr << "Error: Controller not set. Cannot execute command.\n";
+        std::cerr << "Error: Input not set. Cannot execute command.\n";
     }
 }
 
-void SetFileNameCommand::SetController(Controller* controller) {
-    this->controller = controller;
+void SetFileNameCommand::SetInput(Input* input) {
+    this->input = input;
 }

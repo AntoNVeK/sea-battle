@@ -2,20 +2,20 @@
 #define SET_FILE_NAME_COMMAND_H
 #include <iostream>
 #include "Command.h"
-#include "Controllers/Controller.h"
-class SetFileNameCommand : public Command 
+#include "IO/Input.h"
+class SetFileNameCommand
 {
 private:
-    Controller* controller;
+    Input* input;
 
 public:
     SetFileNameCommand();
 
-    void SetController(Controller* controller) override;
+    void SetInput(Input* input);
 
-    void execute() override;
+    std::string execute();
 
-    ~SetFileNameCommand() override = default;
+    ~SetFileNameCommand() = default;
 };
 
 #endif

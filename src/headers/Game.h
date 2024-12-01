@@ -12,12 +12,16 @@
 #include "GetCoord.h"
 #include "GameEnums.h"
 #include "SetModeCommand.h"
-#include "Commands.h"
+#include "SetModeCommand.h"
+#include "SetFileNameCommand.h"
+#include "SetPlaceShipCommand.h"
+#include "SetCoordCommand.h"
+#include "EndGameCommand.h"
 
 class Game
 {
 public:
-	Game(Commands& commands);
+	Game(SetFileNameCommand& set_file_name, SetModeCommand& set_mode, SetCoordCommand& set_coord, SetPlaceShipCommand& set_place_ship, EndGameCommand& end_game);
 
 	void load_game();
 
@@ -25,27 +29,15 @@ public:
 
 	void play();
 
-	void SetModeStartGame(ModeStartGame mode);
-
-	void SetFilename(std::string filename);
-
 	void start_new_game();
 
-	void SetPlaceShip(Coord coord, Orientation orientation);
-
-	void SetNumberMove(int number_move);
-
-	void SetAttackCoord(Coord coord);
-
-	const Ship* GetShipNeedPlacement() const;
+	void placePlayerShips();
 
 	void placeEnemyShips();
 
-	void print(Table& table);
+	void print(Table& table, bool flag);
 
 	void check_end_game();
-
-	void next_move();
 
 	void player_attack();
 
@@ -53,11 +45,24 @@ public:
 
 	void use_skill();
 
-	void SetSkillCoord(Coord coord);
+	Table& get_player_table();
 
-	const std::string& GetMessage() const;
+	Table& get_enemy_table();
 
-	void SetModeEndGame(int mode);
+	ManagerShips& get_player_ships();
+	
+	ManagerShips& get_enemy_ships();
+
+
+	bool get_result_attack() const
+	{
+		return last_attack_result;
+	}
+
+	SkillName get_name_next_skill() const
+	{
+		return Manager_Skills.GetNameFrontSkill();
+	}
 	
 private:
 	GameState state;
@@ -81,27 +86,16 @@ private:
 
 	ManagerSkills Manager_Skills;
 
-	ModeStartGame mode;
-
-	Commands commands;
-	
-	std::string filename;
-
-	Ship* ship;
-
-	Coord coord_place_ship;
-
-	Orientation orientation_place_ship;
-
-	int number_move;
-	
-	Coord attack_coord;
-
 	std::set<Coord> bot_attack_coords;
-	
-	std::string message;
 
-	int mode_end;
+	SetFileNameCommand& set_file_name;
+	SetModeCommand& set_mode;
+	SetCoordCommand& set_coord;
+	SetPlaceShipCommand& set_place_ship;
+	EndGameCommand& end_game;
+
+
+	bool last_attack_result = false;
 
 };
 

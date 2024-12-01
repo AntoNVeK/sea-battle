@@ -1,26 +1,31 @@
 #include "../headers/Game.h"
 
-Game::Game(Commands& commands) 
-    : commands(commands),
+Game::Game(SetFileNameCommand& set_file_name, SetModeCommand& set_mode, SetCoordCommand& set_coord, SetPlaceShipCommand& set_place_ship, EndGameCommand& end_game)
+    : set_file_name(set_file_name),
+      set_mode(set_mode),
+      set_coord(set_coord),
+      set_place_ship(set_place_ship),
+      end_game(end_game),
       Table_Player(), Table_Enemy(),
       ShipManager_Player({FOUR}), ShipManager_Enemy({FOUR}),
       results(), skillcoord(), shooter(Table_Enemy),
       command(skillcoord),
       skillfactory(results, command, Table_Enemy, ShipManager_Enemy, shooter),
       Manager_Skills(skillfactory),
-      state(Table_Player, Table_Enemy, ShipManager_Player, ShipManager_Enemy, Manager_Skills, results, shooter),
-      ship(nullptr)
+      state(Table_Player, Table_Enemy, ShipManager_Player, ShipManager_Enemy, Manager_Skills, shooter)
       {
         
-    mode = ModeStartGame::UNKNOWN;
+    
     
     
 }
 
 void Game::play() {
-    commands.set_mode();
 
-    switch (mode) {
+    std::cout << "Enter mode (1 for NEW, 2 for LOAD): ";
+    int mode = set_mode.execute();
+
+    switch ((ModeStartGame)mode) {
         case ModeStartGame::NEW:
             start_new_game();
             break;
@@ -28,68 +33,60 @@ void Game::play() {
             load_game();
             break;
         default:
-            std::cerr << "Error: Mode not set. Exiting.\n";
+            std::cerr << "Error: Mode not set.\n";
             break;
     }
 }
 
-void Game::SetModeStartGame(ModeStartGame mode) {
-    this->mode = mode;
-}
-
 void Game::load_game()
 {
-    commands.set_filename();
-    state.loadGame(this->filename);
+    std::string filename = set_file_name.execute();
 
-    this->filename = "";
+    state.loadGame(filename);
 
-    print(Table_Player);
-    print(Table_Enemy);
+
+
+    print(Table_Player, true);
+    print(Table_Enemy, false);
 }
 
 
 void Game::save_game()
 {
-    commands.set_filename();
-    state.saveGame(this->filename);
-    this->filename = "";
+
+    std::string filename = set_file_name.execute();
+
+    state.saveGame(filename);
+
 }
 
-
-void Game::SetFilename(std::string filename)
-{
-    this->filename = filename;
-}
-
-void Game::SetPlaceShip(Coord coord, Orientation orientation)
-{
-    coord_place_ship = coord;
-    orientation_place_ship = orientation;
-}
-
-const Ship* Game::GetShipNeedPlacement() const
-{
-    return ship;
-}
 
 void Game::start_new_game()
 {
+    
+    placePlayerShips();
+    placeEnemyShips();
+}
 
-    ShipManager_Player = ManagerShips({TWO, THREE, FOUR});
+void Game::placePlayerShips()
+{
+    ShipManager_Player = ManagerShips({FOUR});
     Table_Player = Table();
 
     for (int i = 0; i < ShipManager_Player.GetCountShips(); i++)
     {
-        ship = &ShipManager_Player[i];
-        
+
 
         while (true)
         {
-            orientation_place_ship = Orientation::UNDEFINE;
-            coord_place_ship = Coord();
-            commands.set_placeship();
+            Coord coord_place_ship = Coord();
+            Orientation orientation_place_ship = Orientation::UNDEFINE;
+            std::vector<int> arr = set_place_ship.execute((int)ShipManager_Player[i].GetLen());
             
+            coord_place_ship = Coord(arr[0], arr[1]);
+            orientation_place_ship = (Orientation)arr[2];
+
+
             if (coord_place_ship.GetX() < 1 || coord_place_ship.GetY() < 1 || coord_place_ship.GetX() > Table_Player.GetX() || coord_place_ship.GetY() > Table_Player.GetY() || orientation_place_ship == Orientation::UNDEFINE)
             {
                 continue;
@@ -107,19 +104,20 @@ void Game::start_new_game()
 
             }
         }
+        print(Table_Player, true);
         
     }
-
-    print(Table_Player);
-    
-    placeEnemyShips();
 }
+
+
 
 void Game::placeEnemyShips()
 {
+
     ShipManager_Enemy = ManagerShips({ONE});
     Table_Enemy = Table();
     Table_Enemy.AddObserver(&Manager_Skills);
+
     for (int i = 0; i < ShipManager_Enemy.GetCountShips(); i++)
     {
         while(true)
@@ -140,12 +138,16 @@ void Game::placeEnemyShips()
 
         }
     }
-    print(Table_Enemy);
-    //Table_Enemy.print_map();
+    print(Table_Enemy, false);
+    
 }
 
-void Game::print(Table& table)
+void Game::print(Table& table, bool flag)
 {
+    if (flag)
+        std::cout << "Player\n";
+    else
+        std::cout << "Enemy\n";
     CellState state = UNKNOWN;
     const std::vector<std::vector<CellState>>& vec = table.GetCoords();
     const std::set<Coord>& attack_elements = table.GetAttackCoords();
@@ -153,9 +155,9 @@ void Game::print(Table& table)
     {
         for(int i = 0; i < table.GetX(); i++){
             state = vec[j][i];
-            //if (attack_elements.find(Coord(i + 1, j + 1)) != attack_elements.end())
-            //{
-            //    
+            if (flag || attack_elements.find(Coord(i + 1, j + 1)) != attack_elements.end())
+            {
+                
                 if (state != SHIP)
                 {
                     std::cout << static_cast<char>(state);
@@ -164,16 +166,15 @@ void Game::print(Table& table)
                 {
                     std::cout << static_cast<char>(table.GetStateSegmentShip(i, j));
                 }
-            //}
-            //else
-            //{
-            //    std::cout << static_cast<char>(UNKNOWN);
-            //}
+            }
+            else
+            {
+                std::cout << static_cast<char>(UNKNOWN);
+            }
             std::cout << " ";
         }
         std::cout << "\n";
     }
-    std::cout << " ______________________________________ \n";
 }
 
 
@@ -181,14 +182,17 @@ void Game::check_end_game()
 {
     if (ShipManager_Enemy.all_destroyed_ships())
     {
-        commands.set_modeend();
-        switch (mode_end)
+        std::cout << "Enter mode (1 for NEW, 2 for END): ";
+        int mode = set_mode.execute();
+
+        
+        switch (mode)
         {
         case 1:
             placeEnemyShips();
             break;
         case 2:
-            commands.endgame();
+            end_game.execute();
             break;
         default:
             break;
@@ -196,15 +200,16 @@ void Game::check_end_game()
     }
     if (ShipManager_Player.all_destroyed_ships())
     {
-        commands.set_modeend();
+        int mode = set_mode.execute();
+        
 
-        switch (mode_end)
+        switch (mode)
         {
         case 1:
             start_new_game();
             break;
         case 2:
-            commands.endgame();
+            end_game.execute();
             break;
         default:
             break;
@@ -213,47 +218,15 @@ void Game::check_end_game()
 }
 
 
-void Game::next_move()
-{
-    commands.set_numbermove();
-    
-    switch (number_move)
-    {
-        case 1:
-            player_attack();
-            break;
-        case 2:
-            use_skill();
-            break;
-        case 3:
-            save_game();
-            break;
-        case 4:
-            load_game();
-            break;
-        default:
-            std::cerr << "Unknown number move" << "\n";
-            break;
-    }
-}
 
-void Game::SetNumberMove(int number_move)
-{
-    this->number_move = number_move;
-}
-
-void Game::SetAttackCoord(Coord coord)
-{
-    attack_coord = coord;
-}
 
 void Game::player_attack()
 {
-    commands.set_playerattackmove();
+    Coord attack_coord = set_coord.execute();
 
     try
     {
-        shooter(attack_coord);
+        last_attack_result = shooter(attack_coord);
         attack_coord = Coord();
     }
     catch (const OutOfBoundsException &e)
@@ -265,8 +238,9 @@ void Game::player_attack()
     {
         std::cerr << e.what() << '\n';
     }
+    print(Table_Enemy, false);
     
-    print(Table_Enemy);
+    
     
 }
 
@@ -285,7 +259,7 @@ void Game::computer_attack()
         {
             try
             {
-                Table_Player.shoot({x, y});
+                last_attack_result = Table_Player.shoot({x, y});
                 bot_attack_coords.insert({x, y});
 
                 was_attack = true;
@@ -297,7 +271,7 @@ void Game::computer_attack()
         }
     }
 
-    print(Table_Player);
+    
 
 }
 
@@ -310,7 +284,7 @@ void Game::use_skill()
 
         if (factory->GetName() == SkillName::Scanner)
         {
-            commands.set_skillcoord();
+            skillcoord = set_coord.execute();
         }
 
         auto skill = factory->create();
@@ -337,18 +311,22 @@ void Game::use_skill()
 
 
 
-void Game::SetSkillCoord(Coord coord)
+Table& Game::get_player_table()
 {
-    skillcoord = coord;
+    return Table_Player;
 }
 
-
-const std::string& Game::GetMessage() const
+Table& Game::get_enemy_table()
 {
-    return message;
+    return Table_Enemy;
 }
 
-void Game::SetModeEndGame(int mode)
+ManagerShips& Game::get_player_ships()
 {
-    mode_end = mode;
+    return ShipManager_Player;
+}
+	
+ManagerShips& Game::get_enemy_ships()
+{
+    return ShipManager_Enemy;
 }

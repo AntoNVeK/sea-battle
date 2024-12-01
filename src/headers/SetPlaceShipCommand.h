@@ -2,20 +2,21 @@
 #define SET_PLACE_SHIP_COMMAND_H
 #include <iostream>
 #include "Command.h"
-#include "Controllers/Controller.h"
-class SetPlaceShipCommand : public Command 
+#include "IO/Input.h"
+#include <vector>
+class SetPlaceShipCommand
 {
 private:
-    Controller* controller;
+    Input* input;
 
 public:
     SetPlaceShipCommand();
 
-    void SetController(Controller* controller) override;
+    void SetInput(Input* input);
 
-    void execute() override;
+    std::vector<int> execute(int len_ship);
 
-    ~SetPlaceShipCommand() override = default;
+    ~SetPlaceShipCommand() = default;
 };
 
 #endif
