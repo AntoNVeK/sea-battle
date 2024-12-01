@@ -1,15 +1,15 @@
 #include "../headers/SetCoordCommand.h"
 
-SetCoordCommand::SetCoordCommand() : input(nullptr) {}
+SetCoordCommand::SetCoordCommand() : controller(nullptr) {}
 
 Coord SetCoordCommand::execute() {
-    if (input != nullptr) {
-        return input->setCoord();
+    if (controller != nullptr) {
+        return controller->setCoord();
     } else {
         std::cerr << "Error: Input not set. Cannot execute command.\n";
     }
 }
 
-void SetCoordCommand::SetInput(Input* input) {
-    this->input = input;
+void SetCoordCommand::SetInput(ControllerStartGame* controller) {
+    this->controller = controller;
 }

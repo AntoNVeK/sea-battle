@@ -2,17 +2,17 @@
 #define SET_PLACE_SHIP_COMMAND_H
 #include <iostream>
 #include "Command.h"
-#include "IO/Input.h"
+#include "ControllerStartGame.h"
 #include <vector>
 class SetPlaceShipCommand
 {
 private:
-    Input* input;
+    ControllerStartGame* controller;
 
 public:
     SetPlaceShipCommand();
 
-    void SetInput(Input* input);
+    void SetInput(ControllerStartGame* controller);
 
     std::vector<int> execute(int len_ship);
 

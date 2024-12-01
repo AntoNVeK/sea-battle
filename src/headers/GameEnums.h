@@ -10,6 +10,11 @@ enum class ModeStartGame : char
     LOAD
 };
 
+enum class Player : char
+{
+    User,
+    Bot
+};
 
 
 

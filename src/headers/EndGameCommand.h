@@ -1,16 +1,16 @@
 #ifndef END_GAME_COMMAND_H
 #define END_GAME_COMMAND_H
 #include <iostream>
-#include "IO/Input.h"
+#include "ControllerStartGame.h"
 class EndGameCommand
 {
 private:
-    Input* input;
+    ControllerStartGame* controller;
 
 public:
     EndGameCommand();
 
-    void SetInput(Input* input);
+    void SetInput(ControllerStartGame* controller);
 
     void execute();
 

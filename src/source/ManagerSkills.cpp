@@ -91,7 +91,10 @@ std::shared_ptr<ISkillFactory> ManagerSkills::GetFront()
 
 SkillName ManagerSkills::GetNameFrontSkill() const
 {
-    return skills.front()->GetName();
+    if (skills.empty())
+        return skills.front()->GetName();
+    else
+        UNKNOWN;
 }
 
 

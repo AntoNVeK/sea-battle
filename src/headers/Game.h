@@ -64,6 +64,15 @@ public:
 		return Manager_Skills.GetNameFrontSkill();
 	}
 	
+	void swap();
+	
+	Player get_current_player() const
+	{
+		return current_player;
+	}
+
+	void EndGame();
+	
 private:
 	GameState state;
 	
@@ -96,6 +105,8 @@ private:
 
 
 	bool last_attack_result = false;
+
+	Player current_player = Player::User;
 
 };
 

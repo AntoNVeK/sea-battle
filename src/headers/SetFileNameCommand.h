@@ -2,16 +2,16 @@
 #define SET_FILE_NAME_COMMAND_H
 #include <iostream>
 #include "Command.h"
-#include "IO/Input.h"
+#include "ControllerStartGame.h"
 class SetFileNameCommand
 {
 private:
-    Input* input;
+    ControllerStartGame* controller;
 
 public:
     SetFileNameCommand();
 
-    void SetInput(Input* input);
+    void SetInput(ControllerStartGame* controller);
 
     std::string execute();
 

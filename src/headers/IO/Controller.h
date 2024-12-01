@@ -4,24 +4,26 @@
 #include <iostream>
 #include <map>
 #include <functional>
-#include "ConsoleShow.h"
-// #include "../renderer-elements/game_message.h"
+#include "ConsoleShow_Table.h"
+#include "Printer_Message.h"
 #include "../GameState.h"
 #include "../Table.h"
 #include "Printer_Table.h"
 #include "View.h"
 #include "../Game.h"
+#include "Commands.h"
 
-template<typename Input, typename Printer_Table, typename Printer_Message>
-class GameController {
+template<typename Inputer, typename Printer_Table, typename Printer_Message>
+class Controller {
 private:
+    Commands list_commands;
     Game &game;
-    Input& input;
-    RendererTracker<Printer_Table, Printer_Message> renderer_tracker;
+    Inputer inputer;
+    View<Printer_Table, Printer_Message> view;
     std::map<std::string, std::function<void()>> commands;
 
 public:
-    GameController(Game &game, Input& input ) : game(game), renderer_tracker(game) { initialize_commands(); }
+    Controller(Game &game) : game(game), inputer(list_commands), view(game, list_commands) { initialize_commands(); }
     
     void initialize_commands();
     

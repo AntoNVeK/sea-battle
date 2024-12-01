@@ -2,18 +2,18 @@
 #define SET_MODE_COMMAND_H
 #include <iostream>
 #include "Command.h"
-#include "IO/Input.h"
+#include "ControllerStartGame.h"
 #include "GameEnums.h"
 
 class SetModeCommand
 {
 private:
-    Input* input;
+    ControllerStartGame* controller;
 
 public:
     SetModeCommand();
 
-    void SetInput(Input* input);
+    void SetInput(ControllerStartGame* controller);
 
     int execute();
 

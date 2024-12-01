@@ -7,7 +7,8 @@ enum class SkillName : char
 {
     DoubleAttack = 'D',
     Attack = 'R',
-    Scanner = 'S'
+    Scanner = 'S',
+    UNKNOWN
 };
 
 namespace std

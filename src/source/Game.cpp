@@ -330,3 +330,17 @@ ManagerShips& Game::get_enemy_ships()
 {
     return ShipManager_Enemy;
 }
+
+
+void Game::swap()
+{
+    if (current_player == Player::User)
+        current_player = Player::Bot;
+    else
+        current_player = Player::User;
+}
+
+void Game::EndGame()
+{
+    end_game.execute();
+}

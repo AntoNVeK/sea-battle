@@ -1,8 +1,8 @@
-#include "../../headers/IO/ConsoleInput.h"
+#include "../headers/ControllerStartGame.h"
 
-ConsoleInput::ConsoleInput(Game& game) : game(game) {}
+ControllerStartGame::ControllerStartGame(Game& game) : game(game) {}
 
-int ConsoleInput::setMode() {
+int ControllerStartGame::setMode() {
     int mode;
     std::cin >> mode;
 
@@ -11,7 +11,7 @@ int ConsoleInput::setMode() {
 
 
 
-std::string ConsoleInput::setFilename()
+std::string ControllerStartGame::setFilename()
 {
     std::string filename;
 
@@ -26,7 +26,7 @@ std::string ConsoleInput::setFilename()
 }
 
 
-std::vector<int> ConsoleInput::setPlaceship(int len_ship)
+std::vector<int> ControllerStartGame::setPlaceship(int len_ship)
 {
 
     std::vector<int> arr;
@@ -49,7 +49,7 @@ std::vector<int> ConsoleInput::setPlaceship(int len_ship)
 }
 
 
-int ConsoleInput::setNumberMove()
+int ControllerStartGame::setNumberMove()
 {
     int number_move;
     ConsolePrinterMessage printer;
@@ -62,7 +62,7 @@ int ConsoleInput::setNumberMove()
 }
 
 
-Coord ConsoleInput::setCoord()
+Coord ControllerStartGame::setCoord()
 {
     int x, y;
     ConsolePrinterMessage printer;
@@ -78,17 +78,11 @@ Coord ConsoleInput::setCoord()
 
 
 
-void ConsoleInput::Endgame()
+void ControllerStartGame::Endgame()
 {
     ConsolePrinterMessage printer;
     printer.print("End game");
+    exit(0);
 }
 
 
-
-std::string ConsoleInput::input()
-{
-    std::string input;
-    std::getline(std::cin, input);
-    return input;
-}
