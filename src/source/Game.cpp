@@ -65,7 +65,7 @@ void Game::start_new_game()
 
 void Game::placePlayerShips()
 {
-    ShipManager_Player = ManagerShips({FOUR, THREE, THREE, TWO, TWO, TWO, ONE, ONE, ONE, ONE});
+    ShipManager_Player = ManagerShips({FOUR});
     Table_Player = Table();
 
     for (int i = 0; i < ShipManager_Player.GetCountShips(); i++)
@@ -298,6 +298,10 @@ void Game::use_skill()
         Manager_Skills.delete_skill();
 
         skillcoord = Coord();
+    }
+    catch(const NoSkillsException& e)
+    {
+        std::cerr << e.what() << '\n';
     }
     catch(const std::invalid_argument& e)
     {

@@ -5,23 +5,7 @@
 
 void Printer_Message::nextAbility(Game &game)
 {
-
-
-    switch (game.get_name_next_skill())
-    {
-        case SkillName::Attack:
-            printer.print("Next skill is Attack");
-            break;
-        case SkillName::DoubleAttack:
-            printer.print("Next skill is DoubleAttack");
-            break;
-        case SkillName::Scanner:
-            printer.print("Next skill is Scanner");
-            break;
-        case SkillName::UNKNOWN:
-            printer.print("No abilities");
-            break;
-    }
+    printer.print(std::to_string(game.get_name_next_skill()));
 }
 
 void Printer_Message::applyAbility(Game& game)

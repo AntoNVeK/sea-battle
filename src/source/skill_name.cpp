@@ -9,19 +9,20 @@ operator<<(std::ostream& os, const SkillName &sn)
     switch (sn)
     {
     case SkillName::DoubleAttack:
-        os << "DoubleAttack";
+        os << "Next skill is DoubleAttack";
         break;
     
     case SkillName::Attack:
-        os << "Attack";
+        os << "Next skill is Attack";
         break;
     
     case SkillName::Scanner:
-        os << "Scanner";
+        os << "Next skill is Scanner";
         break;
     
-    default:
-        throw std::logic_error("Bad skill name");
+    case SkillName::UNKNOWN:
+        os << "No abilities";
+        break;
 
     }
 
