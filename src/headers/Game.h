@@ -2,6 +2,8 @@
 #define GAME_H
 #include <iostream>
 #include <fstream>
+#include <algorithm>
+
 #include "GameState.h"
 #include "Table.h"
 #include "ManagerSkills.h"
@@ -36,8 +38,12 @@ public:
 	void placeEnemyShips();
 
 	void print(Table& table, bool flag);
+	
+	void check_win_player();
 
-	void check_end_game();
+	void check_win_bot();
+
+
 
 	void player_attack();
 
@@ -95,7 +101,6 @@ private:
 
 	ManagerSkills Manager_Skills;
 
-	std::set<Coord> bot_attack_coords;
 
 	SetFileNameCommand& set_file_name;
 	SetModeCommand& set_mode;
@@ -107,6 +112,8 @@ private:
 	bool last_attack_result = false;
 
 	Player current_player = Player::User;
+
+	std::vector<Coord> attack_coord_bot;
 
 };
 

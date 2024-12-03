@@ -53,7 +53,7 @@ void ConsoleShow_Table::showShips(ManagerShips& ship_manager)
             for (int i = 0; i < ship.GetLen(); i++)
             {
 
-                std::cout << ship.GetSegments()[i] << "\n";
+                std::cout << static_cast<char>(ship.GetSegments()[i]) << "\n";
    
             }
             std::cout << "\n";
@@ -62,7 +62,7 @@ void ConsoleShow_Table::showShips(ManagerShips& ship_manager)
         {
             for (int i = 0; i < ship.GetLen(); i++)
             {
-                std::cout << ship.GetSegments()[i] << " ";
+                std::cout << static_cast<char>(ship.GetSegments()[i]) << " ";
             }
             std::cout << "\n";
         }

@@ -63,3 +63,10 @@ bool Coord::operator<(const Coord& other) const
         if (x > other.x) return false;
         return y < other.y;
 }
+
+bool operator==(const Coord &_a, const Coord &_b)
+{ return _a.GetX() == _b.GetX() && _a.GetY() == _b.GetY(); }
+
+bool operator==(Coord &_a, Coord &_b)
+{ return _a.GetX() == _b.GetX() && _a.GetY() == _b.GetY(); }
+

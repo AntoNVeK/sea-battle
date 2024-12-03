@@ -9,6 +9,7 @@ void Controller<Inputer, Printer_Table, Printer_Message>::initialize_commands()
         view.solve("fields");
         if (!game.get_result_attack())
             game.swap();
+        game.check_win_player();
     };
     commands["state_my_ships"] = [&]() { view.solve("state_my_ships"); };
     commands["state_enemy_ships"] = [&]() { view.solve("state_enemy_ships"); };
@@ -51,6 +52,7 @@ void Controller<Inputer, Printer_Table, Printer_Message>::run()
             view.solve("fields");
             if (!game.get_result_attack())
                 game.swap();
+            game.check_win_bot();
         }
         
     }

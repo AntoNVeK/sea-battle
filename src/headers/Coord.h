@@ -17,6 +17,8 @@ class Coord
 
         Coord& operator=(const Coord &other);
         Coord& operator=(Coord &&other);
+
+
         
         const int& GetX() const;
         const int& GetY() const;
@@ -30,7 +32,10 @@ class Coord
 };
 
 
+bool operator==(const Coord &_a, const Coord &_b);
 
+
+bool operator==(Coord &_a, Coord &_b);
 
 
 #endif

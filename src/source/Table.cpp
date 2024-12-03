@@ -1,13 +1,13 @@
 #include "../headers/Table.h"
 
 
-Table::Table() : Table(10, 10, nullptr) {}
+Table::Table() : Table(10, 10) {}
 
 
-Table::Table(Observer* observer) : Table(10, 10, observer) {}
 
 
-Table::Table(int x, int y, Observer* observer) : width(x), height(y), observer(observer)
+
+Table::Table(int x, int y) : width(x), height(y)
 {
     if (x <= 0 || y <= 0)
     {
@@ -225,8 +225,8 @@ bool Table::shoot(const Coord& coord)
                     pair.first.get().shoot(i);
                     if (pair.first.get().is_destroyed())
                     {   
-                        
-                        observer->accept();
+                        if (observer != nullptr)
+                            observer->accept();
                         
                         circle_ship(pair.second);
                     }

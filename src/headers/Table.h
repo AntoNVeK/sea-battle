@@ -31,15 +31,14 @@ private:
     int height;
 
 
-    Observer* observer;
+    Observer* observer = nullptr;
     std::vector<std::vector<CellState>> _cells;
     std::set<Coord> attack_coords;
     std::map<std::reference_wrapper<Ship>, std::vector<Coord>> coords_ships;
 
 public:
     Table();
-    Table(Observer* observer);
-    Table(int x, int y, Observer* observer);
+    Table(int x, int y);
     ~Table() {};
 
 

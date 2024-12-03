@@ -65,8 +65,8 @@ void Game::start_new_game()
 
 void Game::placePlayerShips()
 {
-    ShipManager_Player = ManagerShips({FOUR});
-    Table_Player = Table();
+    ShipManager_Player = ManagerShips({ONE});
+    Table_Player = Table(2, 2);
 
     for (int i = 0; i < ShipManager_Player.GetCountShips(); i++)
     {
@@ -102,6 +102,16 @@ void Game::placePlayerShips()
         print(Table_Player, true);
         
     }
+
+    for (int j = 1; j <= Table_Player.GetY(); j++)
+    {
+        for (int i = 1; i <= Table_Player.GetX(); i++)
+        {
+            attack_coord_bot.push_back({i, j});
+            if (Table_Player.GetCoords()[j - 1][i - 1] == SHIP)
+                attack_coord_bot.push_back({i, j});
+        }
+    }
 }
 
 
@@ -109,8 +119,8 @@ void Game::placePlayerShips()
 void Game::placeEnemyShips()
 {
 
-    ShipManager_Enemy = ManagerShips({FOUR, THREE, THREE, TWO, TWO, TWO, ONE, ONE, ONE, ONE});
-    Table_Enemy = Table();
+    ShipManager_Enemy = ManagerShips({ONE});
+    Table_Enemy = Table(2, 2);
     Table_Enemy.AddObserver(&Manager_Skills);
 
     for (int i = 0; i < ShipManager_Enemy.GetCountShips(); i++)
@@ -173,7 +183,8 @@ void Game::print(Table& table, bool flag)
 }
 
 
-void Game::check_end_game()
+
+void Game::check_win_player()
 {
     if (ShipManager_Enemy.all_destroyed_ships())
     {
@@ -193,8 +204,13 @@ void Game::check_end_game()
             break;
         }
     }
+}
+
+void Game::check_win_bot()
+{
     if (ShipManager_Player.all_destroyed_ships())
     {
+        std::cout << "Enter mode (1 for NEW, 2 for END): ";
         int mode = set_mode.execute();
         
 
@@ -211,9 +227,6 @@ void Game::check_end_game()
         }
     }
 }
-
-
-
 
 void Game::player_attack()
 {
@@ -247,25 +260,25 @@ void Game::computer_attack()
 
     while (!was_attack)
     {
-        int x = rand() % (Table_Enemy.GetX());
-        int y = rand() % (Table_Enemy.GetY());
-
-        
-        if ((Table_Player.GetCoords()[y][x] == SHIP && bot_attack_coords.find(Coord(x, y)) != bot_attack_coords.end()) || Table_Player.GetCoords()[y][x] != SHIP)
+        Coord coord = attack_coord_bot[rand() % attack_coord_bot.size()];
+    
+        try
         {
-            try
-            {
-                last_attack_result = Table_Player.shoot({x, y});
-                bot_attack_coords.insert({x, y});
+            last_attack_result = Table_Player.shoot(coord);
+            auto it = std::find(attack_coord_bot.begin(), attack_coord_bot.end(), coord);
 
-                was_attack = true;
 
+            if (it != attack_coord_bot.end()) {
+                attack_coord_bot.erase(it);
             }
-            catch(const std::exception& e)
-            {
-                
-            }
+
+            was_attack = true;
         }
+        catch(const std::exception& e)
+        {
+            
+        }
+        
     }
 
     
