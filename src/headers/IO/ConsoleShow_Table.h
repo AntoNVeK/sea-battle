@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <utility>
+#include <iomanip>
 #include "../ManagerShips.h"
 #include "../Table.h"
 

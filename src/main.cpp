@@ -9,7 +9,7 @@
 #include "./headers/Command.h"
 #include "./headers/SetModeCommand.h"
 
-#include "./headers/ControllerStartGame.h"
+
 #include "./headers/IO/Printer_Table.h"
 #include "./headers/IO/Printer_Message.h"
 #include "./headers/IO/ConsoleInputer.h"
@@ -62,21 +62,21 @@ int main()
     SetModeCommand set_mode;
     SetCoordCommand set_coord;
     SetPlaceShipCommand set_place_ship;
-
-
     EndGameCommand end_game;
+    PrintMessageCommand print_message_command;
     
-    Game game(set_file_name, set_mode, set_coord, set_place_ship, end_game);
+    Game game(set_file_name, set_mode, set_coord, set_place_ship, end_game, print_message_command);
     
-    ControllerStartGame controller(game);
-    
-    set_file_name.SetInput(&controller);
-    set_mode.SetInput(&controller);
-    set_coord.SetInput(&controller);
-    set_place_ship.SetInput(&controller);
-    end_game.SetInput(&controller);
-
     Controller<ConsoleInputer, Printer_Table, Printer_Message> gamecontroller(game);
+    
+    set_file_name.SetController(&gamecontroller);
+    set_mode.SetController(&gamecontroller);
+    set_coord.SetController(&gamecontroller);
+    set_place_ship.SetController(&gamecontroller);
+    end_game.SetController(&gamecontroller);
+    print_message_command.SetController(&gamecontroller);
+
+    
 
     gamecontroller.run();
 

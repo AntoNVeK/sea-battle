@@ -10,6 +10,6 @@ void EndGameCommand::execute() {
     }
 }
 
-void EndGameCommand::SetInput(ControllerStartGame* controller) {
+void EndGameCommand::SetController(IController* controller) {
     this->controller = controller;
 }

@@ -12,22 +12,40 @@
 #include "View.h"
 #include "../Game.h"
 #include "Commands.h"
+#include "IController.h"
 
 template<typename Inputer, typename Printer_Table, typename Printer_Message>
-class Controller {
+class Controller : public IController 
+{
 private:
     Commands list_commands;
     Game &game;
     Inputer inputer;
     View<Printer_Table, Printer_Message> view;
     std::map<std::string, std::function<void()>> commands;
+    bool isGameRunning = true;
 
 public:
     Controller(Game &game) : game(game), inputer(list_commands), view(game, list_commands) { initialize_commands(); }
     
     void initialize_commands();
     
-    void run();
+    virtual int setMode() override;
+
+    std::string setFilename() override;
+
+    std::vector<int> setPlaceship(int len_ship) override;
+
+    Coord setCoord() override;
+
+    void Endgame() override;
+
+    void run() override;
+
+    void print_message(std::string string) override;
+
+
+
 };
 
 #include "Controller.hpp"

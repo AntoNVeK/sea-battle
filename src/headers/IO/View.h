@@ -16,6 +16,7 @@ public:
 
     void solve(std::string command);
 
+    void print_message(std::string string);
 };
 
 #include "View.hpp"

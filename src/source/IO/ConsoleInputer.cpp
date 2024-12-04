@@ -10,18 +10,19 @@ std::string ConsoleInputer::getInput()
 
     while (!valid_command)
     {
-        std::cout << "Enter command: ";
         std::string input = input_metod.input();
-        
-        try
+        if (input != "")
         {
-            command = getCommand(input);
-            valid_command = true;
-        }
-        catch(const std::invalid_argument& e)
-        {
-            std::cerr << e.what()  << '\n';
-            std::cerr << "Please try again." << std::endl;
+            try
+            {
+                command = getCommand(input);
+                valid_command = true;
+            }
+            catch(const std::invalid_argument& e)
+            {
+                std::cerr << e.what()  << '\n';
+                std::cerr << "Please try again." << std::endl;
+            }
         }
         
     }
@@ -46,4 +47,12 @@ std::string ConsoleInputer::getCommand(const std::string& input)
     }
     
     throw std::invalid_argument("Unknown command: " + input);
+}
+
+
+std::string ConsoleInputer::getString()
+{
+    std::string input = input_metod.input();
+
+    return input;
 }

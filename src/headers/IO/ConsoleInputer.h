@@ -22,6 +22,7 @@ public:
     ConsoleInputer(Commands& commands) : commands(commands) {}
     std::string getInput();
     std::string getCommand(const std::string& input);
+    std::string getString();
 };
 
 

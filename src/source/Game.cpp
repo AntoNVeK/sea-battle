@@ -1,11 +1,12 @@
 #include "../headers/Game.h"
 
-Game::Game(SetFileNameCommand& set_file_name, SetModeCommand& set_mode, SetCoordCommand& set_coord, SetPlaceShipCommand& set_place_ship, EndGameCommand& end_game)
+Game::Game(SetFileNameCommand& set_file_name, SetModeCommand& set_mode, SetCoordCommand& set_coord, SetPlaceShipCommand& set_place_ship, EndGameCommand& end_game, PrintMessageCommand& print_message_command)
     : set_file_name(set_file_name),
       set_mode(set_mode),
       set_coord(set_coord),
       set_place_ship(set_place_ship),
       end_game(end_game),
+      print_message_command(print_message_command),
       Table_Player(), Table_Enemy(),
       ShipManager_Player({FOUR}), ShipManager_Enemy({FOUR}),
       results(), skillcoord(), shooter(Table_Enemy),
@@ -15,14 +16,14 @@ Game::Game(SetFileNameCommand& set_file_name, SetModeCommand& set_mode, SetCoord
       state(Table_Player, Table_Enemy, ShipManager_Player, ShipManager_Enemy, Manager_Skills, shooter)
       {
         
-    
+    Table_Enemy.AddObserver(&Manager_Skills);
     
     
 }
 
 void Game::play() {
 
-    std::cout << "Enter mode (1 for NEW, 2 for LOAD): ";
+    print_message_command.execute("Enter mode (1 for NEW, 2 for LOAD): \n");
     int mode = set_mode.execute();
 
     switch ((ModeStartGame)mode) {
@@ -43,6 +44,10 @@ void Game::load_game()
     std::string filename = set_file_name.execute();
 
     state.loadGame(filename);
+
+    init_attack_coord_bot();
+
+
 }
 
 
@@ -65,8 +70,8 @@ void Game::start_new_game()
 
 void Game::placePlayerShips()
 {
-    ShipManager_Player = ManagerShips({ONE});
-    Table_Player = Table(2, 2);
+    ShipManager_Player = ManagerShips({FOUR, THREE, THREE, TWO, TWO, TWO, ONE, ONE, ONE, ONE});
+    Table_Player = Table();
 
     for (int i = 0; i < ShipManager_Player.GetCountShips(); i++)
     {
@@ -99,16 +104,24 @@ void Game::placePlayerShips()
 
             }
         }
-        print(Table_Player, true);
         
     }
 
+    init_attack_coord_bot();
+
+    
+}
+
+
+void Game::init_attack_coord_bot()
+{
+    attack_coord_bot = {};
     for (int j = 1; j <= Table_Player.GetY(); j++)
     {
         for (int i = 1; i <= Table_Player.GetX(); i++)
         {
             attack_coord_bot.push_back({i, j});
-            if (Table_Player.GetCoords()[j - 1][i - 1] == SHIP)
+            if (Table_Player.GetCoords()[j - 1][i - 1] == SHIP && Table_Player.GetStateSegmentShip(i, j) == FULL)
                 attack_coord_bot.push_back({i, j});
         }
     }
@@ -119,9 +132,9 @@ void Game::placePlayerShips()
 void Game::placeEnemyShips()
 {
 
-    ShipManager_Enemy = ManagerShips({ONE});
-    Table_Enemy = Table(2, 2);
-    Table_Enemy.AddObserver(&Manager_Skills);
+    ShipManager_Enemy = ManagerShips({FOUR, THREE, THREE, TWO, TWO, TWO, ONE, ONE, ONE, ONE});
+    Table_Enemy = Table();
+    
 
     for (int i = 0; i < ShipManager_Enemy.GetCountShips(); i++)
     {
@@ -147,40 +160,7 @@ void Game::placeEnemyShips()
     
 }
 
-void Game::print(Table& table, bool flag)
-{
-    if (flag)
-        std::cout << "Player\n";
-    else
-        std::cout << "Enemy\n";
-    CellState state = UNKNOWN;
-    const std::vector<std::vector<CellState>>& vec = table.GetCoords();
-    const std::set<Coord>& attack_elements = table.GetAttackCoords();
-    for(int j = 0; j < table.GetY(); j++)
-    {
-        for(int i = 0; i < table.GetX(); i++){
-            state = vec[j][i];
-            if (flag || attack_elements.find(Coord(i + 1, j + 1)) != attack_elements.end())
-            {
-                
-                if (state != SHIP)
-                {
-                    std::cout << static_cast<char>(state);
-                }
-                else
-                {
-                    std::cout << static_cast<char>(table.GetStateSegmentShip(i, j));
-                }
-            }
-            else
-            {
-                std::cout << static_cast<char>(UNKNOWN);
-            }
-            std::cout << " ";
-        }
-        std::cout << "\n";
-    }
-}
+
 
 
 
@@ -188,7 +168,7 @@ void Game::check_win_player()
 {
     if (ShipManager_Enemy.all_destroyed_ships())
     {
-        std::cout << "Enter mode (1 for NEW, 2 for END): ";
+        print_message_command.execute("Enter mode (1 for NEW, 2 for END): \n");
         int mode = set_mode.execute();
 
         
@@ -210,7 +190,7 @@ void Game::check_win_bot()
 {
     if (ShipManager_Player.all_destroyed_ships())
     {
-        std::cout << "Enter mode (1 for NEW, 2 for END): ";
+        print_message_command.execute("Enter mode (1 for NEW, 2 for END): \n");
         int mode = set_mode.execute();
         
 
@@ -299,13 +279,11 @@ void Game::use_skill()
 
         auto skill = factory->create();
 
-        std::cout << factory->GetName() << "\n";
-
         skill->use();
 
         if (!results.empty())
         {
-            std::cout << results.GetLast() << "\n";
+            print_message_command.execute(results.GetLast() + "\n");
             results.pop();
         }
         Manager_Skills.delete_skill();

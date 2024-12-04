@@ -3,13 +3,12 @@
 SetModeCommand::SetModeCommand() : controller(nullptr) {}
 
 int SetModeCommand::execute() {
-    if (controller != nullptr) {
-        return controller->setMode();
-    } else {
+    if (controller == nullptr) {
         std::cerr << "Error: Input not set. Cannot execute command.\n";
     }
+    return controller->setMode();
 }
 
-void SetModeCommand::SetInput(ControllerStartGame* controller) {
+void SetModeCommand::SetController(IController* controller) {
     this->controller = controller;
 }

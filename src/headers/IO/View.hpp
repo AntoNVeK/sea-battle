@@ -5,7 +5,7 @@
 template<typename Printer_Table, typename Printer_Message>
 void View<Printer_Table, Printer_Message>::solve(std::string command)
 {
-    if (command == "fields") {
+    if (command == "tables") {
         printer_table.drawGameTable(game);
     } else if (command == "attack_message") {
         printer_message.attackMessage(game);
@@ -17,11 +17,22 @@ void View<Printer_Table, Printer_Message>::solve(std::string command)
         printer_table.showTableShips(game, false);
     } else if (command == "show_my_ships") {
         printer_table.showTableShips(game, true);
-    } else if (command == "apply_ability") {
-        printer_message.applyAbility(game);
-    } else if (command == "next_ability") {
-        printer_message.nextAbility(game);
+    } else if (command == "show_my_table") {
+        printer_table.showTable(game, true);
+    } else if (command == "show_enemy_table") {
+        printer_table.showTable(game, false);
+    } else if (command == "use_skill") {
+        printer_message.useSkill(game);
+    } else if (command == "next_skill") {
+        printer_message.nextSkill(game);
     } else if (command == "help") {
         printer_message.help();
     }
+}
+
+
+template<typename Printer_Table, typename Printer_Message>
+void View<Printer_Table, Printer_Message>::print_message(std::string string)
+{
+    printer_message.print_message(string);
 }

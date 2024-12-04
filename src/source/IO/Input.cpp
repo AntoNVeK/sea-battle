@@ -8,6 +8,6 @@ Input::Input(){}
 std::string Input::input()
 {
     std::string input;
-    std::cin >> input;
+    getline(std::cin, input);
     return input;
 }

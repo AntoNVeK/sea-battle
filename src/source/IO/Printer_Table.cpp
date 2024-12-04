@@ -43,3 +43,10 @@ void Printer_Table::showTableShips(Game &game, bool flag)
         show.showShips(game.get_enemy_ships());
     }
 }
+
+
+void Printer_Table::showTable(Game &game, bool flag)
+{
+    ConsoleShow_Table show;
+    show.showTable(game.get_player_table(), flag);
+}

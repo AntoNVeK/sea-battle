@@ -3,13 +3,12 @@
 SetCoordCommand::SetCoordCommand() : controller(nullptr) {}
 
 Coord SetCoordCommand::execute() {
-    if (controller != nullptr) {
-        return controller->setCoord();
-    } else {
+    if (controller == nullptr) {
         std::cerr << "Error: Input not set. Cannot execute command.\n";
     }
+    return controller->setCoord();
 }
 
-void SetCoordCommand::SetInput(ControllerStartGame* controller) {
+void SetCoordCommand::SetController(IController* controller) {
     this->controller = controller;
 }

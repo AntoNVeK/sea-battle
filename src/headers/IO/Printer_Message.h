@@ -13,9 +13,10 @@ private:
 public:
     Printer_Message(Commands& commands) : commands(commands) {}
     void attackMessage(Game &game);
-    void applyAbility(Game &game);
-    void nextAbility(Game &game);
+    void useSkill(Game &game);
+    void nextSkill(Game &game);
     void help();
+    void print_message(std::string message);
 
 };
 

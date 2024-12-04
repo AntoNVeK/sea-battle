@@ -3,5 +3,5 @@
 
 void ConsolePrinterMessage::print(std::string string)
 {
-    std::cout << string << "\n";
+    std::cout << string;
 }

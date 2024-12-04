@@ -8,12 +8,17 @@ Commands::Commands()
     command_map["q"] = "end";
     command_map["se"] = "show_enemy_ships";
     command_map["sm"] = "show_my_ships";
-    command_map["f"] = "fields";
-    command_map["n"] = "next_ability";
+    command_map["smt"] = "show_my_table";
+    command_map["set"] = "show_enemy_table";
+    command_map["t"] = "tables";
+    command_map["n"] = "next_skill";
     command_map["s"] = "save_game";
     command_map["l"] = "load_game";
-    command_map["u"] = "apply_ability";
+    command_map["u"] = "use_skill";
     command_map["h"] = "help";
+
+
+
 
 
     long_commands = {
@@ -23,11 +28,13 @@ Commands::Commands()
         "end",
         "show_enemy_ships",
         "show_my_ships",
-        "fields",
-        "next_ability",
+        "show_my_table",
+        "show_enemy_table",
+        "tables",
+        "next_skill",
         "save_game",
         "load_game",
-        "apply_ability",
+        "use_skill",
         "help"
     };
 }

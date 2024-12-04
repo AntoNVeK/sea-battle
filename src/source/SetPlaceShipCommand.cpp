@@ -3,13 +3,12 @@
 SetPlaceShipCommand::SetPlaceShipCommand() : controller(nullptr) {}
 
 std::vector<int> SetPlaceShipCommand::execute(int len_ship) {
-    if (controller != nullptr) {
-        return controller->setPlaceship(len_ship);
-    } else {
+    if (controller == nullptr) {
         std::cerr << "Error: Input not set. Cannot execute command.\n";
     }
+    return controller->setPlaceship(len_ship);
 }
 
-void SetPlaceShipCommand::SetInput(ControllerStartGame* controller) {
+void SetPlaceShipCommand::SetController(IController* controller) {
     this->controller = controller;
 }

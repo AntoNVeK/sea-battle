@@ -1,6 +1,8 @@
 #include "../../headers/IO/ConsoleShow_Table.h"
 
 
+
+
 void ConsoleShow_Table::showTable(Table& table, bool flag)
 {
     std::cout << "\n";
@@ -8,16 +10,26 @@ void ConsoleShow_Table::showTable(Table& table, bool flag)
         std::cout << "Player\n";
     else
         std::cout << "Enemy\n";
+
+    
+    std::cout << "   ";
+    for (int i = 1; i <= table.GetX(); ++i) {
+        std::cout << i << " ";
+    }
+    std::cout << "\n";
+
     CellState state = UNKNOWN;
     const std::vector<std::vector<CellState>>& vec = table.GetCoords();
     const std::set<Coord>& attack_elements = table.GetAttackCoords();
-    for(int j = 0; j < table.GetY(); j++)
+    for (int j = 0; j < table.GetY(); j++)
     {
-        for(int i = 0; i < table.GetX(); i++){
+        
+        std::cout << std::setw(2) << std::right << j + 1 << " ";
+
+        for (int i = 0; i < table.GetX(); i++) {
             state = vec[j][i];
             if (flag || attack_elements.find(Coord(i + 1, j + 1)) != attack_elements.end())
             {
-                
                 if (state != SHIP)
                 {
                     std::cout << static_cast<char>(state);
@@ -35,6 +47,7 @@ void ConsoleShow_Table::showTable(Table& table, bool flag)
         }
         std::cout << "\n";
     }
+    std::cout << "\n";
 }
 
 
@@ -47,7 +60,7 @@ void ConsoleShow_Table::showShips(ManagerShips& ship_manager)
     for (int j = 0; j < ship_manager.GetCountShips(); j++)
     {
         Ship ship = ship_manager[j];
-        std::cout << "Ship at index: " << j << std::endl;
+        std::cout << "Ship id: " << j << std::endl;
         if (ship.GetOrientation() == VERTICAL)
         {
             for (int i = 0; i < ship.GetLen(); i++)

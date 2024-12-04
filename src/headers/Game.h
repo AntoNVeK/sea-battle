@@ -19,11 +19,12 @@
 #include "SetPlaceShipCommand.h"
 #include "SetCoordCommand.h"
 #include "EndGameCommand.h"
+#include "PrintMessageCommand.h"
 
 class Game
 {
 public:
-	Game(SetFileNameCommand& set_file_name, SetModeCommand& set_mode, SetCoordCommand& set_coord, SetPlaceShipCommand& set_place_ship, EndGameCommand& end_game);
+	Game(SetFileNameCommand& set_file_name, SetModeCommand& set_mode, SetCoordCommand& set_coord, SetPlaceShipCommand& set_place_ship, EndGameCommand& end_game, PrintMessageCommand& print_message_command);
 
 	void load_game();
 
@@ -36,8 +37,6 @@ public:
 	void placePlayerShips();
 
 	void placeEnemyShips();
-
-	void print(Table& table, bool flag);
 	
 	void check_win_player();
 
@@ -78,6 +77,9 @@ public:
 	}
 
 	void EndGame();
+
+private:
+	void init_attack_coord_bot();
 	
 private:
 	GameState state;
@@ -107,7 +109,7 @@ private:
 	SetCoordCommand& set_coord;
 	SetPlaceShipCommand& set_place_ship;
 	EndGameCommand& end_game;
-
+	PrintMessageCommand& print_message_command;
 
 	bool last_attack_result = false;
 

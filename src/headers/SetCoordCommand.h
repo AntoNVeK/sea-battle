@@ -2,18 +2,18 @@
 #define SET_COORD_COMMAND_H
 #include <iostream>
 #include "Command.h"
-#include "ControllerStartGame.h"
+#include "IController.h"
 #include "Coord.h"
 
 class SetCoordCommand
 {
 private:
-    ControllerStartGame* controller;
+    IController* controller;
 
 public:
     SetCoordCommand();
 
-    void SetInput(ControllerStartGame* controller);
+    void SetController(IController* controller);
 
     Coord execute();
 
