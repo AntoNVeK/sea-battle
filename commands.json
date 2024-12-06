@@ -1,0 +1,16 @@
+{
+    "a": "attack",
+    "ms": "state_my_ships",
+    "es": "state_enemy_ships",
+    "q": "end",
+    "se": "show_enemy_ships",
+    "sm": "show_my_ships",
+    "smt": "show_my_table",
+    "set": "show_enemy_table",
+    "t": "tables",
+    "n": "next_skill",
+    "s": "save_game",
+    "l": "load_game",
+    "u": "use_skill",
+    "h": "help"
+}

@@ -3,9 +3,9 @@
 void Printer_Table::drawGameTable(Game &game)
 {
 
-    std::cout << "______________________________________________\n";
+    
 
-    ConsoleShow_Table show;
+
 
     Table& player_table = game.get_player_table();
     
@@ -15,12 +15,12 @@ void Printer_Table::drawGameTable(Game &game)
     
     show.showTable(enemy_table, false);
     
-    std::cout << "______________________________________________\n";
+    
 
 }
 void Printer_Table::showShips(Game &game, bool flag)
 {
-    ConsoleShow_Table show;
+
 
     if (flag)
         show.showShips(game.get_player_ships());
@@ -30,7 +30,7 @@ void Printer_Table::showShips(Game &game, bool flag)
 }
 void Printer_Table::showTableShips(Game &game, bool flag)
 {
-    ConsoleShow_Table show;
+
 
     if (flag)
     {
@@ -47,6 +47,6 @@ void Printer_Table::showTableShips(Game &game, bool flag)
 
 void Printer_Table::showTable(Game &game, bool flag)
 {
-    ConsoleShow_Table show;
+    
     show.showTable(game.get_player_table(), flag);
 }

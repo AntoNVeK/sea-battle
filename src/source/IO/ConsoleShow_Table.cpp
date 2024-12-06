@@ -5,18 +5,18 @@
 
 void ConsoleShow_Table::showTable(Table& table, bool flag)
 {
-    std::cout << "\n";
+    printer.print("\n");
     if (flag)
-        std::cout << "Player\n";
+        printer.print("Player\n");
     else
-        std::cout << "Enemy\n";
+        printer.print("Enemy\n");
 
     
-    std::cout << "   ";
+    printer.print("   ");
     for (int i = 1; i <= table.GetX(); ++i) {
-        std::cout << i << " ";
+        printer.print(std::to_string(i) + " ");
     }
-    std::cout << "\n";
+    printer.print("\n");
 
     CellState state = UNKNOWN;
     const std::vector<std::vector<CellState>>& vec = table.GetCoords();
@@ -32,22 +32,28 @@ void ConsoleShow_Table::showTable(Table& table, bool flag)
             {
                 if (state != SHIP)
                 {
-                    std::cout << static_cast<char>(state);
+                    char ch = static_cast<char>(state);
+                    std::string str(1, ch);
+                    printer.print(str);
                 }
                 else
                 {
-                    std::cout << static_cast<char>(table.GetStateSegmentShip(i, j));
+                    char ch = static_cast<char>(table.GetStateSegmentShip(i, j));
+                    std::string str(1, ch);
+                    printer.print(str);
                 }
             }
             else
             {
-                std::cout << static_cast<char>(UNKNOWN);
+                char ch = static_cast<char>(UNKNOWN);
+                std::string str(1, ch);
+                printer.print(str);
             }
-            std::cout << " ";
+            printer.print(" ");
         }
-        std::cout << "\n";
+        printer.print("\n");
     }
-    std::cout << "\n";
+    printer.print("\n");
 }
 
 
@@ -55,29 +61,33 @@ void ConsoleShow_Table::showTable(Table& table, bool flag)
 
 void ConsoleShow_Table::showShips(ManagerShips& ship_manager)
 {
-    std::cout << std::endl;
-    std::cout << "Current states of the ships: " << std::endl;
+    printer.print("\n");
+    printer.print("Current states of the ships: \n");
     for (int j = 0; j < ship_manager.GetCountShips(); j++)
     {
         Ship ship = ship_manager[j];
-        std::cout << "Ship id: " << j << std::endl;
+        printer.print("Ship id: " + std::to_string(j) + "\n");
         if (ship.GetOrientation() == VERTICAL)
         {
             for (int i = 0; i < ship.GetLen(); i++)
             {
 
-                std::cout << static_cast<char>(ship.GetSegments()[i]) << "\n";
+                char ch = static_cast<char>(ship.GetSegments()[i]);
+                std::string str(1, ch);
+                printer.print(str + "\n");
    
             }
-            std::cout << "\n";
+            printer.print("\n");
         }
         else if (ship.GetOrientation() == HORIZONTAL)
         {
             for (int i = 0; i < ship.GetLen(); i++)
             {
-                std::cout << static_cast<char>(ship.GetSegments()[i]) << " ";
+                char ch = static_cast<char>(ship.GetSegments()[i]);
+                std::string str(1, ch);
+                printer.print(str + " ");
             }
-            std::cout << "\n";
+            printer.print("\n");
         }
     }
 }

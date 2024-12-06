@@ -2,41 +2,25 @@
 
 Commands::Commands()
 {
-    command_map["a"] = "attack";
-    command_map["ms"] = "state_my_ships";
-    command_map["es"] = "state_enemy_ships";
-    command_map["q"] = "end";
-    command_map["se"] = "show_enemy_ships";
-    command_map["sm"] = "show_my_ships";
-    command_map["smt"] = "show_my_table";
-    command_map["set"] = "show_enemy_table";
-    command_map["t"] = "tables";
-    command_map["n"] = "next_skill";
-    command_map["s"] = "save_game";
-    command_map["l"] = "load_game";
-    command_map["u"] = "use_skill";
-    command_map["h"] = "help";
 
+    if(std::ifstream file{"commands.json"})
+    {
+        json json_object;
+        file >> json_object;
 
+        for (const auto& [key, value] : json_object.items()) {
+            command_map[key] = value;
+            long_commands.push_back(value);
+        }
 
+        file.close();
+    }
+    else
+    {
+        std::cerr << "Could not open file: commands.json" << "\n";
+    }
 
-
-    long_commands = {
-        "attack",
-        "state_my_ships",
-        "state_enemy_ships",
-        "end",
-        "show_enemy_ships",
-        "show_my_ships",
-        "show_my_table",
-        "show_enemy_table",
-        "tables",
-        "next_skill",
-        "save_game",
-        "load_game",
-        "use_skill",
-        "help"
-    };
+    
 }
 
 

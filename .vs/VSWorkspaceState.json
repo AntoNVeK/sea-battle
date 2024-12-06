@@ -11,7 +11,9 @@
     "\\src\\headers",
     "\\src\\headers\\Serializers",
     "\\src\\source",
+    "\\src\\source\\IO",
     "\\src\\source\\Serializers"
   ],
+  "SelectedNode": "\\src\\source\\IO\\ConsoleShow_Table.cpp",
   "PreviewInSolutionExplorer": false
 }

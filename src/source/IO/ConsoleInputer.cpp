@@ -10,7 +10,7 @@ std::string ConsoleInputer::getInput()
 
     while (!valid_command)
     {
-        std::string input = input_metod.input();
+        std::string input = getString();
         if (input != "")
         {
             try

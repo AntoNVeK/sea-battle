@@ -9,7 +9,12 @@
 #include "../Game.h"
 #include "../GameState.h"
 #include "input.h"
+#include <iostream>
+#include <fstream>
+#include <unordered_map>
+#include <nlohmann/json.hpp> // Используется библиотека JSON для C++
 
+using json = nlohmann::json;
 
 
 

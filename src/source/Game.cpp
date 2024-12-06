@@ -16,7 +16,7 @@ Game::Game(SetFileNameCommand& set_file_name, SetModeCommand& set_mode, SetCoord
       state(Table_Player, Table_Enemy, ShipManager_Player, ShipManager_Enemy, Manager_Skills, shooter)
       {
         
-    Table_Enemy.AddObserver(&Manager_Skills);
+    
     
     
 }
@@ -134,6 +134,7 @@ void Game::placeEnemyShips()
 
     ShipManager_Enemy = ManagerShips({FOUR, THREE, THREE, TWO, TWO, TWO, ONE, ONE, ONE, ONE});
     Table_Enemy = Table();
+    Table_Enemy.AddObserver(&Manager_Skills);
     
 
     for (int i = 0; i < ShipManager_Enemy.GetCountShips(); i++)

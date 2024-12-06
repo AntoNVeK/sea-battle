@@ -7,6 +7,9 @@
 
 class Printer_Table
 {
+private:
+    ConsoleShow_Table show;
+
 public:
     void drawGameTable(Game &game);
     void showShips(Game &game, bool flag);

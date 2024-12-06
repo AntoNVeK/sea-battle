@@ -83,7 +83,7 @@ int Controller<Inputer, Printer_Table, Printer_Message>::setMode() {
             
             if ((inputStr != "") && (ss.fail() || ss.bad() || mode < 1 || mode > 2))
             {
-                view.print_message("Invalid input. Please enter three numbers (x, y, orientation): \n");
+                view.print_message("Invalid input. Please enter one number (mode): \n");
                 continue;
             }
 
@@ -181,7 +181,7 @@ Coord Controller<Inputer, Printer_Table, Printer_Message>::setCoord()
             
             if ((inputStr != "") && (ss.fail() || ss.bad() || x < 0 || y < 0))
             {
-                view.print_message("Invalid input. Please enter three numbers (x, y): \n");
+                view.print_message("Invalid input. Please enter two numbers (x, y): \n");
                 continue;
             }
 
