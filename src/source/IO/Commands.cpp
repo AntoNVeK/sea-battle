@@ -3,7 +3,7 @@
 Commands::Commands()
 {
 
-    if(std::ifstream file{"commands.json"})
+    if(std::ifstream file{"../commands.json"})
     {
         json json_object;
         file >> json_object;

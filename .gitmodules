@@ -1,3 +1,7 @@
 [submodule "nlohmann-json"]
 	path = nlohmann-json
 	url = git@github.com:nlohmann/json.git
+
+[submodule "openssl"]
+	path = openssl
+	url = git@github.com:openssl/openssl.git
