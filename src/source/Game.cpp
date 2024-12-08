@@ -23,29 +23,52 @@ Game::Game(SetFileNameCommand& set_file_name, SetModeCommand& set_mode, SetCoord
 
 void Game::play() {
 
-    print_message_command.execute("Enter mode (1 for NEW, 2 for LOAD): \n");
-    int mode = set_mode.execute();
+    bool valid = false;
+    while (!valid)
+    {
+        print_message_command.execute("Enter mode (1 for NEW, 2 for LOAD): \n");
+        int mode = set_mode.execute();
 
-    switch ((ModeStartGame)mode) {
-        case ModeStartGame::NEW:
-            start_new_game();
-            break;
-        case ModeStartGame::LOAD:
-            load_game();
-            break;
-        default:
-            std::cerr << "Error: Mode not set.\n";
-            break;
+        switch ((ModeStartGame)mode) {
+            case ModeStartGame::NEW:
+            {
+                start_new_game();
+                valid = true;
+                break;
+            }
+            case ModeStartGame::LOAD:
+            {
+                if (load_game())
+                {
+                    valid = true;
+                }
+
+                break;
+            }
+            default:
+                std::cerr << "Error: Mode not set.\n";
+                break;
+        }
     }
 }
 
-void Game::load_game()
+bool Game::load_game()
 {
     std::string filename = set_file_name.execute();
 
-    state.loadGame(filename);
+    try
+    {
+        state.loadGame(filename);
+        init_attack_coord_bot();
+        return true;
+    }
+    catch(const std::runtime_error& e)
+    {
+        print_message_command.execute(std::string(e.what())  + "\n");
+    }
 
-    init_attack_coord_bot();
+    return false;
+    
 
 
 }
@@ -55,8 +78,15 @@ void Game::save_game()
 {
 
     std::string filename = set_file_name.execute();
-
-    state.saveGame(filename);
+    try
+    {
+        state.saveGame(filename);
+    }
+    catch(const std::runtime_error& e)
+    {
+        print_message_command.execute(std::string(e.what())  + "\n");
+    }
+    
 
 }
 

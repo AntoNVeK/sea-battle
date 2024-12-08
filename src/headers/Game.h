@@ -26,7 +26,7 @@ class Game
 public:
 	Game(SetFileNameCommand& set_file_name, SetModeCommand& set_mode, SetCoordCommand& set_coord, SetPlaceShipCommand& set_place_ship, EndGameCommand& end_game, PrintMessageCommand& print_message_command);
 
-	void load_game();
+	bool load_game();
 
 	void save_game();
 
