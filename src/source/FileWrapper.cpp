@@ -30,4 +30,21 @@ void FileWrapper::write(const json &jsn)
     output_file.close();
 }
 
+
+std::string FileWrapper::sha256(const std::string &str)
+{
+    CryptoPP::SHA256 hash;
+    CryptoPP::byte digest[CryptoPP::SHA256::DIGESTSIZE];
+
+    hash.CalculateDigest(digest, (const CryptoPP::byte*)str.c_str(), str.length());
+
+    CryptoPP::HexEncoder encoder;
+    std::string output;
+    encoder.Attach(new CryptoPP::StringSink(output));
+    encoder.Put(digest, sizeof(digest));
+    encoder.MessageEnd();
+
+    return output;
+}
+
 FileWrapper::~FileWrapper() {}

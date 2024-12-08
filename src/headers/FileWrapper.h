@@ -9,7 +9,9 @@
 #include <string>
 #include <fstream>
 #include <nlohmann/json.hpp>
-#include <openssl/evp.h>
+#include <cryptopp/sha.h>
+#include <cryptopp/hex.h>
+#include <cryptopp/filters.h>
 
 using json = nlohmann::json;
 
@@ -25,6 +27,9 @@ public:
     void read(json& j);
 
     ~FileWrapper();
+
+private:
+    std::string sha256(const std::string &str);
 };
 
 #endif
